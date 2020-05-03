@@ -1,0 +1,7 @@
+checks:
+  - name: s3-versioning-check
+    uses: ./CFN-S3-Check
+    with:
+      files:
+        - "./"
+

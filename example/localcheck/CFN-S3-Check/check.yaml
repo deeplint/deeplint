@@ -1,0 +1,16 @@
+name: CFN-S3-check
+author: stacklint dev
+description: CFN-S3-check
+
+provider:
+  using: node12
+  main: ./src/provider.js
+  inputs:
+    dir:
+      description: dir
+      required: true
+policies:
+  - name: s3-versioning-policy
+    using: node12
+    file: ./src/s3-versioning-policy.js
+
