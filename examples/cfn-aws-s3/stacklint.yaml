@@ -1,7 +1,10 @@
-checks:
+plugins:
   - name: s3-versioning-check
-    uses: ./CFN-S3-Check
+    uses: ./CFN-S3-Lint
     with:
       files:
         - "./"
+rules:
+
+
 

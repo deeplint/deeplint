@@ -1,5 +1,5 @@
 {
-  "name": "package",
+  "name": "stacklint-plugin-s3",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

@@ -1,4 +1,4 @@
-exports.parser = async function (input) {
+module.exports = async function (context) {
     res = {
         "Resources": {
             "RecordServiceS3Bucket": {
@@ -11,6 +11,6 @@ exports.parser = async function (input) {
             }
         }
     }
-    return res
+    return ""
 }
 
