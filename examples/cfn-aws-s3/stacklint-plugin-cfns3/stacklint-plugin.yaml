@@ -5,7 +5,7 @@ meta:
   pluginVersion: 1.0.0
   version: 0.1.0
 
-schema:
+inputs:
   dir:
     description: dir
     required: true
@@ -15,6 +15,8 @@ providers:
   localfolder:
     using: node12
     main: ./src/provider.js
+    meta:
+    with:
 
 rules:
   s3-versioning:
@@ -25,3 +27,5 @@ rules:
       description: ""
       catagory: ""
       deprecated: false
+    with:
+

@@ -1,4 +1,6 @@
 import {Command, flags} from '@oclif/command'
+import YamlReader from '../lib/shared/YamlReader'
+import StackLint from "../lib/stacklint";
 
 export default class Run extends Command {
   static description = 'describe the command here'
@@ -21,6 +23,11 @@ export default class Run extends Command {
     if (args.file && flags.force) {
       this.log(`you input --force and --file: ${args.file}`)
     }
-    // read and validate the stacklint.yaml
+    // read the stacklint.yaml
+    const stackLintConfig = YamlReader.load('./stacklint.yaml')
+    // initialize the StackLint obj
+    const stackLint = await StackLint.build(stackLintConfig)
+    const result = await stackLint.run(stackLintConfig)
+    this.log(result)
   }
 }

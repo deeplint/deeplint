@@ -1,19 +1,16 @@
-import Context from './context'
 import {StackLintConfig} from './config'
 
 export default class StackLint {
-  context: Context | undefined
-
-  constructor(context: Context) {
-    this.context = context
-  }
 
   static async build(stackLintConfig: StackLintConfig): Promise<StackLint> {
-    return new StackLint(await Context.build())
+    return new StackLint()
   }
 
   async run(options: any): Promise<any> {
     // 1. Check options
-    return this.context
+    // 3. Run each plugin to collect results
+
+    // 4. Run extra local rules
+    return null
   }
 }

@@ -1,5 +1,17 @@
+export interface ProviderConfig {
+
+}
+
+export interface RuleConfig {
+
+}
+
 export interface PluginConfig {
-  providers: {};
+  providers: {
+    [key:string] : {
+
+    }
+  };
   rules: {};
 }
 

@@ -1,6 +1,6 @@
 plugins:
-  - name: s3-versioning-check
-    uses: ./CFN-S3-Lint
+  s3-versioning-check:
+    main: ./CFN-S3-Lint
     with:
       files:
         - "./"
