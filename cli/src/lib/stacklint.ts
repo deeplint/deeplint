@@ -1,5 +1,5 @@
 import Context from './context'
-import {StacklintConfig} from './config'
+import {StackLintConfig} from './config'
 
 export default class StackLint {
   context: Context | undefined
@@ -8,7 +8,7 @@ export default class StackLint {
     this.context = context
   }
 
-  static async build(stackLintConfig: StacklintConfig): Promise<StackLint> {
+  static async build(stackLintConfig: StackLintConfig): Promise<StackLint> {
     return new StackLint(await Context.build())
   }
 

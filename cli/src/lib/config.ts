@@ -3,7 +3,7 @@ export interface PluginConfig {
   rules: {};
 }
 
-export interface StacklintConfig {
+export interface StackLintConfig {
   plugins:
     [];
 }

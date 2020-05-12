@@ -30,6 +30,7 @@ USAGE
 <!-- commands -->
 * [`stacklint hello [FILE]`](#stacklint-hello-file)
 * [`stacklint help [COMMAND]`](#stacklint-help-command)
+* [`stacklint run [FILE]`](#stacklint-run-file)
 
 ## `stacklint hello [FILE]`
 
@@ -67,4 +68,20 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
+
+## `stacklint run [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ stacklint run [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/run.ts](https://github.com/stacklint/stacklint/blob/v0.1.0/src/commands/run.ts)_
 <!-- commandsstop -->
