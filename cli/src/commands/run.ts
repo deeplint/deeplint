@@ -23,11 +23,11 @@ export default class Run extends Command {
     if (args.file && flags.force) {
       this.log(`you input --force and --file: ${args.file}`)
     }
-    // read the stacklint.yaml
+    // read stacklint.yaml
     const stackLintConfig = YamlReader.load('./stacklint.yaml')
-    // initialize the StackLint obj
+    // initialize StackLint and run
     const stackLint = await StackLint.build(stackLintConfig)
-    const result = await stackLint.run(stackLintConfig)
+    const result = await stackLint.run()
     this.log(result)
   }
 }

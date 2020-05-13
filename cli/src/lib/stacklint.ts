@@ -1,5 +1,6 @@
 import {StackLintConfig} from './config'
 import {Plugin} from './plugin'
+import {RuleResult} from './context'
 
 export default class StackLint {
   stackLintConfig: StackLintConfig
@@ -13,16 +14,13 @@ export default class StackLint {
     return new StackLint(stackLintConfig)
   }
 
-  async run(options: { [key: string]: any }): Promise<any> {
-    // 1. Check options
-    // 2. Run each plugin to collect results
-    const results: any[] = []
+  async run(): Promise<any> {
+    const results: RuleResult[] = new Array<RuleResult>()
     await Promise.all(Object.keys(this.stackLintConfig.plugins).map(async key => {
       const plugin = await Plugin.build(this.stackLintConfig.plugins[key])
-
-      results.push(await plugin.getResult())
+      const res = await plugin.getResult()
+      results.push(...res)
     }))
-
     return results
   }
 }

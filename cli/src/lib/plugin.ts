@@ -1,4 +1,4 @@
-import {Context} from './context'
+import {Context, RuleResult} from './context'
 import {PluginConfig} from './config'
 
 export class Plugin {
@@ -13,12 +13,14 @@ export class Plugin {
     return new Plugin(pluginConfig)
   }
 
-  async getResult(): Promise<any> {
-    // 1. Check options
+  async getResult(): Promise<RuleResult[]> {
     // 2，Initialize providers
     // 3. Run each provider to collect resources
     // 4. Run rules against resources
-    return null
+    return [{
+      resource: 'test',
+      message: 'this is a test',
+    }]
   }
 
   async getResources(): Promise<any> {
