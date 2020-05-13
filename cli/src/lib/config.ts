@@ -8,14 +8,18 @@ export interface RuleConfig {
 
 export interface PluginConfig {
   providers: {
-    [key:string] : {
-
-    }
+    [key: string]: {};
   };
   rules: {};
 }
 
 export interface StackLintConfig {
-  plugins:
-    [];
+  plugins: {
+    [key: string]: {
+      main: string;
+      with: {
+        [key: string]: any;
+      };
+    };
+  };
 }

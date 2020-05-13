@@ -4,7 +4,3 @@ plugins:
     with:
       files:
         - "./"
-rules:
-
-
-

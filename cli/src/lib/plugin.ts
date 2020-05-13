@@ -4,11 +4,11 @@ import {PluginConfig} from './config'
 export class Plugin {
   private pluginConfig: PluginConfig
 
-  constructor(pluginConfig : PluginConfig) {
+  private constructor(pluginConfig: PluginConfig) {
     this.pluginConfig = pluginConfig
   }
 
-  static async build(pluginConfig: PluginConfig): Promise<Plugin> {
+  static async build(pluginConfig: any): Promise<Plugin> {
     // Validate the config and construc the Plugin
     return new Plugin(pluginConfig)
   }
@@ -18,7 +18,7 @@ export class Plugin {
     // 2，Initialize providers
     // 3. Run each provider to collect resources
     // 4. Run rules against resources
-    return this.context.Result
+    return null
   }
 
   async getResources(): Promise<any> {
