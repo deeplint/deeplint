@@ -1,15 +1,18 @@
-import {Context, RuleResult} from './context'
+import {Context, Resource, RuleResult} from './context'
 import {PluginConfig} from './config'
+import * as path from 'path'
 
 export class Plugin {
   private pluginConfig: PluginConfig
+  private pluginDir: string
 
   private constructor(pluginConfig: PluginConfig) {
     this.pluginConfig = pluginConfig
   }
 
-  static async build(pluginConfig: any): Promise<Plugin> {
+  static async build(options: { [key: string]: string }, pluginConfig: PluginConfig): Promise<Plugin> {
     // Validate the config and construc the Plugin
+    console.log(path.resolve(options.main))
     return new Plugin(pluginConfig)
   }
 
@@ -23,11 +26,8 @@ export class Plugin {
     }]
   }
 
-  async getResources(): Promise<any> {
-    // 1. Check options
-    // 2，Initialize providers
-    // 3. Run each provider to collect resources
-    // 4. Run rules against resources
-    return null
+  async getResources(): Promise<Resource[]> {
+    const results: RuleResult[] = new Array<RuleResult>()
+    return results
   }
 }

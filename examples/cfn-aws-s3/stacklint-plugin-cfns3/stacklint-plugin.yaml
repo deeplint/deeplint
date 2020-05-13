@@ -14,18 +14,15 @@ inputs:
 providers:
   localfolder:
     using: node12
-    main: ./src/provider.js
-    meta:
-    with:
+    main: src/provider.js
 
 rules:
   s3-versioning:
     using: node12
-    main: ./src/s3-versioning-policy.js
+    main: src/s3-versioning-policy.js
     meta:
       type: "error"
       description: ""
-      catagory: ""
+      category: ""
       deprecated: false
-    with:
 
