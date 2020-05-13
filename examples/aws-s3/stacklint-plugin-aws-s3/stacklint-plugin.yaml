@@ -19,7 +19,7 @@ providers:
 rules:
   s3-versioning:
     using: node12
-    main: src/s3-versioning-policy.js
+    main: src/s3-versioning.js
     meta:
       type: "error"
       description: ""

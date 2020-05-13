@@ -1,7 +1,6 @@
 export interface ProviderConfig {
   using: string;
   main: string;
-
 }
 export interface RuleConfig {
   using: string;

@@ -18,7 +18,7 @@ export default class StackLint {
     const results: RuleResult[] = new Array<RuleResult>()
     await Promise.all(Object.keys(this.stackLintConfig.plugins).map(async key => {
       const plugin = await Plugin.build(this.stackLintConfig.plugins[key])
-      const res = await plugin.getResult()
+      const res = await plugin.getAllRuleResults()
       results.push(...res)
     }))
     return results

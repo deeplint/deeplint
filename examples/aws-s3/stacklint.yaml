@@ -1,6 +1,6 @@
 plugins:
   s3-versioning-check:
-    main: ./CFN-S3-Lint
+    main: ./stacklint-plugin-aws-s3
     with:
       files:
         - "./"

@@ -1,6 +1,6 @@
-module.exports = async function (context) {
-    res = {
-        "Resources": {
+exports.handler = async function (context) {
+    res = [
+        {
             "RecordServiceS3Bucket": {
                 "Type": "AWS::S3::Bucket",
                 "Properties": {
@@ -10,7 +10,7 @@ module.exports = async function (context) {
                 }
             }
         }
-    }
-    return ""
+    ]
+    return res
 }
 
