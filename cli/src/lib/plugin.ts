@@ -8,20 +8,23 @@ import YamlReader from './shared/YamlReader'
 export class Plugin {
   private pluginConfig: PluginConfig
 
-  private pluginPath: string
+  private readonly pluginPath: string
 
-  private constructor(pluginConfig: PluginConfig, pluginPath: string) {
+  private readonly pluginName
+
+  private constructor(pluginConfig: PluginConfig, pluginPath: string, pluginName: string) {
     this.pluginConfig = pluginConfig
     this.pluginPath = pluginPath
+    this.pluginName = pluginName
   }
 
-  static async build(options: { [key: string]: any }): Promise<Plugin> {
+  static async build(options: { [key: string]: any }, pluginName: string): Promise<Plugin> {
     const pluginPath = path.resolve(options.main)
     console.log(pluginPath + path.sep + 'stacklint-plugin.yaml')
     if (path.isAbsolute(pluginPath) &&
       fs.existsSync(pluginPath + path.sep + 'stacklint-plugin.yaml')) {
       return new Plugin(YamlReader.load(pluginPath + path.sep + 'stacklint-plugin.yaml'),
-        pluginPath)
+        pluginPath, pluginName)
     }
     throw new Error('Can not find the plugin')
   }
