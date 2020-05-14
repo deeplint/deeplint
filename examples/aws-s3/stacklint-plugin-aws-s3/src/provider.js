@@ -2,8 +2,8 @@ exports.handler = async function (context) {
     res = [
         {
             "RecordServiceS3Bucket": {
-                "Type": "AWS::S3::Bucket",
-                "Properties": {
+                "type": "AWS::S3::Bucket",
+                "properties": {
                     "VersioningConfiguration": {
                         "Status": "Enabled"
                     }

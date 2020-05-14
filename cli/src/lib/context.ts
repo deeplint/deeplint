@@ -4,8 +4,11 @@ export interface RuleResult {
 }
 
 export interface Resource {
-  resource: string;
-  message: string;
+  [key: string]:
+    {
+      type: string;
+      properties: { [key: string]: any };
+    };
 }
 
 export class Context {
