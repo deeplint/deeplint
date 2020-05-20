@@ -1,8 +1,8 @@
 meta:
-  name: stacklint-plugin-awss3
+  name: stacklint-policy-aws-s3
   author: stacklint dev
   description: CFN-S3-check
-  pluginVersion: 1.0.0
+  policyFormatVersion: 1.0.0
   version: 0.1.0
 
 inputs:
@@ -12,12 +12,12 @@ inputs:
     default: "./"
 
 providers:
-  localfolder:
+  aws-s3:
     using: node12
     main: src/provider.js
 
 rules:
-  s3-versioning:
+  s3-versioning-enabled:
     using: node12
     main: src/s3-versioning.js
     meta:

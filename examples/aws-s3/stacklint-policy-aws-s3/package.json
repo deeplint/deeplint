@@ -1,5 +1,5 @@
 {
-  "name": "stacklint-plugin-s3",
+  "name": "stacklint-policy-aws-s3",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
