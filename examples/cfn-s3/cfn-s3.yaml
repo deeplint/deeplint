@@ -1,0 +1,151 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: Simple S3 Bucket with SNS Trigger
+
+Parameters:
+
+  BucketName:
+    Type: String
+    Description: The name of the S3 Bucket to create
+
+Metadata:
+
+  AWS::CloudFormation::Interface:
+    ParameterLabels:
+      BucketName:
+        default: S3 Bucket Name
+
+Resources:
+
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    DependsOn:
+      - SNSTopicPolicy
+    Properties:
+      # Need to define a static BucketName due to a circular dependency with the AWS::SNS::TopicPolicy
+      BucketName: !Ref BucketName
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      AccessControl: BucketOwnerFullControl
+      LifecycleConfiguration:
+        Rules:
+          -
+            AbortIncompleteMultipartUpload:
+              DaysAfterInitiation: 3
+            NoncurrentVersionExpirationInDays: 3
+            Status: Enabled
+      LoggingConfiguration:
+        DestinationBucketName: !Ref S3BucketLogs
+        LogFilePrefix: !Sub '/logs/${BucketName}/'
+      NotificationConfiguration:
+        TopicConfigurations:
+          -
+            Event: s3:ObjectCreated:Put
+            Topic: !Ref SNSTopic
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      Tags:
+        -
+          Key: Description
+          Value: Object Storage
+      VersioningConfiguration:
+        Status: Enabled
+
+  SNSTopic:
+    Type: AWS::SNS::Topic
+
+  SNSTopicPolicy:
+    Type: AWS::SNS::TopicPolicy
+    Properties:
+      Topics:
+        - !Ref SNSTopic
+      PolicyDocument:
+        Id: SNSTopicPolicy
+        Version: '2012-10-17'
+        Statement:
+          -
+            Sid: S3TriggerAccess
+            Effect: Allow
+            Principal:
+              AWS:
+                - '*'
+            Action:
+              - sns:Publish
+            Resource:
+              - !Ref SNSTopic
+            Condition:
+              ArnLike:
+                aws:SourceArn: !Sub "arn:aws:s3:::${BucketName}"
+          # If you do not require cross-account subscriptions, this Policy can be removed
+          -
+            Sid: CrossAccountSubscriptionAccess
+            Effect: Allow
+            Principal:
+              AWS:
+                # List of AWS Accounts for cross-account subscriptions
+                - !Sub 'arn:aws:iam::123456789012:root'
+            Action:
+              - sns:Subscribe
+              - sns:Receive
+              - sns:ListSubscriptionsByTopic
+            Resource:
+              - !Ref SNSTopic
+
+  # If a source AWS Account is going to put objects into the Bucket, keep this resource,
+  # if not, this BucketPolicy can be removed.
+  S3BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref S3Bucket
+      PolicyDocument:
+        Statement:
+          -
+            Sid: PutObjectAccess
+            Action:
+              - s3:PutObject
+            Effect: Allow
+            Principal:
+              AWS:
+                - '123456789012' # Replace with a valid source AWS Account Id
+            Resource:
+              - !Sub "arn:aws:s3:::${BucketName}"
+
+  S3BucketLogs:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: LogDeliveryWrite
+      LifecycleConfiguration:
+        Rules:
+          -
+            AbortIncompleteMultipartUpload:
+              DaysAfterInitiation: 7
+            Status: Enabled
+            Transitions:
+              -
+                StorageClass: GLACIER
+                TransitionInDays: 30
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      Tags:
+        -
+          Key: Description
+          Value: S3 Access Logs
+
+Outputs:
+
+  S3Bucket:
+    Value: !Ref S3Bucket
+    Description: S3 Bucket for object storage
+
+  SNSTopicArn:
+    Value: !Ref SNSTopic
+    Description: SNS Topic for S3 Object Triggers

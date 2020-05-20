@@ -1,4 +1,4 @@
-import {Context, Resource, RuleResult} from './context'
+import {Context, Resource, Result} from './context'
 import * as path from 'path'
 import * as fs from 'fs'
 import * as _ from 'lodash'
@@ -17,11 +17,14 @@ export class Policy {
 
   private readonly policySpec: PolicySpec
 
+  private readonly context: Context
+
   private constructor(policyConfig: PolicyConfig, policyName: string, policyPath: string, policySpec: PolicySpec) {
     this.policyName = policyName
     this.policyConfig = policyConfig
     this.policyPath = policyPath
     this.policySpec = policySpec
+    this.context = new Context(policyConfig)
   }
 
   static getPolicySpec(policyPath: string): PolicySpec {
@@ -43,18 +46,18 @@ export class Policy {
     return new Policy(policyConfig, name, policyPath, this.getPolicySpec(policyPath))
   }
 
-  async getAllRuleResults(): Promise<RuleResult[]> {
-    const results: RuleResult[] = new Array<RuleResult>()
+  async getAllRuleResults(): Promise<Result[]> {
+    const results: Result[] = new Array<Result>()
     const resources = await this.getAllResources()
 
     await Promise.all(Object.keys(this.policySpec.rules).map(async ruleKey => {
-      const res = await this.getRuleResult(ruleKey, resources)
+      const res = await this.getRuleResult(ruleKey)
       results.push(...res)
     }))
     return results
   }
 
-  async getRuleResult(ruleKey: string): Promise<RuleResult[]> {
+  async getRuleResult(ruleKey: string): Promise<Result[]> {
     // 2，Initialize providers
     // 3. Run each provider to collect resources
     // 4. Run rules against resources
@@ -69,18 +72,23 @@ export class Policy {
   async getAllResources(): Promise<Resource[]> {
     const results: Resource[] = new Array<Resource>()
     await Promise.all(Object.keys(this.policySpec.providers).map(async providerKey => {
-      const res = await this.getResources(providerKey)
-      results.push(...res)
+      const res = await this.getProviderResources(providerKey)
+      if (res !== undefined) {
+        results.push(...res)
+      }
     }))
     return results
   }
 
-  async getResources(providerKey: string): Promise<Resource[]> {
+  async getProviderResources(providerKey: string): Promise<Resource[] | undefined> {
     if (_.has(this.policySpec.providers, providerKey)) {
-      const provider = this.policySpec.providers[providerKey]
-      const providerPath = path.resolve(this.policyPath, provider.main)
-      const providerMain = require(providerPath)
-      return providerMain.handler({})
+      if (this.context.getProviderResources(providerKey) === undefined) {
+        const provider = this.policySpec.providers[providerKey]
+        const providerPath = path.resolve(this.policyPath, provider.main)
+        const providerMain = require(providerPath)
+        providerMain.handler(this.context)
+      }
+      return this.context.getProviderResources(providerKey)
     }
     throw new Error('can not find the provider')
   }
