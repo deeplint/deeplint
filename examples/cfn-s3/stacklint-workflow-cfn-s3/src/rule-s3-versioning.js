@@ -1,4 +1,4 @@
-exports.handler = function (context) {
+exports.check = function (context) {
     return [{
         "s3-versioning-check": {
             resource: "RecordServiceS3Bucket:",

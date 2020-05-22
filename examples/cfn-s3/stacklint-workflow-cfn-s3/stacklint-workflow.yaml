@@ -14,12 +14,13 @@ inputs:
 providers:
   aws-s3:
     using: node12
-    main: src/provider.js
+    main: src/resource-cfn-s3.js
+    actions: list
 
 rules:
   s3-versioning-enabled:
     using: node12
-    main: src/s3-versioning.js
+    main: src/rule-s3-versioning.js
     meta:
       type: "error"
       description: ""

@@ -1,4 +1,7 @@
-exports.handler = async function (context) {
+exports.schema = {
+
+}
+exports.list = async function (context) {
     res = [
         {
             "RecordServiceS3Bucket": {
