@@ -19,7 +19,7 @@ export interface ActionSpec {
   main: string;
 }
 
-export interface PolicySpec {
+export interface WorkflowSpec {
   providers: {
     [key: string]: ProviderSpec;
   };
