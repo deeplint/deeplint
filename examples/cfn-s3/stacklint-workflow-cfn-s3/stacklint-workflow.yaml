@@ -1,5 +1,5 @@
 meta:
-  name: stacklint-policy-aws-s3
+  name: stacklint-workflow-aws-s3
   author: stacklint dev
   description: CFN-S3-check
   policyFormatVersion: 1.0.0
@@ -25,4 +25,7 @@ rules:
       description: ""
       category: ""
       deprecated: false
+
+actions:
+
 

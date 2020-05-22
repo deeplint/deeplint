@@ -1,37 +1,79 @@
 import {StackLintConfig} from './config'
-import {Policy} from './policy/policy'
-import {RuleResult} from './policy/context'
+import {Workflow} from './workflow/workflow'
+import YamlReader from './shared/YamlReader'
+import * as path from 'path'
+import * as fs from 'fs'
 
-export default class StackLint {
+const DEFAULT_STACKLINT_CONFIG_FILE_NAME = 'stacklint.yaml'
+
+export interface CheckingPlan {
+  [key: string]:
+    {
+      type: string;
+    };
+}
+
+export interface FixingPlan {
+  [key: string]:
+    {
+      type: string;
+    };
+}
+
+export class StackLint {
   stackLintConfig: StackLintConfig
-  policies: Map<string, Policy> = new Map<string, Policy>()
+
+  policies: Map<string, Workflow> = new Map<string, Workflow>()
 
   private constructor(stackLintConfig: StackLintConfig) {
     this.stackLintConfig = stackLintConfig
   }
 
   async init(): Promise<void> {
-    // build and validate the policy object
-    await Promise.all(Object.keys(this.stackLintConfig.policies).map(async key => {
-      const policy = await Policy.build(this.stackLintConfig.policies[key])
+    Object.keys(this.stackLintConfig.policies).map(async key => {
+      const policy = await Workflow.build(this.stackLintConfig.policies[key], key)
       this.policies.set(key, policy)
-      results.push(...res)
-    }))
+    })
   }
 
-  static async build(stackLintConfig: StackLintConfig): Promise<StackLint> {
-    const stackLint = new StackLint(stackLintConfig)
-    await stackLint.init()
-    return stackLint
+  static async build(configFile?: string): Promise<StackLint> {
+    const configPath = path.resolve(configFile || DEFAULT_STACKLINT_CONFIG_FILE_NAME)
+    if (fs.existsSync(configPath)) {
+      const stackLintConfig: StackLintConfig = YamlReader.load(configPath)
+      const stackLint = new StackLint(stackLintConfig)
+      await stackLint.init()
+      return stackLint
+    }
+    throw new Error('Can not find StackLint config file')
   }
 
-  async run(): Promise<any> {
-    const results: RuleResult[] = new Array<RuleResult>()
-    await Promise.all(Object.keys(this.stackLintConfig.plugins).map(async key => {
+  async show(): Promise<any> {
+    return null
+  }
+
+  async plan(): Promise<CheckingPlan | null> {
+    return null
+  }
+
+  async check(checkingPlan: CheckingPlan | null): Promise<FixingPlan | null> {
+    /**
+     await Promise.all(Object.keys(this.stackLintConfig.plugins).map(async key => {
       const plugin = await Policy.build(this.stackLintConfig.plugins[key])
       const res = await plugin.getAllRuleResults()
       results.push(...res)
     }))
-    return results
+     */
+    return null
+  }
+
+  async fix(fixingPlan: FixingPlan | null): Promise<boolean> {
+    /**
+     await Promise.all(Object.keys(this.stackLintConfig.plugins).map(async key => {
+      const plugin = await Policy.build(this.stackLintConfig.plugins[key])
+      const res = await plugin.getAllRuleResults()
+      results.push(...res)
+    }))
+     */
+    return true
   }
 }

@@ -3,20 +3,10 @@ export interface Result {
   message: string;
 }
 
-export interface Resource {
-  [key: string]:
-    {
-      type: string;
-      properties: { [key: string]: any };
-    };
-}
-
 export class Context {
   readonly inputs: object
 
   private results: Map<string, Result[]> = new Map<string, Result[]>()
-
-  private resources: Map<string, Resource[]> = new Map<string, Resource[]>()
 
   constructor(inputs: object) {
     this.inputs = inputs
@@ -35,16 +25,5 @@ export class Context {
       this.results.set(ruleKey, results)
     }
     this.results.get(ruleKey)?.push(...results)
-  }
-
-  reportResource(resources: Resource[], providerKey: string): void {
-    if (!this.resources.has(providerKey)) {
-      this.resources.set(providerKey, resources)
-    }
-    this.resources.get(providerKey)?.push(...resources)
-  }
-
-  getProviderResources(providerKey: string): Array<Resource> | undefined {
-    return this.resources.get(providerKey)
   }
 }

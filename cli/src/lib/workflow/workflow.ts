@@ -1,4 +1,4 @@
-import {Context, Resource, Result} from './context'
+import {Context, Result} from './context'
 import * as path from 'path'
 import * as fs from 'fs'
 import * as _ from 'lodash'
@@ -6,9 +6,17 @@ import YamlReader from '../shared/YamlReader'
 import {PolicySpec} from './spec'
 import {PolicyConfig} from '../config'
 
-const DEFAULT_POLICY_SPEC_FILE_NAME = 'stacklint-policy.yaml'
+const DEFAULT_POLICY_SPEC_FILE_NAME = 'stacklint-workflow.yaml'
 
-export class Policy {
+export interface Resource {
+  [key: string]:
+    {
+      type: string;
+      properties: { [key: string]: any };
+    };
+}
+
+export class Workflow {
   private readonly policyName: string
 
   private readonly policyPath: string
@@ -18,6 +26,8 @@ export class Policy {
   private readonly policySpec: PolicySpec
 
   private readonly context: Context
+
+  private resources: Map<string, Resource[]> = new Map<string, Resource[]>()
 
   private constructor(policyConfig: PolicyConfig, policyName: string, policyPath: string, policySpec: PolicySpec) {
     this.policyName = policyName
@@ -31,7 +41,7 @@ export class Policy {
     return YamlReader.load(policyPath + path.sep + DEFAULT_POLICY_SPEC_FILE_NAME)
   }
 
-  static async build(policyConfig: PolicyConfig, name: string): Promise<Policy> {
+  static async build(policyConfig: PolicyConfig, name: string): Promise<Workflow> {
     let policyPath: string
     if (policyConfig.main.startsWith('./')) {
       policyPath = path.resolve(policyConfig.main)
@@ -43,10 +53,11 @@ export class Policy {
     } else {
       throw new Error('Node module based policy sharing is not supported yet')
     }
-    return new Policy(policyConfig, name, policyPath, this.getPolicySpec(policyPath))
+    return new Workflow(policyConfig, name, policyPath, this.getPolicySpec(policyPath))
   }
 
-  async getAllRuleResults(): Promise<Result[]> {
+  /**
+   async getAllRuleResults(): Promise<Result[]> {
     const results: Result[] = new Array<Result>()
     const resources = await this.getAllResources()
 
@@ -57,7 +68,7 @@ export class Policy {
     return results
   }
 
-  async getRuleResult(ruleKey: string): Promise<Result[]> {
+   async getRuleResult(ruleKey: string): Promise<Result[]> {
     // 2，Initialize providers
     // 3. Run each provider to collect resources
     // 4. Run rules against resources
@@ -68,6 +79,8 @@ export class Policy {
     }
     throw new Error('can not find the provider')
   }
+
+   */
 
   async getAllResources(): Promise<Resource[]> {
     const results: Resource[] = new Array<Resource>()
@@ -80,7 +93,7 @@ export class Policy {
     return results
   }
 
-  async getProviderResources(providerKey: string): Promise<Resource[] | undefined> {
+  private async getProviderResources(providerKey: string): Promise<Resource[]> {
     if (_.has(this.policySpec.providers, providerKey)) {
       if (this.context.getProviderResources(providerKey) === undefined) {
         const provider = this.policySpec.providers[providerKey]
@@ -90,6 +103,17 @@ export class Policy {
       }
       return this.context.getProviderResources(providerKey)
     }
-    throw new Error('can not find the provider')
+    throw new Error('Can not find the provider')
+  }
+
+  reportResource(resources: Resource[], providerKey: string): void {
+    if (!this.resources.has(providerKey)) {
+      this.resources.set(providerKey, resources)
+    }
+    this.resources.get(providerKey)?.push(...resources)
+  }
+
+  getProviderResources(providerKey: string): Array<Resource> | undefined {
+    return this.resources.get(providerKey)
   }
 }
