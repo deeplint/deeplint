@@ -16,7 +16,7 @@ export interface Resource {
     };
 }
 
-export class Workflow {
+export class Policy {
   private readonly policyName: string
 
   private readonly policyPath: string
@@ -41,7 +41,7 @@ export class Workflow {
     return YamlReader.load(policyPath + path.sep + DEFAULT_POLICY_SPEC_FILE_NAME)
   }
 
-  static async build(policyConfig: PolicyConfig, name: string): Promise<Workflow> {
+  static async build(policyConfig: PolicyConfig, name: string): Promise<Policy> {
     let policyPath: string
     if (policyConfig.main.startsWith('./')) {
       policyPath = path.resolve(policyConfig.main)
@@ -53,7 +53,7 @@ export class Workflow {
     } else {
       throw new Error('Node module based policy sharing is not supported yet')
     }
-    return new Workflow(policyConfig, name, policyPath, this.getPolicySpec(policyPath))
+    return new Policy(policyConfig, name, policyPath, this.getPolicySpec(policyPath))
   }
 
   /**

@@ -1,6 +1,6 @@
-workflows:
+policies:
   s3-versioning-check:
-    main: ./stacklint-workflow-aws-s3
+    main: ./stacklint-policy-aws-s3
     with:
       files:
         - "./"

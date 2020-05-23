@@ -1,5 +1,5 @@
 import {StackLintConfig} from './config'
-import {Workflow} from './workflow/workflow'
+import {Policy} from './policy/policy'
 import YamlReader from './shared/YamlReader'
 import * as path from 'path'
 import * as fs from 'fs'
@@ -23,7 +23,7 @@ export interface FixingPlan {
 export class StackLint {
   stackLintConfig: StackLintConfig
 
-  policies: Map<string, Workflow> = new Map<string, Workflow>()
+  policies: Map<string, Policy> = new Map<string, Policy>()
 
   private constructor(stackLintConfig: StackLintConfig) {
     this.stackLintConfig = stackLintConfig
@@ -31,7 +31,7 @@ export class StackLint {
 
   async init(): Promise<void> {
     Object.keys(this.stackLintConfig.policies).map(async key => {
-      const policy = await Workflow.build(this.stackLintConfig.policies[key], key)
+      const policy = await Policy.build(this.stackLintConfig.policies[key], key)
       this.policies.set(key, policy)
     })
   }

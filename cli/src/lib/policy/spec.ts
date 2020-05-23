@@ -19,8 +19,8 @@ export interface ActionSpec {
   main: string;
 }
 
-export interface WorkflowSpec {
-  providers: {
+export interface PolicySpec {
+  resources: {
     [key: string]: ProviderSpec;
   };
   rules: {

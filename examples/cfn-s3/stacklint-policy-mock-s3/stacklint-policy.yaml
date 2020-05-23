@@ -11,16 +11,17 @@ inputs:
     required: true
     default: "./"
 
-providers:
+resources:
   aws-s3:
     using: nodejs
     main: src/resource-cfn-s3.js
-    actions: list
+    handler: list
 
 rules:
   s3-versioning-enabled:
     using: nodejs
     main: src/rule-s3-versioning.js
+    handler: check
     meta:
       type: "error"
       description: ""
@@ -28,5 +29,9 @@ rules:
       deprecated: false
 
 actions:
+  enable-s3-versioning:
+    using: nodejs
+    main: src/resource-cfn-s3.js
+    handler: update
 
 
