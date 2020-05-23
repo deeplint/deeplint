@@ -8,22 +8,14 @@ import {PolicyConfig} from '../config'
 
 const DEFAULT_POLICY_SPEC_FILE_NAME = 'stacklint-policy.yaml'
 
-export interface Resource {
-  [key: string]:
-    {
-      type: string;
-      properties: { [key: string]: any };
-    };
-}
-
-export interface Result {
-  resource: string;
-  message: string;
-}
-
 export interface PolicyInfo {
   PolicyConfig: PolicyConfig;
   PolicySpec: PolicySpec;
+}
+
+export interface Resource {
+  key: { [key: string]: any };
+  properties: { [key: string]: any };
 }
 
 export interface CheckingPlan {
@@ -35,11 +27,14 @@ export interface CheckingPlan {
   };
 }
 
+export interface Result {
+  resource: string;
+  message: string;
+  fix: string;
+}
+
 export interface FixingPlan {
-  [key: string]:
-    {
-      type: string;
-    };
+  [key: string]: Result;
 }
 
 export class Policy {
@@ -81,7 +76,10 @@ export class Policy {
   }
 
   async show(): Promise<PolicyInfo> {
-    return null
+    return {
+      PolicyConfig: this.policyConfig,
+      PolicySpec: this.policySpec,
+    }
   }
 
   async plan(): Promise<CheckingPlan> {
