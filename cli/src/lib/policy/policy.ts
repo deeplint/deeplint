@@ -22,13 +22,13 @@ export interface Result {
 }
 
 export interface PolicyInfo {
-  PolicyConfig : PolicyConfig;
+  PolicyConfig: PolicyConfig;
   PolicySpec: PolicySpec;
 }
 
 export interface CheckingPlan {
   resources: {
-    [key: string]: Resource;
+    [key: string]: Resource[];
   };
   rules: {
     [key: string]: RuleSpec;
@@ -81,7 +81,6 @@ export class Policy {
   }
 
   async show(): Promise<PolicyInfo> {
-
     return null
   }
 

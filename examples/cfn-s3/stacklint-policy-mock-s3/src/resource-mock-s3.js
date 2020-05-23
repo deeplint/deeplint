@@ -8,7 +8,7 @@ exports.list = async function (context) {
                 "type": "AWS::S3::Bucket",
                 "properties": {
                     "VersioningConfiguration": {
-                        "Status": "Enabled"
+                        "Status": "Disabled"
                     }
                 }
             }

@@ -14,7 +14,7 @@ inputs:
 resources:
   aws-s3:
     using: nodejs
-    main: src/resource-cfn-s3.js
+    main: src/resource-mock-s3.js
     handler: list
 
 rules:
@@ -31,7 +31,7 @@ rules:
 actions:
   enable-s3-versioning:
     using: nodejs
-    main: src/resource-cfn-s3.js
+    main: src/resource-mock-s3.js
     handler: update
 
 
