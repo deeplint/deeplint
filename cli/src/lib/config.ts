@@ -1,4 +1,4 @@
-export interface WorkflowConfig {
+export interface PolicyConfig {
   main: string;
   with: {
     [key: string]: any;
@@ -6,6 +6,6 @@ export interface WorkflowConfig {
 }
 export interface StackLintConfig {
   policies: {
-    [key: string]: WorkflowConfig;
+    [key: string]: PolicyConfig;
   };
 }

@@ -6,20 +6,6 @@ import * as fs from 'fs'
 
 const DEFAULT_STACKLINT_CONFIG_FILE_NAME = 'stacklint.yaml'
 
-export interface CheckingPlan {
-  [key: string]:
-    {
-      type: string;
-    };
-}
-
-export interface FixingPlan {
-  [key: string]:
-    {
-      type: string;
-    };
-}
-
 export class StackLint {
   stackLintConfig: StackLintConfig
 
@@ -27,13 +13,6 @@ export class StackLint {
 
   private constructor(stackLintConfig: StackLintConfig) {
     this.stackLintConfig = stackLintConfig
-  }
-
-  async init(): Promise<void> {
-    Object.keys(this.stackLintConfig.policies).map(async key => {
-      const policy = await Policy.build(this.stackLintConfig.policies[key], key)
-      this.policies.set(key, policy)
-    })
   }
 
   static async build(configFile?: string): Promise<StackLint> {
@@ -47,7 +26,14 @@ export class StackLint {
     throw new Error('Can not find StackLint config file')
   }
 
-  async show(): Promise<any> {
+  async init(): Promise<void> {
+    Object.keys(this.stackLintConfig.policies).map(async key => {
+      const policy = await Policy.build(this.stackLintConfig.policies[key], key)
+      this.policies.set(key, policy)
+    })
+  }
+
+  async show(policyKey?: string): Promise<any> {
     return null
   }
 
