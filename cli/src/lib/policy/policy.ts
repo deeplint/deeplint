@@ -1,41 +1,13 @@
-import {Context} from './context'
 import * as path from 'path'
 import * as fs from 'fs'
 import * as _ from 'lodash'
 import YamlReader from '../shared/YamlReader'
 import {PolicySpec, RuleSpec} from './spec'
 import {PolicyConfig} from '../config'
+import {CheckingPlan, FixingPlan, PolicyInfo, Resource} from './model'
+import {Invoker} from './invoker'
 
 const DEFAULT_POLICY_SPEC_FILE_NAME = 'stacklint-policy.yaml'
-
-export interface PolicyInfo {
-  PolicyConfig: PolicyConfig;
-  PolicySpec: PolicySpec;
-}
-
-export interface Resource {
-  key: { [key: string]: any };
-  properties: { [key: string]: any };
-}
-
-export interface CheckingPlan {
-  resources: {
-    [key: string]: Resource[];
-  };
-  rules: {
-    [key: string]: RuleSpec;
-  };
-}
-
-export interface Result {
-  resource: string;
-  message: string;
-  fix: string;
-}
-
-export interface FixingPlan {
-  [key: string]: Result;
-}
 
 export class Policy {
   private readonly policyName: string
@@ -46,14 +18,11 @@ export class Policy {
 
   private readonly policySpec: PolicySpec
 
-  private readonly context: Context
-
   private constructor(policyConfig: PolicyConfig, policyName: string, policyPath: string, policySpec: PolicySpec) {
     this.policyName = policyName
     this.policyConfig = policyConfig
     this.policyPath = policyPath
     this.policySpec = policySpec
-    this.context = new Context(policyConfig)
   }
 
   static loadPolicySpec(policyPath: string): PolicySpec {
@@ -83,35 +52,24 @@ export class Policy {
   }
 
   async plan(): Promise<CheckingPlan> {
-    const results: Resource[] = new Array<Resource>()
-    await Promise.all(Object.keys(this.policySpec.providers).map(async providerKey => {
-      const res = await this.getProviderResources(providerKey)
-      if (res !== undefined) {
-        results.push(...res)
-      }
+    const resources: {
+      [key: string]: Resource[];
+    } = {}
+    await Promise.all(Object.keys(this.policySpec.resources).map(async resourceKey => {
+      const functionPath = path.resolve(this.policyPath, this.policySpec.resources[resourceKey].main)
+      resources[resourceKey] =  await Invoker.invokeFunction(null, functionPath, 'handler')
     }))
-    return results
+    return {
+      resources: resources,
+      rules: {},
+    }
   }
 
   async check(checkingPlan?: CheckingPlan): Promise<FixingPlan | null> {
-    /**
-     await Promise.all(Object.keys(this.stackLintConfig.plugins).map(async key => {
-      const plugin = await Policy.build(this.stackLintConfig.plugins[key])
-      const res = await plugin.getAllRuleResults()
-      results.push(...res)
-    }))
-     */
     return null
   }
 
   async fix(fixingPlan?: FixingPlan): Promise<boolean> {
-    /**
-     await Promise.all(Object.keys(this.stackLintConfig.plugins).map(async key => {
-      const plugin = await Policy.build(this.stackLintConfig.plugins[key])
-      const res = await plugin.getAllRuleResults()
-      results.push(...res)
-    }))
-     */
     return true
   }
 

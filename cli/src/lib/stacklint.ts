@@ -3,6 +3,8 @@ import {Policy} from './policy/policy'
 import YamlReader from './shared/YamlReader'
 import * as path from 'path'
 import * as fs from 'fs'
+import {CheckingPlan, FixingPlan, PolicyInfo} from './policy/model'
+import * as _ from 'lodash'
 
 const DEFAULT_STACKLINT_CONFIG_FILE_NAME = 'stacklint.yaml'
 
@@ -33,33 +35,52 @@ export class StackLint {
     })
   }
 
-  async show(policyKey?: string): Promise<any> {
-    return null
+  async show(policyKey?: string): Promise<Map<string, PolicyInfo>> {
+    const res = new Map<string, PolicyInfo>()
+    if (policyKey) {
+      const policy = this.policies.get(policyKey)
+      if (policy === undefined) {
+        throw (new Error(`Can not locate policy: ${policyKey}`))
+      }
+      res.set(policyKey, await policy.show())
+    } else {
+      await Promise.all(Object.keys(this.stackLintConfig.policies).map(async policyKey => {
+        const policy = this.policies.get(policyKey)
+        if (policy === undefined) {
+          throw (new Error(`Can not locate policy: ${policyKey}`))
+        }
+        res.set(policyKey, await policy.show())
+      }))
+    }
+    return res
   }
 
-  async plan(): Promise<CheckingPlan | null> {
-    return null
+  async plan(policyKey?: string): Promise<Map<string, CheckingPlan>> {
+    const res = new Map<string, CheckingPlan>()
+    if (policyKey) {
+      const policy = this.policies.get(policyKey)
+      if (policy === undefined) {
+        throw (new Error(`Can not locate policy: ${policyKey}`))
+      }
+      res.set(policyKey, await policy.plan())
+    } else {
+      await Promise.all(Object.keys(this.stackLintConfig.policies).map(async policyKey => {
+        const policy = this.policies.get(policyKey)
+        if (policy === undefined) {
+          throw (new Error(`Can not locate policy: ${policyKey}`))
+        }
+        res.set(policyKey, await policy.plan())
+      }))
+    }
+    return res
   }
 
-  async check(checkingPlan: CheckingPlan | null): Promise<FixingPlan | null> {
-    /**
-     await Promise.all(Object.keys(this.stackLintConfig.plugins).map(async key => {
-      const plugin = await Policy.build(this.stackLintConfig.plugins[key])
-      const res = await plugin.getAllRuleResults()
-      results.push(...res)
-    }))
-     */
-    return null
+  async check(checkingPlans?: Map<string, CheckingPlan>): Promise<Map<string, FixingPlan>> {
+    const res = new Map<string, FixingPlan>()
+    return res
   }
 
-  async fix(fixingPlan: FixingPlan | null): Promise<boolean> {
-    /**
-     await Promise.all(Object.keys(this.stackLintConfig.plugins).map(async key => {
-      const plugin = await Policy.build(this.stackLintConfig.plugins[key])
-      const res = await plugin.getAllRuleResults()
-      results.push(...res)
-    }))
-     */
+  async fix(fixingPlans?: Map<string, FixingPlan>): Promise<boolean> {
     return true
   }
 }

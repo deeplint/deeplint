@@ -28,29 +28,9 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`stacklint hello [FILE]`](#stacklint-hello-file)
 * [`stacklint help [COMMAND]`](#stacklint-help-command)
 * [`stacklint run [FILE]`](#stacklint-run-file)
-
-## `stacklint hello [FILE]`
-
-describe the command here
-
-```
-USAGE
-  $ stacklint hello [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ stacklint hello
-  hello world from ./src/hello.ts!
-```
-
-_See code: [src/commands/hello.ts](https://github.com/stacklint/stacklint/blob/v0.1.0/src/commands/hello.ts)_
+* [`stacklint show [FILE]`](#stacklint-show-file)
 
 ## `stacklint help [COMMAND]`
 
@@ -84,4 +64,20 @@ OPTIONS
 ```
 
 _See code: [src/commands/run.ts](https://github.com/stacklint/stacklint/blob/v0.1.0/src/commands/run.ts)_
+
+## `stacklint show [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ stacklint show [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/show.ts](https://github.com/stacklint/stacklint/blob/v0.1.0/src/commands/show.ts)_
 <!-- commandsstop -->

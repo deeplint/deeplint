@@ -1,6 +1,6 @@
 policies:
   s3-versioning-check:
-    main: ./stacklint-policy-aws-s3
+    main: ./stacklint-policy-mock-s3
     with:
       files:
         - "./"
