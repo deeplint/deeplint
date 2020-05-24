@@ -57,7 +57,7 @@ export class Policy {
     } = {}
     await Promise.all(Object.keys(this.policySpec.resources).map(async resourceKey => {
       const functionPath = path.resolve(this.policyPath, this.policySpec.resources[resourceKey].main)
-      resources[resourceKey] =  await Invoker.invokeFunction(null, functionPath, 'handler')
+      resources[resourceKey] =  await Invoker.run(null, functionPath, this.policySpec.resources[resourceKey].handler)
     }))
     return {
       resources: resources,
@@ -65,7 +65,8 @@ export class Policy {
     }
   }
 
-  async check(checkingPlan?: CheckingPlan): Promise<FixingPlan | null> {
+  async check(checkingPlan?: CheckingPlan): Promise<FixingPlan> {
+
     return null
   }
 

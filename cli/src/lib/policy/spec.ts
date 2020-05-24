@@ -1,6 +1,7 @@
 export interface ProviderSpec {
   using: string;
   main: string;
+  handler: string;
 }
 
 export interface RuleSpec {
