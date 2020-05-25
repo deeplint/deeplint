@@ -1,12 +1,13 @@
 export interface ProviderSpec {
-  using: string;
+  type: string;
   main: string;
   handler: string;
 }
 
 export interface RuleSpec {
-  using: string;
+  type: string;
   main: string;
+  handler: string;
   meta: {
     type: string;
     description: string;
@@ -16,8 +17,9 @@ export interface RuleSpec {
 }
 
 export interface ActionSpec {
-  using: string;
+  type: string;
   main: string;
+  handler: string;
 }
 
 export interface PolicySpec {

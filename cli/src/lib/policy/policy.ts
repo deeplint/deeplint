@@ -4,7 +4,7 @@ import * as _ from 'lodash'
 import YamlReader from '../shared/YamlReader'
 import {PolicySpec, RuleSpec} from './spec'
 import {PolicyConfig} from '../config'
-import {CheckingPlan, FixingPlan, PolicyInfo, Resource} from './model'
+import {CheckingPlan, FixingPlan, PolicyInfo, Resource, Result} from './model'
 import {Invoker} from './invoker'
 
 const DEFAULT_POLICY_SPEC_FILE_NAME = 'stacklint-policy.yaml'
@@ -57,17 +57,26 @@ export class Policy {
     } = {}
     await Promise.all(Object.keys(this.policySpec.resources).map(async resourceKey => {
       const functionPath = path.resolve(this.policyPath, this.policySpec.resources[resourceKey].main)
-      resources[resourceKey] =  await Invoker.run(null, functionPath, this.policySpec.resources[resourceKey].handler)
+      resources[resourceKey] = await Invoker.run(null, functionPath, this.policySpec.resources[resourceKey].handler)
     }))
     return {
       resources: resources,
-      rules: {},
+      rules: this.policySpec.rules,
     }
   }
 
   async check(checkingPlan?: CheckingPlan): Promise<FixingPlan> {
+    const fixingPlan: {
+      [key: string]: Result;
+    } = {}
+    const checkingPlanLocal: CheckingPlan = checkingPlan || await this.plan()
 
-    return null
+    await Promise.all(Object.keys(checkingPlanLocal.rules).map(async ruleKey => {
+      const functionPath = path.resolve(this.policyPath, checkingPlanLocal.rules[ruleKey].main)
+      fixingPlan[ruleKey] = await Invoker.run(null, functionPath, checkingPlanLocal.rules[ruleKey].handler)
+    }))
+
+    return fixingPlan
   }
 
   async fix(fixingPlan?: FixingPlan): Promise<boolean> {

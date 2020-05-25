@@ -21,11 +21,18 @@ export interface CheckingPlan {
 }
 
 export interface Result {
-  resource: string;
+  resource?: string;
   message: string;
-  fix: string;
+  data?: {
+    [key: string]: any;
+  };
+  fix?: string;
 }
 
 export interface FixingPlan {
   [key: string]: Result;
+}
+
+export interface FixingResult {
+  [key: string]: boolean;
 }
