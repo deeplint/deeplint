@@ -1,4 +1,4 @@
-import {Resource, Result} from './policy'
+import {Resource, Result} from './model'
 
 export class Context {
   readonly inputs: object

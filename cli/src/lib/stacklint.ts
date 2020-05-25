@@ -1,6 +1,6 @@
 import {StackLintConfig} from './config'
 import {Policy} from './policy/policy'
-import YamlReader from './shared/YamlReader'
+import YamlReader from './shared/yaml-reader'
 import * as path from 'path'
 import * as fs from 'fs'
 import {CheckingPlan, FixingPlan, FixingResult, PolicyInfo} from './policy/model'

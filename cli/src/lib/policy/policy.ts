@@ -1,6 +1,6 @@
 import * as path from 'path'
 import * as fs from 'fs'
-import YamlReader from '../shared/YamlReader'
+import YamlReader from '../shared/yaml-reader'
 import {PolicySpec} from './spec'
 import {PolicyConfig} from '../config'
 import {CheckingPlan, FixingPlan, FixingResult, PolicyInfo, Resource, Result} from './model'
@@ -80,7 +80,7 @@ export class Policy {
   }
 
   async fix(fixingPlan?: FixingPlan): Promise<FixingResult> {
-    if(fixingPlan === undefined) {
+    if (fixingPlan === undefined) {
       throw new Error('Can not fix without a plan')
     }
     const fixingResult: {
