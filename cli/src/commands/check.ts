@@ -1,4 +1,5 @@
 import {Command, flags} from '@oclif/command'
+import {StackLint} from '../lib/stacklint';
 
 export default class Check extends Command {
   static description = 'describe the command here'
@@ -21,5 +22,11 @@ export default class Check extends Command {
     if (args.file && flags.force) {
       this.log(`you input --force and --file: ${args.file}`)
     }
+    const stackLint = await StackLint.build()
+    const result = await stackLint.check()
+    result.forEach((value, key) => {
+      this.log(key)
+      this.log(JSON.stringify(value))
+    })
   }
 }

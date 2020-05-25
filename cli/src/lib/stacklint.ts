@@ -78,7 +78,7 @@ export class StackLint {
   async check(checkingPlans?: Map<string, CheckingPlan>): Promise<Map<string, FixingPlan>> {
     const res = new Map<string, FixingPlan>()
     if (checkingPlans) {
-      await Promise.all(Object.keys(checkingPlans.keys()).map(async policyKey => {
+      await Promise.all(Object.keys(checkingPlans).map(async policyKey => {
         const policy = this.policies.get(policyKey)
         if (policy === undefined) {
           throw (new Error(`Can not locate policy: ${policyKey}`))
