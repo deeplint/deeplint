@@ -28,29 +28,41 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`stacklint hello [FILE]`](#stacklint-hello-file)
+* [`stacklint check`](#stacklint-check)
+* [`stacklint fix`](#stacklint-fix)
 * [`stacklint help [COMMAND]`](#stacklint-help-command)
-* [`stacklint run [FILE]`](#stacklint-run-file)
+* [`stacklint plan`](#stacklint-plan)
+* [`stacklint show`](#stacklint-show)
 
-## `stacklint hello [FILE]`
+## `stacklint check`
 
-describe the command here
+Execute checking plan
 
 ```
 USAGE
-  $ stacklint hello [FILE]
+  $ stacklint check
 
 OPTIONS
   -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ stacklint hello
-  hello world from ./src/hello.ts!
+  -h, --help   show CLI help
 ```
 
-_See code: [src/commands/hello.ts](https://github.com/stacklint/stacklint/blob/v0.1.0/src/commands/hello.ts)_
+_See code: [src/commands/check.ts](https://github.com/stacklint/stacklint/blob/v0.1.0/src/commands/check.ts)_
+
+## `stacklint fix`
+
+Fix founded problems based on fixing plan
+
+```
+USAGE
+  $ stacklint fix
+
+OPTIONS
+  -f, --force
+  -h, --help   show CLI help
+```
+
+_See code: [src/commands/fix.ts](https://github.com/stacklint/stacklint/blob/v0.1.0/src/commands/fix.ts)_
 
 ## `stacklint help [COMMAND]`
 
@@ -69,19 +81,33 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
-## `stacklint run [FILE]`
+## `stacklint plan`
 
-describe the command here
+Create checking plan
 
 ```
 USAGE
-  $ stacklint run [FILE]
+  $ stacklint plan
 
 OPTIONS
   -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  -h, --help   show CLI help
 ```
 
-_See code: [src/commands/run.ts](https://github.com/stacklint/stacklint/blob/v0.1.0/src/commands/run.ts)_
+_See code: [src/commands/plan.ts](https://github.com/stacklint/stacklint/blob/v0.1.0/src/commands/plan.ts)_
+
+## `stacklint show`
+
+Show policies
+
+```
+USAGE
+  $ stacklint show
+
+OPTIONS
+  -f, --force
+  -h, --help   show CLI help
+```
+
+_See code: [src/commands/show.ts](https://github.com/stacklint/stacklint/blob/v0.1.0/src/commands/show.ts)_
 <!-- commandsstop -->

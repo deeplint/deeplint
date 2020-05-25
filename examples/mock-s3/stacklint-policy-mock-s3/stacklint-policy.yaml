@@ -1,0 +1,37 @@
+meta:
+  name: stacklint-workflow-cfn-s3
+  author: stacklint dev
+  description: Workflow to check s3 buckets in cloudformation templates
+  policyFormatVersion: 1.0.0
+  version: 0.1.0
+
+inputs:
+  dir:
+    description: dir
+    required: true
+    default: "./"
+
+resources:
+  aws-s3:
+    type: nodejs
+    main: src/resource-mock-s3.js
+    handler: list
+
+rules:
+  s3-versioning-enabled:
+    type: nodejs
+    main: src/rule-s3-versioning.js
+    handler: check
+    meta:
+      type: "error"
+      description: ""
+      category: ""
+      deprecated: false
+
+actions:
+  enable-s3-versioning:
+    type: nodejs
+    main: src/resource-mock-s3.js
+    handler: update
+
+

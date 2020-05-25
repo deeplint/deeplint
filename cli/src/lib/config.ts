@@ -1,9 +1,11 @@
-export interface PluginConfig {
-  providers: {};
-  rules: {};
+export interface PolicyConfig {
+  main: string;
+  with: {
+    [key: string]: any;
+  };
 }
-
 export interface StackLintConfig {
-  plugins:
-    [];
+  policies: {
+    [key: string]: PolicyConfig;
+  };
 }
