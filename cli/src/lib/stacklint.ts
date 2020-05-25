@@ -3,8 +3,7 @@ import {Policy} from './policy/policy'
 import YamlReader from './shared/YamlReader'
 import * as path from 'path'
 import * as fs from 'fs'
-import {CheckingPlan, FixingPlan, PolicyInfo} from './policy/model'
-import * as _ from 'lodash'
+import {CheckingPlan, FixingPlan, FixingResult, PolicyInfo} from './policy/model'
 
 const DEFAULT_STACKLINT_CONFIG_FILE_NAME = 'stacklint.yaml'
 
@@ -84,9 +83,7 @@ export class StackLint {
           throw (new Error(`Can not locate policy: ${policyKey}`))
         }
         res.set(policyKey, await policy.check(checkingPlans.get(policyKey)))
-      }
-      )
-      )
+      }))
     } else {
       await Promise.all(Object.keys(this.stackLintConfig.policies).map(async policyKey => {
         const policy = this.policies.get(policyKey)
@@ -99,7 +96,15 @@ export class StackLint {
     return res
   }
 
-  async fix(fixingPlans?: Map<string, FixingPlan>): Promise<boolean> {
-    return true
+  async fix(fixingPlans: Map<string, FixingPlan>): Promise<Map<string, FixingResult>> {
+    const res = new Map<string, FixingResult>()
+    await Promise.all(Object.keys(fixingPlans).map(async policyKey => {
+      const policy = this.policies.get(policyKey)
+      if (policy === undefined) {
+        throw (new Error(`Can not locate policy: ${policyKey}`))
+      }
+      res.set(policyKey, await policy.fix(fixingPlans.get(policyKey)))
+    }))
+    return res
   }
 }

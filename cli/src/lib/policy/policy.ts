@@ -1,11 +1,11 @@
 import * as path from 'path'
 import * as fs from 'fs'
-import * as _ from 'lodash'
 import YamlReader from '../shared/YamlReader'
-import {PolicySpec, RuleSpec} from './spec'
+import {PolicySpec} from './spec'
 import {PolicyConfig} from '../config'
-import {CheckingPlan, FixingPlan, PolicyInfo, Resource, Result} from './model'
+import {CheckingPlan, FixingPlan, FixingResult, PolicyInfo, Resource, Result} from './model'
 import {Invoker} from './invoker'
+import * as _ from 'lodash'
 
 const DEFAULT_POLICY_SPEC_FILE_NAME = 'stacklint-policy.yaml'
 
@@ -79,45 +79,23 @@ export class Policy {
     return fixingPlan
   }
 
-  async fix(fixingPlan?: FixingPlan): Promise<boolean> {
-    return true
-  }
-
-  /**
-   private async getResourcesForProvider(providerKey: string): Promise<Resource[]> {
-    if (_.has(this.policySpec.providers, providerKey)) {
-      if (this.context.getProviderResources(providerKey) === undefined) {
-        const provider = this.policySpec.providers[providerKey]
-        const providerPath = path.resolve(this.policyPath, provider.main)
-        const providerMain = require(providerPath)
-        providerMain.handler(this.context)
+  async fix(fixingPlan?: FixingPlan): Promise<FixingResult> {
+    if(fixingPlan === undefined) {
+      throw new Error('Can not fix without a plan')
+    }
+    const fixingResult: {
+      [key: string]: boolean;
+    } = {}
+    await Promise.all(Object.keys(fixingPlan).map(async key => {
+      const result = fixingPlan[key]
+      if (result.fix !== undefined) {
+        if (!_.has(this.policySpec.actions, result.fix)) {
+          throw new Error(`Invalid fix action: ${result.fix}`)
+        }
+        const functionPath = path.resolve(this.policyPath, this.policySpec.actions[result.fix].main)
+        fixingResult[key] = await Invoker.run(null, functionPath, this.policySpec.actions[result.fix].handler)
       }
-      return this.context.getProviderResources(providerKey)
-    }
-    throw new Error('Can not find the provider')
-  }
-
-   async getAllRuleResults(): Promise<Result[]> {
-    const results: Result[] = new Array<Result>()
-    const resources = await this.getAllResources()
-
-    await Promise.all(Object.keys(this.policySpec.rules).map(async ruleKey => {
-      const res = await this.getRuleResult(ruleKey)
-      results.push(...res)
     }))
-    return results
+    return fixingResult
   }
-
-   async getRuleResult(ruleKey: string): Promise<Result[]> {
-    // 2，Initialize providers
-    // 3. Run each provider to collect resources
-    // 4. Run rules against resources
-    if (_.has(this.policySpec.rules, ruleKey)) {
-      const rule = this.policySpec.rules[ruleKey]
-      const ruleMain = require(this.policySpec + path.sep + rule.main)
-      return ruleMain.handler({})
-    }
-    throw new Error('can not find the provider')
-  }
-   */
 }
