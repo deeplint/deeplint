@@ -6,6 +6,7 @@ import {PolicyConfig} from '../config'
 import {CheckingPlan, FixingPlan, FixingResult, PolicyInfo, Resource, Result} from './model'
 import {Invoker} from './invoker'
 import * as _ from 'lodash'
+import {Context} from './context'
 
 const DEFAULT_POLICY_SPEC_FILE_NAME = 'stacklint-policy.yaml'
 
@@ -18,11 +19,22 @@ export class Policy {
 
   private readonly policySpec: PolicySpec
 
-  private constructor(policyConfig: PolicyConfig, policyName: string, policyPath: string, policySpec: PolicySpec) {
+  private readonly inputs: {}
+
+  constructor(policyConfig: PolicyConfig, policyName: string, policyPath: string, policySpec: PolicySpec) {
     this.policyName = policyName
     this.policyConfig = policyConfig
     this.policyPath = policyPath
     this.policySpec = policySpec
+    this.inputs = this.processInputs()
+  }
+
+  private processInputs(): {} {
+    return {}
+  }
+
+  buildContext(): Context {
+    return new Context(this.policyName, this.policyPath, this.policySpec, this.inputs)
   }
 
   static loadPolicySpec(policyPath: string): PolicySpec {
@@ -57,7 +69,7 @@ export class Policy {
     } = {}
     await Promise.all(Object.keys(this.policySpec.resources).map(async resourceKey => {
       const functionPath = path.resolve(this.policyPath, this.policySpec.resources[resourceKey].main)
-      resources[resourceKey] = await Invoker.run(null, functionPath, this.policySpec.resources[resourceKey].handler)
+      resources[resourceKey] = await Invoker.run(this.buildContext(), functionPath, this.policySpec.resources[resourceKey].handler)
     }))
     return {
       resources: resources,
@@ -73,7 +85,7 @@ export class Policy {
 
     await Promise.all(Object.keys(checkingPlanLocal.rules).map(async ruleKey => {
       const functionPath = path.resolve(this.policyPath, checkingPlanLocal.rules[ruleKey].main)
-      fixingPlan[ruleKey] = await Invoker.run(null, functionPath, checkingPlanLocal.rules[ruleKey].handler)
+      fixingPlan[ruleKey] = await Invoker.run(this.buildContext(), functionPath, checkingPlanLocal.rules[ruleKey].handler)
     }))
 
     return fixingPlan
@@ -93,7 +105,7 @@ export class Policy {
           throw new Error(`Invalid fix action: ${result.fix}`)
         }
         const functionPath = path.resolve(this.policyPath, this.policySpec.actions[result.fix].main)
-        fixingResult[key] = await Invoker.run(null, functionPath, this.policySpec.actions[result.fix].handler)
+        fixingResult[key] = await Invoker.run(this.buildContext(), functionPath, this.policySpec.actions[result.fix].handler)
       }
     }))
     return fixingResult
