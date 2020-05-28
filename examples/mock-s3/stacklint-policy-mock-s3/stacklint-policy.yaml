@@ -8,7 +8,7 @@ meta:
 inputs:
   dir:
     description: dir
-    required: true
+    type: String
     default: "./"
 
 resources:
