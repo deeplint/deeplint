@@ -2,7 +2,7 @@ import {Command, flags} from '@oclif/command'
 import {StackLint} from '../lib/stacklint'
 
 export default class Show extends Command {
-  static description = 'Show policies'
+  static description = 'Show policy checking plans'
 
   static flags = {
     help: flags.help({char: 'h'}),

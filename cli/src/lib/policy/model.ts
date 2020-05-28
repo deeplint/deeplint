@@ -1,10 +1,4 @@
-import {RuleSpec, PolicySpec} from './spec'
-import {PolicyConfig} from '../config'
-
-export interface PolicyInfo {
-  PolicyConfig: PolicyConfig;
-  PolicySpec: PolicySpec;
-}
+import {RuleSpec} from './spec'
 
 export interface Resource {
   key: { [key: string]: any };

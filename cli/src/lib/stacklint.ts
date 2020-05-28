@@ -3,7 +3,7 @@ import {Policy} from './policy/policy'
 import YamlReader from './shared/yaml-reader'
 import * as path from 'path'
 import * as fs from 'fs'
-import {CheckingPlan, FixingPlan, FixingResult, PolicyInfo} from './policy/model'
+import {CheckingPlan, FixingPlan, FixingResult} from './policy/model'
 
 const DEFAULT_STACKLINT_CONFIG_FILE_NAME = 'stacklint.yaml'
 
@@ -34,8 +34,8 @@ export class StackLint {
     })
   }
 
-  async show(policyKey?: string): Promise<Map<string, PolicyInfo>> {
-    const res = new Map<string, PolicyInfo>()
+  async show(policyKey?: string): Promise<Map<string, CheckingPlan>> {
+    const res = new Map<string, CheckingPlan>()
     if (policyKey) {
       const policy = this.policies.get(policyKey)
       if (policy === undefined) {
@@ -49,26 +49,6 @@ export class StackLint {
           throw (new Error(`Can not locate policy: ${policyKey}`))
         }
         res.set(policyKey, await policy.show())
-      }))
-    }
-    return res
-  }
-
-  async plan(policyKey?: string): Promise<Map<string, CheckingPlan>> {
-    const res = new Map<string, CheckingPlan>()
-    if (policyKey) {
-      const policy = this.policies.get(policyKey)
-      if (policy === undefined) {
-        throw (new Error(`Can not locate policy: ${policyKey}`))
-      }
-      res.set(policyKey, await policy.plan())
-    } else {
-      await Promise.all(Object.keys(this.stackLintConfig.policies).map(async policyKey => {
-        const policy = this.policies.get(policyKey)
-        if (policy === undefined) {
-          throw (new Error(`Can not locate policy: ${policyKey}`))
-        }
-        res.set(policyKey, await policy.plan())
       }))
     }
     return res

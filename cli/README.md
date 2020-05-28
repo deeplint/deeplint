@@ -31,7 +31,6 @@ USAGE
 * [`stacklint check`](#stacklint-check)
 * [`stacklint fix`](#stacklint-fix)
 * [`stacklint help [COMMAND]`](#stacklint-help-command)
-* [`stacklint plan`](#stacklint-plan)
 * [`stacklint show`](#stacklint-show)
 
 ## `stacklint check`
@@ -80,21 +79,6 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
-
-## `stacklint plan`
-
-Create checking plan
-
-```
-USAGE
-  $ stacklint plan
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-```
-
-_See code: [src/commands/plan.ts](https://github.com/stacklint/stacklint/blob/v0.1.0/src/commands/plan.ts)_
 
 ## `stacklint show`
 

@@ -3,7 +3,7 @@ import * as fs from 'fs'
 import YamlReader from '../shared/yaml-reader'
 import {PolicySpec} from './spec'
 import {PolicyConfig} from '../config'
-import {CheckingPlan, FixingPlan, FixingResult, PolicyInfo, Resource, Result} from './model'
+import {CheckingPlan, FixingPlan, FixingResult, Resource} from './model'
 import {Invoker} from './invoker'
 import * as _ from 'lodash'
 import {Context} from './context'
@@ -80,14 +80,7 @@ export class Policy {
     return new Policy(policyConfig, policyName, policyPath, this.loadPolicySpec(policyPath), processedInputs)
   }
 
-  async show(): Promise<PolicyInfo> {
-    return {
-      PolicyConfig: this.policyConfig,
-      PolicySpec: this.policySpec,
-    }
-  }
-
-  async plan(): Promise<CheckingPlan> {
+  async show(): Promise<CheckingPlan> {
     const resources: {
       [key: string]: Resource[];
     } = {}
@@ -103,7 +96,7 @@ export class Policy {
 
   async check(checkingPlan?: CheckingPlan): Promise<FixingPlan> {
     const fixingPlan: FixingPlan = {}
-    const checkingPlanLocal: CheckingPlan = checkingPlan || await this.plan()
+    const checkingPlanLocal: CheckingPlan = checkingPlan || await this.show()
     const context = this.buildContext()
     context.setResources(checkingPlanLocal.resources)
     await Promise.all(Object.keys(checkingPlanLocal.rules).map(async ruleKey => {
