@@ -22,7 +22,16 @@ export interface ActionSpec {
   handler: string;
 }
 
+export interface InputSpec {
+  type: 'String' | 'Number' | 'Boolean';
+  description?: string;
+  default: string;
+}
+
 export interface PolicySpec {
+  inputs: {
+    [key: string]: InputSpec;
+  };
   resources: {
     [key: string]: ProviderSpec;
   };

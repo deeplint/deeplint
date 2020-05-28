@@ -1,15 +1,14 @@
-exports.schema = {
-
-}
+exports.schema = {}
 exports.list = async function (context) {
     res = [
         {
-            "RecordServiceS3Bucket": {
+            key: {
+                "name": "RecordServiceS3Bucket",
                 "type": "AWS::S3::Bucket",
-                "properties": {
-                    "VersioningConfiguration": {
-                        "Status": "Disabled"
-                    }
+            },
+            properties: {
+                "VersioningConfiguration": {
+                    "Status": "Disabled"
                 }
             }
         }

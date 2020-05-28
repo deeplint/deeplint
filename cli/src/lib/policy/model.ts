@@ -30,7 +30,7 @@ export interface Result {
 }
 
 export interface FixingPlan {
-  [key: string]: Result;
+  [key: string]: Result[];
 }
 
 export interface FixingResult {
