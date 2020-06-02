@@ -3,6 +3,7 @@ import {StackLint} from '../lib/stacklint'
 import * as chalk from 'chalk'
 import * as figures from 'figures'
 import {Meta} from '../lib/policy/model'
+import YamlReader from '../lib/shared/yaml-reader'
 
 export default class Show extends Command {
   static description = 'Display the policies, snapshots and checking results in the human-readable format'
@@ -35,6 +36,12 @@ export default class Show extends Command {
         } else {
           this.error(`Can not find policy: ${chalk.red(flags.policy)}`)
         }
+      } else if (flags.snapshot) {
+        const snapshot = YamlReader.load(flags.snapshot)
+        this.log(JSON.stringify(snapshot, null, 4))
+      } else if (flags.check) {
+        const check = YamlReader.load(flags.check)
+        this.log(JSON.stringify(check, null, 4))
       } else {
         this.showSummary(policies)
       }
