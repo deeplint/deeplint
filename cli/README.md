@@ -19,7 +19,7 @@ $ npm install -g @stacklint/cli
 $ stacklint COMMAND
 running command...
 $ stacklint (-v|--version|version)
-@stacklint/cli/0.1.0 darwin-x64 node-v12.13.1
+@stacklint/cli/0.2.0 darwin-x64 node-v12.13.1
 $ stacklint --help [COMMAND]
 USAGE
   $ stacklint COMMAND
@@ -32,6 +32,7 @@ USAGE
 * [`stacklint fix`](#stacklint-fix)
 * [`stacklint help [COMMAND]`](#stacklint-help-command)
 * [`stacklint show`](#stacklint-show)
+* [`stacklint snap`](#stacklint-snap)
 
 ## `stacklint check`
 
@@ -42,11 +43,12 @@ USAGE
   $ stacklint check
 
 OPTIONS
-  -f, --force
-  -h, --help   show CLI help
+  -h, --help               show CLI help
+  -o, --out=out            Output file
+  -s, --snapshot=snapshot  Snapshot file
 ```
 
-_See code: [src/commands/check.ts](https://github.com/stacklint/stacklint/blob/v0.1.0/src/commands/check.ts)_
+_See code: [src/commands/check.ts](https://github.com/stacklint/stacklint/blob/v0.2.0/src/commands/check.ts)_
 
 ## `stacklint fix`
 
@@ -61,7 +63,7 @@ OPTIONS
   -h, --help   show CLI help
 ```
 
-_See code: [src/commands/fix.ts](https://github.com/stacklint/stacklint/blob/v0.1.0/src/commands/fix.ts)_
+_See code: [src/commands/fix.ts](https://github.com/stacklint/stacklint/blob/v0.2.0/src/commands/fix.ts)_
 
 ## `stacklint help [COMMAND]`
 
@@ -82,16 +84,34 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3
 
 ## `stacklint show`
 
-Show policies
+Display the policies, snapshots and checking results in the human-readable format
 
 ```
 USAGE
   $ stacklint show
 
 OPTIONS
+  -c, --check=check
   -f, --force
-  -h, --help   show CLI help
+  -h, --help               show CLI help
+  -p, --policy=policy
+  -s, --snapshot=snapshot
 ```
 
-_See code: [src/commands/show.ts](https://github.com/stacklint/stacklint/blob/v0.1.0/src/commands/show.ts)_
+_See code: [src/commands/show.ts](https://github.com/stacklint/stacklint/blob/v0.2.0/src/commands/show.ts)_
+
+## `stacklint snap`
+
+Take a snapshot of resources covered in existing workspace
+
+```
+USAGE
+  $ stacklint snap
+
+OPTIONS
+  -h, --help     show CLI help
+  -o, --out=out  snapshot output file
+```
+
+_See code: [src/commands/snap.ts](https://github.com/stacklint/stacklint/blob/v0.2.0/src/commands/snap.ts)_
 <!-- commandsstop -->

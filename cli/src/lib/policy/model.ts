@@ -1,32 +1,47 @@
-import {RuleSpec} from './spec'
+import {PolicySpec} from './spec'
+import {PolicyConfig} from '../config'
 
-export interface Resource {
-  key: { [key: string]: any };
-  properties: { [key: string]: any };
+export interface Meta {
+  readonly policyName: string;
+
+  readonly policyPath: string;
+
+  readonly policySpec: PolicySpec;
+
+  readonly policyConfig: PolicyConfig;
+
 }
 
-export interface CheckingPlan {
+export interface Resource {
+  name: string;
+  type: string;
+  properties: { [key: string]: any };
+  meta: { [key: string]: any };
+}
+
+export interface Snapshot {
+  timestamp: Date;
   resources: {
     [key: string]: Resource[];
   };
-  rules: {
-    [key: string]: RuleSpec;
+}
+
+export interface CheckingResult {
+  passed: boolean;
+  problem?: {
+    resource?: string;
+    message: string;
+    data?: {
+      [key: string]: any;
+    };
+    fix?: string;
   };
 }
 
-export interface Result {
-  resource?: string;
-  message: string;
-  data?: {
-    [key: string]: any;
-  };
-  fix?: string;
+export interface CheckingResults {
+  [key: string]: CheckingResult;
 }
 
-export interface FixingPlan {
-  [key: string]: Result[];
-}
-
-export interface FixingResult {
+export interface FixingResults {
   [key: string]: boolean;
 }

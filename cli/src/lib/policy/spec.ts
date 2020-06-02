@@ -32,7 +32,7 @@ export interface PolicySpec {
   inputs: {
     [key: string]: InputSpec;
   };
-  resources: {
+  providers: {
     [key: string]: ProviderSpec;
   };
   rules: {
