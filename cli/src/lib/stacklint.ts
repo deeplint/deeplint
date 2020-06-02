@@ -30,16 +30,6 @@ export class StackLint {
     throw new Error('Can not find StackLint config file')
   }
 
-  static async loadSnapshot(snapshotPath?: string): Promise<{
-    [key: string]: Snapshot;
-  } | undefined> {
-    const snapshotFullPath = path.resolve(snapshotPath || DEFAULT_SNAPSHOT_OUTPUT)
-    if (fs.existsSync(snapshotFullPath)) {
-      return YamlReader.load(snapshotFullPath)
-    }
-    return undefined
-  }
-
   getPoliciesMeta(): {
     [key: string]: Meta;
     } {
