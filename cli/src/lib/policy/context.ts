@@ -1,29 +1,27 @@
-import {Resource} from './model'
-import {PolicySpec} from './spec'
+import {Meta, Resource, Snapshot} from './model'
 
 export class Context {
-  readonly processedInputs: object
+  readonly meta: Meta
 
-  readonly policyName: string
+  readonly inputs: { [key: string]: any }
 
-  readonly policyPath: string
+  constructor(meta: Meta, inputs: { [key: string]: any }) {
+    this.meta = meta
+    this.inputs = inputs
+  }
+}
 
-  readonly policySpec: PolicySpec
+export class CheckContext extends Context {
+  private readonly snapshot: Snapshot
 
-  private resources: { [key: string]: Resource[] } = {}
-
-  constructor(policyName: string, policyPath: string, policySpec: PolicySpec, processedInputs: object) {
-    this.processedInputs = processedInputs
-    this.policyName = policyName
-    this.policyPath = policyPath
-    this.policySpec = policySpec
+  constructor(meta: Meta, inputs: { [key: string]: any }, snapshot: Snapshot) {
+    super(meta, inputs)
+    this.snapshot = snapshot
   }
 
-  setResources(resources: { [key: string]: Resource[] }): void {
-    this.resources = resources
-  }
-
-  getResources() {
-    return this.resources
+  getResources(): {
+    [key: string]: Resource[];
+    } {
+    return this.snapshot.resources
   }
 }
