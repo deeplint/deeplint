@@ -3,7 +3,7 @@ import {Policy} from './policy/policy'
 import YamlReader from './shared/yaml-reader'
 import * as path from 'path'
 import * as fs from 'fs'
-import {DEFAULT_SNAPSHOT_OUTPUT, DEFAULT_STACKLINT_CONFIG_FILE_NAME} from './constant'
+import {DEFAULT_STACKLINT_CONFIG_FILE_NAME} from './constant'
 import {CheckingResults, FixingResults, Meta, Snapshot} from './policy/model'
 
 export class StackLint {
