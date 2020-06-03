@@ -8,6 +8,7 @@ import {Invoker} from './invoker'
 import * as _ from 'lodash'
 import {DEFAULT_POLICY_SPEC_FILE_NAME} from '../constant'
 import {CheckContext, Context} from './context'
+import {validate} from './validate'
 
 export class Policy {
   readonly meta: Meta
@@ -105,7 +106,13 @@ export class Policy {
     } = {}
     await Promise.all(Object.keys(this.meta.policySpec.providers).map(async providerKey => {
       const functionPath = path.resolve(this.meta.policyPath, this.meta.policySpec.providers[providerKey].main)
-      resources[providerKey] = await Invoker.run(new Context(this.meta, this.processedInputs), functionPath, this.meta.policySpec.providers[providerKey].handler)
+      const resources_temp: Resource[] = await Invoker.run(new Context(this.meta, this.processedInputs), functionPath, this.meta.policySpec.providers[providerKey].handler)
+      resources_temp.forEach(resource => {
+        if (!validate('Resource', resource)) {
+          throw new Error(`Resource ${JSON.stringify(resource)} does not follow the required format`)
+        }
+      })
+      resources[providerKey] = resources_temp
     }))
     return {
       timestamp: new Date(),

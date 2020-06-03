@@ -16,7 +16,7 @@ export interface Resource {
   name: string;
   type: string;
   properties: { [key: string]: any };
-  meta: { [key: string]: any };
+  meta?: { [key: string]: any };
 }
 
 export interface Snapshot {

@@ -33,7 +33,7 @@ export default class Snap extends Command {
 
       fs.writeFileSync(out, JSON.stringify(snapshots))
     } catch (error) {
-      this.error(error)
+      this.error(error.toString())
     }
   }
 }

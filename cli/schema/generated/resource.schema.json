@@ -21,8 +21,7 @@
       "required": [
         "name",
         "type",
-        "properties",
-        "meta"
+        "properties"
       ],
       "additionalProperties": false
     }
