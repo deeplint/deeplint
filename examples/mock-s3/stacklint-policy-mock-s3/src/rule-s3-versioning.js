@@ -1,14 +1,14 @@
-exports.check = function (context) {
-    let results = []
+exports.check = async function (context) {
     const resources = context.getResources()
 
-    console.log(resources)
-
-    return [{
-        "s3-versioning-check": {
-            resource: "RecordServiceS3Bucket:",
-            message: "S3 bucket should enable versioning"
+    const res = {
+        passed: false,
+        problem: {
+            "resource":
+                "RecordServiceS3Bucket",
+            "message":
+                "S3 bucket should enable versioning"
         }
     }
-    ]
+    return res
 }

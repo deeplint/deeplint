@@ -3,7 +3,7 @@ import {StackLint} from '../lib/stacklint'
 import * as fs from 'fs'
 import * as figures from 'figures'
 import * as chalk from 'chalk'
-import {DEFAULT_SNAPSHOT_OUTPUT} from '../lib/constant';
+import {DEFAULT_SNAPSHOT_OUTPUT} from '../lib/constant'
 
 export default class Snap extends Command {
   static description = 'Take a snapshot of resources covered in existing workspace'
@@ -33,7 +33,7 @@ export default class Snap extends Command {
 
       fs.writeFileSync(out, JSON.stringify(snapshots))
     } catch (error) {
-      this.error(error)
+      this.error(error.toString())
     }
   }
 }

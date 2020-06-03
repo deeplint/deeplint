@@ -4,6 +4,7 @@ import * as figures from 'figures'
 import * as chalk from 'chalk'
 import * as fs from 'fs'
 import {DEFAULT_CHECK_OUTPUT} from '../lib/constant'
+import YamlReader from '../lib/shared/yaml-reader'
 
 export default class Check extends Command {
   static description = 'Execute checking plan'
@@ -23,7 +24,7 @@ export default class Check extends Command {
 
       this.log(` ${figures.tick} ${chalk.green.bold('Loading Snapshot')} \n`)
 
-      const snapshots = await StackLint.loadSnapshot(flags.snapshot) || await stackLint.snap()
+      const snapshots = flags.snapshot ? YamlReader.load(flags.snapshot) : await stackLint.snap()
 
       this.log(` ${figures.tick} ${chalk.green.bold('Checking...')} \n`)
 
