@@ -1,4 +1,3 @@
-exports.schema = {}
 exports.list = async function (context) {
     res = [
         {

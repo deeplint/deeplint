@@ -125,7 +125,11 @@ export class Policy {
     const context = new CheckContext(this.meta, this.processedInputs, snapshot)
     await Promise.all(Object.keys(this.rules).map(async ruleKey => {
       const functionPath = path.resolve(this.path, this.rules[ruleKey].main)
-      checkingResults[ruleKey] = await Invoker.run(context, functionPath, this.rules[ruleKey].handler)
+      const checkingResult = await Invoker.run(context, functionPath, this.rules[ruleKey].handler)
+      if (!validate('CheckingResult', checkingResult)) {
+        throw new Error(`Checking Result ${JSON.stringify(checkingResult)} does not follow the required format`)
+      }
+      checkingResults[ruleKey] = checkingResult
     }))
     return checkingResults
   }
