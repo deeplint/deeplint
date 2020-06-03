@@ -1,5 +1,5 @@
 import {Command, flags} from '@oclif/command'
-import {StackLint} from '../lib/stacklint'
+import {Deeplint} from '../lib/deeplint'
 import * as fs from 'fs'
 import * as figures from 'figures'
 import * as chalk from 'chalk'
@@ -20,14 +20,14 @@ export default class Snap extends Command {
     const {flags} = this.parse(Snap)
 
     try {
-      this.log(` ${figures.tick} ${chalk.green.bold('Initializing StackLint')} \n`)
+      this.log(` ${figures.tick} ${chalk.green.bold('Initializing DeepLint')} \n`)
 
       const out = flags.out || DEFAULT_SNAPSHOT_OUTPUT
 
-      const stackLint = await StackLint.build()
+      const deeplint = await Deeplint.build()
       this.log(` ${figures.tick} ${chalk.green.bold('Retrieving Snapshot')} \n`)
 
-      const snapshots = await stackLint.snap()
+      const snapshots = await deeplint.snap()
 
       this.log(` ${figures.tick} ${chalk.green.bold('Outputting to ')} ${chalk.blue.bold(out)}\n`)
 

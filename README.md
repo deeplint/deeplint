@@ -1,2 +1,2 @@
-# StackLint
-StackLint is an open-source Policy-as-Code tool for cloud best practices, security and governance. StackLint enables you quickly build, share and enforce codified policies to find and fix problems on any cloud, infrastructure and services, as well as codified stack configurations, such as Infrastructure as Code files and Kubernetes manifests. StackLint can be embedded into DevOps workflows to secure cloud assets without slowing down development and business growth. 
+# DeepLint
+DeepLint is an open-source Policy-as-Code tool for cloud best practices, security and governance. 

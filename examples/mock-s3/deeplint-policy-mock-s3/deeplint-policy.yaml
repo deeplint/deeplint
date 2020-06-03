@@ -1,6 +1,6 @@
 meta:
-  name: stacklint-workflow-cfn-s3
-  author: stacklint dev
+  name: deeplint-policy-cfn-s3
+  author: deeplint dev
   description: Workflow to check s3 buckets in cloudformation templates
   policyFormatVersion: 1.0.0
   version: 0.1.0

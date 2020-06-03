@@ -1,5 +1,5 @@
 import {Command, flags} from '@oclif/command'
-import {StackLint} from '../lib/stacklint'
+import {Deeplint} from '../lib/deeplint'
 import * as chalk from 'chalk'
 import * as figures from 'figures'
 import {Meta} from '../lib/policy/model'
@@ -24,10 +24,10 @@ export default class Show extends Command {
     const {flags} = this.parse(Show)
 
     try {
-      this.log(` ${figures.tick} ${chalk.green.bold('Initializing StackLint')} \n`)
-      const stackLint = await StackLint.build()
+      this.log(` ${figures.tick} ${chalk.green.bold('Initializing DeepLint')} \n`)
+      const deeplint = await Deeplint.build()
       this.log(` ${figures.tick} ${chalk.green.bold('Retrieving policies')} \n`)
-      const policies = stackLint.getPoliciesMeta()
+      const policies = deeplint.getPoliciesMeta()
       this.log(` ${figures.tick} ${chalk.green.bold('Showing...')} \n`)
       if (flags.policy) {
         const policy = policies[flags.policy]

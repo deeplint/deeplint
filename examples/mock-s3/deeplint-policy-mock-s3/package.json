@@ -1,5 +1,5 @@
 {
-  "name": "stacklint-workflow-aws-s3",
+  "name": "deeplint-workflow-aws-s3",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

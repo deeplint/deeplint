@@ -1,12 +1,12 @@
 {
-  "name": "@stacklint/cli",
-  "description": "StackLint policy engine CLI",
+  "name": "@deeplint/cli",
+  "description": "DeepLint cloud scanner",
   "version": "0.2.0",
   "author": "(Gavin Yue @gavinyue)",
   "bin": {
-    "stacklint": "./bin/run"
+    "deeplint": "./bin/run"
   },
-  "bugs": "https://github.com/stacklint/stacklint/issues",
+  "bugs": "https://github.com/deeplint/deeplint/issues",
   "dependencies": {
     "@oclif/command": "^1.6.1",
     "@oclif/config": "^1.15.1",
@@ -47,9 +47,9 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://github.com/stacklint/stacklint",
+  "homepage": "https://github.com/deeplint/deeplint",
   "keywords": [
-    "stacklint",
+    "deeplint",
     "cloud",
     "security",
     "policy"
@@ -58,12 +58,12 @@
   "main": "lib/index.js",
   "oclif": {
     "commands": "./lib/commands",
-    "bin": "stacklint",
+    "bin": "deeplint",
     "plugins": [
       "@oclif/plugin-help"
     ]
   },
-  "repository": "stacklint/stacklint",
+  "repository": "deeplint/deeplint",
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint . --ext .ts --config .eslintrc",

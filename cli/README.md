@@ -1,12 +1,12 @@
-@stacklint/cli
+@deeplint/cli
 ==============
 
-StackLint
+DeepLint
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/@stacklint/cli.svg)](https://npmjs.org/package/@stacklint/cli)
-[![Downloads/week](https://img.shields.io/npm/dw/@stacklint/cli.svg)](https://npmjs.org/package/@stacklint/cli)
-[![License](https://img.shields.io/npm/l/@stacklint/cli.svg)](https://github.com/stacklint/stacklint/blob/master/LICENSE)
+[![Version](https://img.shields.io/npm/v/@deeplint/cli.svg)](https://npmjs.org/package/@deeplint/cli)
+[![Downloads/week](https://img.shields.io/npm/dw/@deeplint/cli.svg)](https://npmjs.org/package/@deeplint/cli)
+[![License](https://img.shields.io/npm/l/@deeplint/cli.svg)](https://github.com/deeplint/deeplint/blob/master/LICENSE)
 
 <!-- toc -->
 * [Usage](#usage)
@@ -15,32 +15,32 @@ StackLint
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g @stacklint/cli
-$ stacklint COMMAND
+$ npm install -g @deeplint/cli
+$ deeplint COMMAND
 running command...
-$ stacklint (-v|--version|version)
-@stacklint/cli/0.2.0 darwin-x64 node-v12.13.1
-$ stacklint --help [COMMAND]
+$ deeplint (-v|--version|version)
+@deeplint/cli/0.2.0 darwin-x64 node-v12.13.1
+$ deeplint --help [COMMAND]
 USAGE
-  $ stacklint COMMAND
+  $ deeplint COMMAND
 ...
 ```
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`stacklint check`](#stacklint-check)
-* [`stacklint fix`](#stacklint-fix)
-* [`stacklint help [COMMAND]`](#stacklint-help-command)
-* [`stacklint show`](#stacklint-show)
-* [`stacklint snap`](#stacklint-snap)
+* [`deeplint check`](#deeplint-check)
+* [`deeplint fix`](#deeplint-fix)
+* [`deeplint help [COMMAND]`](#deeplint-help-command)
+* [`deeplint show`](#deeplint-show)
+* [`deeplint snap`](#deeplint-snap)
 
-## `stacklint check`
+## `deeplint check`
 
 Execute checking plan
 
 ```
 USAGE
-  $ stacklint check
+  $ deeplint check
 
 OPTIONS
   -h, --help               show CLI help
@@ -48,30 +48,30 @@ OPTIONS
   -s, --snapshot=snapshot  Snapshot file
 ```
 
-_See code: [src/commands/check.ts](https://github.com/stacklint/stacklint/blob/v0.2.0/src/commands/check.ts)_
+_See code: [src/commands/check.ts](https://github.com/deeplint/deeplint/blob/v0.2.0/src/commands/check.ts)_
 
-## `stacklint fix`
+## `deeplint fix`
 
 Fix founded problems based on fixing plan
 
 ```
 USAGE
-  $ stacklint fix
+  $ deeplint fix
 
 OPTIONS
   -f, --force
   -h, --help   show CLI help
 ```
 
-_See code: [src/commands/fix.ts](https://github.com/stacklint/stacklint/blob/v0.2.0/src/commands/fix.ts)_
+_See code: [src/commands/fix.ts](https://github.com/deeplint/deeplint/blob/v0.2.0/src/commands/fix.ts)_
 
-## `stacklint help [COMMAND]`
+## `deeplint help [COMMAND]`
 
-display help for stacklint
+display help for deeplint
 
 ```
 USAGE
-  $ stacklint help [COMMAND]
+  $ deeplint help [COMMAND]
 
 ARGUMENTS
   COMMAND  command to show help for
@@ -82,13 +82,13 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
-## `stacklint show`
+## `deeplint show`
 
 Display the policies, snapshots and checking results in the human-readable format
 
 ```
 USAGE
-  $ stacklint show
+  $ deeplint show
 
 OPTIONS
   -c, --check=check
@@ -98,20 +98,20 @@ OPTIONS
   -s, --snapshot=snapshot
 ```
 
-_See code: [src/commands/show.ts](https://github.com/stacklint/stacklint/blob/v0.2.0/src/commands/show.ts)_
+_See code: [src/commands/show.ts](https://github.com/deeplint/deeplint/blob/v0.2.0/src/commands/show.ts)_
 
-## `stacklint snap`
+## `deeplint snap`
 
 Take a snapshot of resources covered in existing workspace
 
 ```
 USAGE
-  $ stacklint snap
+  $ deeplint snap
 
 OPTIONS
   -h, --help     show CLI help
   -o, --out=out  snapshot output file
 ```
 
-_See code: [src/commands/snap.ts](https://github.com/stacklint/stacklint/blob/v0.2.0/src/commands/snap.ts)_
+_See code: [src/commands/snap.ts](https://github.com/deeplint/deeplint/blob/v0.2.0/src/commands/snap.ts)_
 <!-- commandsstop -->

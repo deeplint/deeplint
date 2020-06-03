@@ -4,7 +4,7 @@ export interface PolicyConfig {
     [key: string]: any;
   };
 }
-export interface StackLintConfig {
+export interface DeepLintConfig {
   policies: {
     [key: string]: PolicyConfig;
   };

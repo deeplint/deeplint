@@ -1,5 +1,5 @@
 import {Command, flags} from '@oclif/command'
-import {StackLint} from '../lib/stacklint'
+import {Deeplint} from '../lib/deeplint'
 import * as figures from 'figures'
 import * as chalk from 'chalk'
 import * as fs from 'fs'
@@ -18,17 +18,17 @@ export default class Check extends Command {
   async run() {
     const {flags} = this.parse(Check)
     try {
-      this.log(` ${figures.tick} ${chalk.green.bold('Initializing StackLint')} \n`)
+      this.log(` ${figures.tick} ${chalk.green.bold('Initializing DeepLint')} \n`)
 
-      const stackLint = await StackLint.build()
+      const deeplint = await Deeplint.build()
 
       this.log(` ${figures.tick} ${chalk.green.bold('Loading Snapshot')} \n`)
 
-      const snapshots = flags.snapshot ? YamlReader.load(flags.snapshot) : await stackLint.snap()
+      const snapshots = flags.snapshot ? YamlReader.load(flags.snapshot) : await deeplint.snap()
 
       this.log(` ${figures.tick} ${chalk.green.bold('Checking...')} \n`)
 
-      const result = await stackLint.check(snapshots)
+      const result = await deeplint.check(snapshots)
       const out = flags.out || DEFAULT_CHECK_OUTPUT
       this.log(` ${figures.tick} ${chalk.green.bold('Outputting to ')} ${chalk.blue.bold(out)}\n`)
 

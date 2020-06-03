@@ -1,33 +1,33 @@
-import {StackLintConfig} from './config'
+import {DeepLintConfig} from './config'
 import {Policy} from './policy/policy'
 import YamlReader from './shared/yaml-reader'
 import * as path from 'path'
 import * as fs from 'fs'
-import {DEFAULT_STACKLINT_CONFIG_FILE_NAME} from './constant'
+import {DEFAULT_DEEPLINT_CONFIG_FILE_NAME} from './constant'
 import {CheckingResults, FixingResults, Meta, Snapshot} from './policy/model'
 
-export class StackLint {
-  private readonly stackLintConfig: StackLintConfig
+export class Deeplint {
+  private readonly deepLintConfig: DeepLintConfig
 
   private readonly policies: Map<string, Policy>
 
-  private constructor(stackLintConfig: StackLintConfig, policies: Map<string, Policy>) {
-    this.stackLintConfig = stackLintConfig
+  private constructor(deepLintConfig: DeepLintConfig, policies: Map<string, Policy>) {
+    this.deepLintConfig = deepLintConfig
     this.policies = policies
   }
 
-  static async build(configFile?: string): Promise<StackLint> {
-    const configPath = path.resolve(configFile || DEFAULT_STACKLINT_CONFIG_FILE_NAME)
+  static async build(configFile?: string): Promise<Deeplint> {
+    const configPath = path.resolve(configFile || DEFAULT_DEEPLINT_CONFIG_FILE_NAME)
     if (fs.existsSync(configPath)) {
-      const stackLintConfig: StackLintConfig = YamlReader.load(configPath)
+      const deepLintConfig: DeepLintConfig = YamlReader.load(configPath)
       const policies: Map<string, Policy> = new Map<string, Policy>()
-      await Object.keys(stackLintConfig.policies).map(async key => {
-        const policy = await Policy.build(stackLintConfig.policies[key], key)
+      await Object.keys(deepLintConfig.policies).map(async key => {
+        const policy = await Policy.build(deepLintConfig.policies[key], key)
         policies.set(key, policy)
       })
-      return new StackLint(stackLintConfig, policies)
+      return new Deeplint(deepLintConfig, policies)
     }
-    throw new Error('Can not find StackLint config file')
+    throw new Error('Can not find DeepLint config file')
   }
 
   getPoliciesMeta(): {
@@ -37,7 +37,7 @@ export class StackLint {
       [key: string]: Meta;
     } = {}
 
-    Object.keys(this.stackLintConfig.policies).map(async policyKey => {
+    Object.keys(this.deepLintConfig.policies).map(async policyKey => {
       const policy = this.policies.get(policyKey)
       if (policy === undefined) {
         throw (new Error(`Can not locate policy: ${policyKey}`))
@@ -54,7 +54,7 @@ export class StackLint {
       [key: string]: Snapshot;
     } = {}
 
-    await Promise.all(Object.keys(this.stackLintConfig.policies).map(async policyKey => {
+    await Promise.all(Object.keys(this.deepLintConfig.policies).map(async policyKey => {
       const policy = this.policies.get(policyKey)
       if (policy === undefined) {
         throw (new Error(`Can not locate policy: ${policyKey}`))
