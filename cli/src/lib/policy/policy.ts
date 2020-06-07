@@ -9,6 +9,7 @@ import {validate} from './validate'
 import {PolicyConfig} from '../module/spec'
 import {processInputs} from '../shared/input-processing'
 import {resolvePolicyPath} from '../shared/path'
+import * as fs from 'fs'
 
 export class Policy {
   readonly meta: Meta
@@ -46,6 +47,9 @@ export class Policy {
 
   static async build(policyConfig: PolicyConfig, policyName: string, moduleName: string): Promise<Policy> {
     const policyPath: string = resolvePolicyPath(moduleName, policyName, policyConfig.uses)
+    if (!fs.existsSync(policyPath + path.sep + DEFAULT_POLICY_SPEC_FILE_NAME)) {
+      throw new Error(`Can not find the policy: ${policyName} in module: ${moduleName} with path: ${policyPath}`)
+    }
 
     const policySpec = YamlReader.load(policyPath + path.sep + DEFAULT_POLICY_SPEC_FILE_NAME)
     if (!validate('PolicySpec', policySpec)) {

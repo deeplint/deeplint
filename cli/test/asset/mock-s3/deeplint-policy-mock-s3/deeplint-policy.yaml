@@ -2,7 +2,7 @@ meta:
   name: deeplint-policy-cfn-s3
   author: deeplint dev
   description: Workflow to check s3 buckets in cloudformation templates
-  policyFormatVersion: 1.0.0
+  policyFormatVersion: v1.0.0
 
 inputs:
   dir:

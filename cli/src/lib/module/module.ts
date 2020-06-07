@@ -1,14 +1,19 @@
 import * as path from 'path'
 import {Policy} from '../policy/policy'
-import {DEFAULT_DEEPLINT_CONFIG_FILE_NAME, DEFAULT_MODULE_SPEC_FILE_NAME, ROOT_MODULE_NAME} from '../constant'
+import {
+  DEFAULT_DEEPLINT_CONFIG_FILE_NAME,
+  DEFAULT_MODULE_SPEC_FILE_NAME,
+  DEFAULT_POLICY_SPEC_FILE_NAME,
+  ROOT_MODULE_NAME,
+} from '../constant'
 import YamlReader from '../shared/yaml-reader'
 import {ModuleSpec} from './spec'
 import {applyInputs, processInputs} from '../shared/input-processing'
 import {ModuleConfig} from '../config'
 import {resolveModulePath} from '../shared/path'
 import {CheckingResults, FixingResults, Meta, Snapshot} from '../policy/model'
-import {DEFAULT_CONFIG} from 'ts-json-schema-generator';
-import {validate} from '../policy/validate';
+import {validate} from '../policy/validate'
+import * as fs from 'fs'
 
 export class Module {
   readonly meta: {
@@ -33,6 +38,13 @@ export class Module {
   static async build(moduleConfig: ModuleConfig, moduleName: string): Promise<Module> {
     // 1. Get and validate the module path
     const modulePath: string = resolveModulePath(moduleName, moduleConfig.uses)
+    if (moduleName !== ROOT_MODULE_NAME && !fs.existsSync(modulePath + path.sep + DEFAULT_POLICY_SPEC_FILE_NAME)) {
+      throw new Error(`Can not find the module: ${moduleName} with path: ${modulePath}`)
+    }
+
+    if (moduleName === ROOT_MODULE_NAME && !fs.existsSync(modulePath + path.sep + DEFAULT_DEEPLINT_CONFIG_FILE_NAME)) {
+      throw new Error(`Can not find the config: ${DEFAULT_DEEPLINT_CONFIG_FILE_NAME}`)
+    }
 
     // 2. Load and validate module spec
     const moduleSpec = moduleName === ROOT_MODULE_NAME ?

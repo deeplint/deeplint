@@ -2,7 +2,7 @@ import {PolicyConfig} from './module/spec'
 
 export interface ModuleConfig {
   uses: string;
-  version?: string;
+  version: string;
   with?: {
     [key: string]: any;
   };

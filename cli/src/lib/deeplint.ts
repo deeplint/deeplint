@@ -5,7 +5,7 @@ import * as fs from 'fs'
 import {DEFAULT_DEEPLINT_CONFIG_FILE_NAME, ROOT_MODULE_NAME} from './constant'
 import {CheckingResults, FixingResults, Meta, Snapshot} from './policy/model'
 import {Module} from './module/module'
-import {validate} from './policy/validate';
+import {validate} from './policy/validate'
 
 export class Deeplint {
   private readonly deepLintConfig: DeepLintConfig
@@ -27,6 +27,7 @@ export class Deeplint {
       const modules: { [key: string]: Module } = {}
       modules[ROOT_MODULE_NAME] = await Module.build({
         uses: ROOT_MODULE_NAME,
+        version: '0.0.1',
       }, ROOT_MODULE_NAME)
 
       if (deepLintConfig.modules) {

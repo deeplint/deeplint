@@ -4,3 +4,8 @@ policies:
     version: v0.0.1
     with:
       dir: "./"
+  s3-versioning-check-test2:
+    uses: 'https://github.com/deeplint/deeplint-policy-cloudformation-s3.git'
+    version: v0.0.2
+    with:
+      dir: "./"
