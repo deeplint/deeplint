@@ -5,6 +5,7 @@ import * as fs from 'fs'
 import {DEFAULT_DEEPLINT_CONFIG_FILE_NAME, ROOT_MODULE_NAME} from './constant'
 import {CheckingResults, FixingResults, Meta, Snapshot} from './policy/model'
 import {Module} from './module/module'
+import {validate} from './policy/validate';
 
 export class Deeplint {
   private readonly deepLintConfig: DeepLintConfig
@@ -20,6 +21,9 @@ export class Deeplint {
     const configPath = path.resolve(configFile || DEFAULT_DEEPLINT_CONFIG_FILE_NAME)
     if (fs.existsSync(configPath)) {
       const deepLintConfig: DeepLintConfig = YamlReader.load(configPath)
+      if (!validate('DeepLintConfig', deepLintConfig)) {
+        throw new Error(`DeepLint config ${JSON.stringify(deepLintConfig)} does not follow the required format`)
+      }
       const modules: { [key: string]: Module } = {}
       modules[ROOT_MODULE_NAME] = await Module.build({
         uses: ROOT_MODULE_NAME,

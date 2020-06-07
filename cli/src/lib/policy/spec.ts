@@ -32,6 +32,7 @@ export interface MetaSpec {
   name: string;
   author: string;
   description?: string;
+  policyFormatVersion: '1.0.0';
 }
 
 export interface PolicySpec {

@@ -48,6 +48,9 @@ export class Policy {
     const policyPath: string = resolvePolicyPath(moduleName, policyName, policyConfig.uses)
 
     const policySpec = YamlReader.load(policyPath + path.sep + DEFAULT_POLICY_SPEC_FILE_NAME)
+    if (!validate('PolicySpec', policySpec)) {
+      throw new Error(`Policy spec ${JSON.stringify(policySpec)} does not follow the required format`)
+    }
 
     const inputs = processInputs(policyName, policyConfig.with, policySpec.inputs)
 

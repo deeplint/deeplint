@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/DeepLintConfig",
+  "definitions": {
+    "DeepLintConfig": {
+      "type": "object",
+      "properties": {
+        "modules": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ModuleConfig"
+          }
+        },
+        "policies": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/PolicyConfig"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "ModuleConfig": {
+      "type": "object",
+      "properties": {
+        "uses": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "with": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "uses"
+      ],
+      "additionalProperties": false
+    },
+    "PolicyConfig": {
+      "type": "object",
+      "properties": {
+        "uses": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "with": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "uses",
+        "version"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

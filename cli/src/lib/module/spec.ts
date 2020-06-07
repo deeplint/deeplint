@@ -3,7 +3,7 @@ import {InputSpec, MetaSpec} from '../policy/spec'
 export interface PolicyConfig {
   uses: string;
   version: string;
-  with: {
+  with?: {
     [key: string]: any;
   };
 }

@@ -1,5 +1,6 @@
 policies:
   s3-versioning-check:
     uses: ./deeplint-policy-mock-s3
+    version: v0.0.1
     with:
       dir: "./"

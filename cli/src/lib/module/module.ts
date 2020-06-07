@@ -8,6 +8,7 @@ import {ModuleConfig} from '../config'
 import {resolveModulePath} from '../shared/path'
 import {CheckingResults, FixingResults, Meta, Snapshot} from '../policy/model'
 import {DEFAULT_CONFIG} from 'ts-json-schema-generator';
+import {validate} from '../policy/validate';
 
 export class Module {
   readonly meta: {
@@ -37,6 +38,9 @@ export class Module {
     const moduleSpec = moduleName === ROOT_MODULE_NAME ?
       YamlReader.load(modulePath + path.sep + DEFAULT_DEEPLINT_CONFIG_FILE_NAME) : YamlReader.load(modulePath + path.sep + DEFAULT_MODULE_SPEC_FILE_NAME)
 
+    if (!validate('ModuleSpec', moduleSpec)) {
+      throw new Error(`Module spec ${JSON.stringify(moduleSpec)} does not follow the required format`)
+    }
     // 3. Process and apply inputs
     const inputs = processInputs(moduleName, moduleConfig.with, moduleSpec.inputs)
     const processedModuleSpec = applyInputs(moduleSpec, inputs)
