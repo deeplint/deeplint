@@ -13,13 +13,13 @@ inputs:
 scanners:
   aws-s3:
     type: nodejs
-    main: src/resource-mock-s3.js
+    uses: src/resource-mock-s3.js
     handler: list
 
 rules:
   s3-versioning-enabled:
     type: nodejs
-    main: src/rule-s3-versioning.js
+    uses: src/rule-s3-versioning.js
     handler: check
     meta:
       type: "error"
@@ -30,7 +30,7 @@ rules:
 actions:
   enable-s3-versioning:
     type: nodejs
-    main: src/resource-mock-s3.js
+    uses: src/resource-mock-s3.js
     handler: update
 
 

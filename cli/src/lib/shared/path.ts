@@ -4,17 +4,17 @@ import {
   DEFAULT_DEEPLINT_FOLDER,
   DEFAULT_DEEPLINT_MODULE_FOLDER,
   DEFAULT_DEEPLINT_POLICY_FOLDER,
-  DEFAULT_POLICY_SPEC_FILE_NAME,
+  DEFAULT_POLICY_SPEC_FILE_NAME, ROOT_MODULE_NAME,
 } from '../constant'
 
 const PWD_PATH = process.cwd()
 
 export function resolveModulePath(moduleName: string, moduleUses: string): string {
-  console.log(path.resolve())
+  if (moduleName === ROOT_MODULE_NAME) {
+    return PWD_PATH
+  }
   const modulePath = moduleUses.startsWith('./') ? path.resolve(moduleUses) :
     path.join(PWD_PATH, DEFAULT_DEEPLINT_FOLDER, DEFAULT_DEEPLINT_MODULE_FOLDER, moduleName)
-
-  console.log(modulePath)
 
   if (!fs.existsSync(modulePath + path.sep + DEFAULT_POLICY_SPEC_FILE_NAME)) {
     throw new Error(`Can not find the module: ${moduleName} with path: ${moduleUses}`)

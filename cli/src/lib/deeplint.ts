@@ -9,9 +9,9 @@ import {Module} from './module/module'
 export class Deeplint {
   private readonly deepLintConfig: DeepLintConfig
 
-  private readonly modules: Map<string, Module>
+  private readonly modules: { [key: string]: Module }
 
-  private constructor(deepLintConfig: DeepLintConfig, modules: Map<string, Module>) {
+  private constructor(deepLintConfig: DeepLintConfig, modules: { [key: string]: Module }) {
     this.deepLintConfig = deepLintConfig
     this.modules = modules
   }
@@ -20,17 +20,15 @@ export class Deeplint {
     const configPath = path.resolve(configFile || DEFAULT_DEEPLINT_CONFIG_FILE_NAME)
     if (fs.existsSync(configPath)) {
       const deepLintConfig: DeepLintConfig = YamlReader.load(configPath)
-      const modules = new Map<string, Module>()
-      const rootModule = await Module.build({
+      const modules: { [key: string]: Module } = {}
+      modules[ROOT_MODULE_NAME] = await Module.build({
         uses: ROOT_MODULE_NAME,
       }, ROOT_MODULE_NAME)
-      modules.set(ROOT_MODULE_NAME, rootModule)
 
       if (deepLintConfig.modules) {
         await Promise.all(Object.keys(deepLintConfig.modules).map(async moduleKey => {
           if (deepLintConfig.modules && deepLintConfig.modules[moduleKey]) {
-            const module = await Module.build(deepLintConfig.modules[moduleKey], moduleKey)
-            modules.set(moduleKey, module)
+            modules[moduleKey] = await Module.build(deepLintConfig.modules[moduleKey], moduleKey)
           }
         }))
       }
@@ -41,9 +39,8 @@ export class Deeplint {
 
   getPoliciesMeta(): { [key: string]: { [key: string]: Meta } } {
     const res: { [key: string]: { [key: string]: Meta } } = {}
-
     Object.keys(this.modules).map(async moduleKey => {
-      const module = this.modules.get(moduleKey)
+      const module = this.modules[moduleKey]
       if (module === undefined) {
         throw (new Error(`Can not locate module: ${moduleKey}`))
       }
@@ -56,7 +53,7 @@ export class Deeplint {
     const res: { [key: string]: { [key: string]: Snapshot } } = {}
 
     await Promise.all(Object.keys(this.modules).map(async moduleKey => {
-      const module = this.modules.get(moduleKey)
+      const module = this.modules[moduleKey]
       if (module === undefined) {
         throw (new Error(`Can not locate module: ${moduleKey}`))
       }
@@ -69,7 +66,7 @@ export class Deeplint {
   async check(snapshots: { [key: string]: { [key: string]: Snapshot } }): Promise<{ [key: string]: { [key: string]: CheckingResults } }> {
     const res: { [key: string]: { [key: string]: CheckingResults } } = {}
     await Promise.all(Object.keys(snapshots).map(async moduleKey => {
-      const module = this.modules.get(moduleKey)
+      const module = this.modules[moduleKey]
       if (module === undefined) {
         throw (new Error(`Can not locate module: ${module}`))
       }
@@ -81,7 +78,7 @@ export class Deeplint {
   async fix(checkingResults: { [key: string]: { [key: string]: CheckingResults } }): Promise<{ [key: string]: { [key: string]: FixingResults } }> {
     const res: { [key: string]: { [key: string]: FixingResults } } = {}
     await Promise.all(Object.keys(checkingResults).map(async moduleKey => {
-      const module = this.modules.get(moduleKey)
+      const module = this.modules[moduleKey]
       if (module === undefined) {
         throw (new Error(`Can not locate module: ${moduleKey}`))
       }
