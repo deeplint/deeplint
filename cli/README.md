@@ -84,7 +84,7 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3
 
 ## `deeplint show`
 
-Display the policies, snapshots and checking results in the human-readable format
+Display the modules, policies, snapshots and checking results in the human-readable format
 
 ```
 USAGE
@@ -94,6 +94,7 @@ OPTIONS
   -c, --check=check
   -f, --force
   -h, --help               show CLI help
+  -m, --module=module
   -p, --policy=policy
   -s, --snapshot=snapshot
 ```

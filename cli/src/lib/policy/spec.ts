@@ -1,13 +1,13 @@
-export interface ProviderSpec {
+export interface ScannerSpec {
   type: string;
+  uses: string;
   main: string;
-  handler: string;
 }
 
 export interface RuleSpec {
   type: string;
+  uses: string;
   main: string;
-  handler: string;
   meta: {
     type: string;
     description: string;
@@ -18,8 +18,8 @@ export interface RuleSpec {
 
 export interface ActionSpec {
   type: string;
+  uses: string;
   main: string;
-  handler: string;
 }
 
 export interface InputSpec {
@@ -28,17 +28,24 @@ export interface InputSpec {
   default: string;
 }
 
+export interface MetaSpec {
+  name: string;
+  author: string;
+  description?: string;
+}
+
 export interface PolicySpec {
-  inputs: {
+  meta: MetaSpec;
+  inputs?: {
     [key: string]: InputSpec;
   };
-  providers: {
-    [key: string]: ProviderSpec;
+  scanners: {
+    [key: string]: ScannerSpec;
   };
   rules: {
     [key: string]: RuleSpec;
   };
-  actions: {
+  actions?: {
     [key: string]: ActionSpec;
   };
 }

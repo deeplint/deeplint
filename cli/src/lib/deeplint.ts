@@ -1,94 +1,91 @@
 import {DeepLintConfig} from './config'
-import {Policy} from './policy/policy'
 import YamlReader from './shared/yaml-reader'
 import * as path from 'path'
 import * as fs from 'fs'
-import {DEFAULT_DEEPLINT_CONFIG_FILE_NAME} from './constant'
+import {DEFAULT_DEEPLINT_CONFIG_FILE_NAME, ROOT_MODULE_NAME} from './constant'
 import {CheckingResults, FixingResults, Meta, Snapshot} from './policy/model'
+import {Module} from './module/module'
 
 export class Deeplint {
   private readonly deepLintConfig: DeepLintConfig
 
-  private readonly policies: Map<string, Policy>
+  private readonly modules: Map<string, Module>
 
-  private constructor(deepLintConfig: DeepLintConfig, policies: Map<string, Policy>) {
+  private constructor(deepLintConfig: DeepLintConfig, modules: Map<string, Module>) {
     this.deepLintConfig = deepLintConfig
-    this.policies = policies
+    this.modules = modules
   }
 
   static async build(configFile?: string): Promise<Deeplint> {
     const configPath = path.resolve(configFile || DEFAULT_DEEPLINT_CONFIG_FILE_NAME)
     if (fs.existsSync(configPath)) {
       const deepLintConfig: DeepLintConfig = YamlReader.load(configPath)
-      const policies: Map<string, Policy> = new Map<string, Policy>()
-      await Object.keys(deepLintConfig.policies).map(async key => {
-        const policy = await Policy.build(deepLintConfig.policies[key], key)
-        policies.set(key, policy)
-      })
-      return new Deeplint(deepLintConfig, policies)
+      const modules = new Map<string, Module>()
+      const rootModule = await Module.build({
+        uses: ROOT_MODULE_NAME,
+      }, ROOT_MODULE_NAME)
+      modules.set(ROOT_MODULE_NAME, rootModule)
+
+      if (deepLintConfig.modules) {
+        await Promise.all(Object.keys(deepLintConfig.modules).map(async moduleKey => {
+          if (deepLintConfig.modules && deepLintConfig.modules[moduleKey]) {
+            const module = await Module.build(deepLintConfig.modules[moduleKey], moduleKey)
+            modules.set(moduleKey, module)
+          }
+        }))
+      }
+      return new Deeplint(deepLintConfig, modules)
     }
     throw new Error('Can not find DeepLint config file')
   }
 
-  getPoliciesMeta(): {
-    [key: string]: Meta;
-    } {
-    const res: {
-      [key: string]: Meta;
-    } = {}
+  getPoliciesMeta(): { [key: string]: { [key: string]: Meta } } {
+    const res: { [key: string]: { [key: string]: Meta } } = {}
 
-    Object.keys(this.deepLintConfig.policies).map(async policyKey => {
-      const policy = this.policies.get(policyKey)
-      if (policy === undefined) {
-        throw (new Error(`Can not locate policy: ${policyKey}`))
+    Object.keys(this.modules).map(async moduleKey => {
+      const module = this.modules.get(moduleKey)
+      if (module === undefined) {
+        throw (new Error(`Can not locate module: ${moduleKey}`))
       }
-      res[policyKey] = policy.meta
+      res[moduleKey] = module.getPoliciesMeta()
     })
     return res
   }
 
-  async snap(): Promise<{
-    [key: string]: Snapshot;
-  }> {
-    const res: {
-      [key: string]: Snapshot;
-    } = {}
+  async snap(): Promise<{ [key: string]: { [key: string]: Snapshot } }> {
+    const res: { [key: string]: { [key: string]: Snapshot } } = {}
 
-    await Promise.all(Object.keys(this.deepLintConfig.policies).map(async policyKey => {
-      const policy = this.policies.get(policyKey)
-      if (policy === undefined) {
-        throw (new Error(`Can not locate policy: ${policyKey}`))
+    await Promise.all(Object.keys(this.modules).map(async moduleKey => {
+      const module = this.modules.get(moduleKey)
+      if (module === undefined) {
+        throw (new Error(`Can not locate module: ${moduleKey}`))
       }
-      res[policyKey] = await policy.snap()
+      res[moduleKey] = await module.snap()
     }))
 
     return res
   }
 
-  async check(snapshots: {
-    [key: string]: Snapshot;
-  }): Promise<{ [key: string]: CheckingResults }> {
-    const res: { [key: string]: CheckingResults } = {}
-
-    await Promise.all(Object.keys(snapshots).map(async policyKey => {
-      const policy = this.policies.get(policyKey)
-      if (policy === undefined) {
-        throw (new Error(`Can not locate policy: ${policyKey}`))
+  async check(snapshots: { [key: string]: { [key: string]: Snapshot } }): Promise<{ [key: string]: { [key: string]: CheckingResults } }> {
+    const res: { [key: string]: { [key: string]: CheckingResults } } = {}
+    await Promise.all(Object.keys(snapshots).map(async moduleKey => {
+      const module = this.modules.get(moduleKey)
+      if (module === undefined) {
+        throw (new Error(`Can not locate module: ${module}`))
       }
-      res[policyKey] = await policy.check(snapshots[policyKey])
+      res[moduleKey] = await module.check(snapshots[moduleKey])
     }))
-
     return res
   }
 
-  async fix(checkingResults: { [key: string]: CheckingResults }): Promise<{ [key: string]: FixingResults }> {
-    const res: { [key: string]: FixingResults } = {}
-    await Promise.all(Object.keys(checkingResults).map(async policyKey => {
-      const policy = this.policies.get(policyKey)
-      if (policy === undefined) {
-        throw (new Error(`Can not locate policy: ${policyKey}`))
+  async fix(checkingResults: { [key: string]: { [key: string]: CheckingResults } }): Promise<{ [key: string]: { [key: string]: FixingResults } }> {
+    const res: { [key: string]: { [key: string]: FixingResults } } = {}
+    await Promise.all(Object.keys(checkingResults).map(async moduleKey => {
+      const module = this.modules.get(moduleKey)
+      if (module === undefined) {
+        throw (new Error(`Can not locate module: ${moduleKey}`))
       }
-      res[policyKey] = await policy.fix(checkingResults[policyKey])
+      res[moduleKey] = await module.fix(checkingResults[moduleKey])
     }))
     return res
   }

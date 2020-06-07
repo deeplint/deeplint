@@ -1,5 +1,5 @@
 import {PolicySpec} from './spec'
-import {PolicyConfig} from '../config'
+import {PolicyConfig} from '../module/spec'
 
 export interface Meta {
   readonly policyName: string;

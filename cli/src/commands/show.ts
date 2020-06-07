@@ -2,11 +2,13 @@ import {Command, flags} from '@oclif/command'
 import {Deeplint} from '../lib/deeplint'
 import * as chalk from 'chalk'
 import * as figures from 'figures'
+import * as _ from 'lodash'
 import {Meta} from '../lib/policy/model'
 import YamlReader from '../lib/shared/yaml-reader'
+import {ROOT_MODULE_NAME} from '../lib/constant'
 
 export default class Show extends Command {
-  static description = 'Display the policies, snapshots and checking results in the human-readable format'
+  static description = 'Display the modules, policies, snapshots and checking results in the human-readable format'
 
   static flags = {
     help: flags.help({char: 'h'}),
@@ -14,6 +16,8 @@ export default class Show extends Command {
     force: flags.boolean({char: 'f'}),
 
     policy: flags.string({char: 'p'}),
+
+    module: flags.string({char: 'm'}),
 
     snapshot: flags.string({char: 's'}),
 
@@ -26,13 +30,13 @@ export default class Show extends Command {
     try {
       this.log(` ${figures.tick} ${chalk.green.bold('Initializing DeepLint')} \n`)
       const deeplint = await Deeplint.build()
-      this.log(` ${figures.tick} ${chalk.green.bold('Retrieving policies')} \n`)
+      this.log(` ${figures.tick} ${chalk.green.bold('Retrieving modules and policies')} \n`)
       const policies = deeplint.getPoliciesMeta()
       this.log(` ${figures.tick} ${chalk.green.bold('Showing...')} \n`)
       if (flags.policy) {
         const policy = policies[flags.policy]
         if (policy) {
-          this.showPolicy(policies[flags.policy])
+          this.showPolicy(policies[ROOT_MODULE_NAME][flags.policy])
         } else {
           this.error(`Can not find policy: ${chalk.red(flags.policy)}`)
         }
@@ -45,25 +49,26 @@ export default class Show extends Command {
       } else {
         this.showSummary(policies)
       }
-      // this.showRaw(result)
     } catch (error) {
       this.error(error)
     }
   }
 
-  showSummary(result: {
-    [key: string]: Meta;
-  }): void {
+  showSummary(result: { [key: string]: { [key: string]: Meta } }): void {
     const Table = require('cli-table')
     const table = new Table({
-      head: ['Policy', 'Providers', 'Rules', 'Actions'],
+      head: ['Module', 'Policy', 'Providers', 'Rules', 'Actions'],
     })
-
-    for (const policyKey of Object.keys(result)) {
-      table.push([chalk.blue(policyKey),
-        Object.keys(result[policyKey].policySpec.providers).length,
-        Object.keys(result[policyKey].policySpec.rules).length,
-        Object.keys(result[policyKey].policySpec.actions).length])
+    for (const moduleKey of Object.keys(result)) {
+      for (const policyKey of Object.keys(result[moduleKey])) {
+        table.push([
+          chalk.blue(moduleKey),
+          chalk.blue(policyKey),
+          _.size(result[moduleKey][policyKey].policySpec.scanners),
+          _.size(result[moduleKey][policyKey].policySpec.rules),
+          _.size(result[moduleKey][policyKey].policySpec.actions),
+        ])
+      }
     }
     this.log(table.toString())
   }
@@ -75,7 +80,7 @@ export default class Show extends Command {
       {Name: policyMeta.policyName},
       {Path: policyMeta.policyPath},
       {Rules: JSON.stringify(policyMeta.policySpec.rules, null, 4)},
-      {Providers: JSON.stringify(policyMeta.policySpec.providers, null, 4)},
+      {Providers: JSON.stringify(policyMeta.policySpec.scanners, null, 4)},
       {Actions: JSON.stringify(policyMeta.policySpec.actions, null, 4)},
       {Inputs: JSON.stringify(policyMeta.policySpec.inputs, null, 4)},
       {Configs: JSON.stringify(policyMeta.policyConfig, null, 4)},

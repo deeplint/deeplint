@@ -3,7 +3,6 @@ meta:
   author: deeplint dev
   description: Workflow to check s3 buckets in cloudformation templates
   policyFormatVersion: 1.0.0
-  version: 0.1.0
 
 inputs:
   dir:
@@ -11,7 +10,7 @@ inputs:
     type: String
     default: "./"
 
-providers:
+scanners:
   aws-s3:
     type: nodejs
     main: src/resource-mock-s3.js
