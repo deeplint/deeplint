@@ -23,7 +23,7 @@ export async function checkoutFromGit(gitURL: string, version: string, dir: stri
   })
 }
 
-export async function init(configFile?: string): Promise<void> {
+export async function install(configFile?: string): Promise<void> {
   const configPath = path.resolve(configFile || DEFAULT_DEEPLINT_CONFIG_FILE_NAME)
   if (fs.existsSync(configPath)) {
     const deepLintConfig: DeepLintConfig = YamlReader.load(configPath)

@@ -5,8 +5,8 @@ import * as figures from 'figures'
 import * as chalk from 'chalk'
 import {DEFAULT_SNAPSHOT_OUTPUT} from '../lib/constant'
 
-export default class Snap extends Command {
-  static description = 'Take a snapshot of resources covered in existing workspace'
+export default class Scan extends Command {
+  static description = 'Scan resources in the cloud environments and generate snapshot'
 
   static flags = {
     help: flags.help({char: 'h'}),
@@ -17,7 +17,7 @@ export default class Snap extends Command {
   static args = []
 
   async run() {
-    const {flags} = this.parse(Snap)
+    const {flags} = this.parse(Scan)
 
     try {
       this.log(` ${figures.tick} ${chalk.green.bold('Initializing DeepLint')} \n`)

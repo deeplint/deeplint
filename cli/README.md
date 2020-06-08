@@ -1,10 +1,10 @@
-@deeplint/cli
+DeepLint CLI
 ==============
 
-DeepLint
+DeepLint is an open-source cloud security and excellence tool that helps you check cloud environments and infrastructure-as-code templates
+to find and fix misconfigurations. 
 
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/@deeplint/cli.svg)](https://npmjs.org/package/@deeplint/cli)
+[![Version](https://img.shields.io/npm/v/deeplint.svg)](https://npmjs.org/package/deeplint)
 [![Downloads/week](https://img.shields.io/npm/dw/@deeplint/cli.svg)](https://npmjs.org/package/@deeplint/cli)
 [![License](https://img.shields.io/npm/l/@deeplint/cli.svg)](https://github.com/deeplint/deeplint/blob/master/LICENSE)
 
@@ -15,11 +15,11 @@ DeepLint
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g @deeplint/cli
+$ npm install -g deeplint
 $ deeplint COMMAND
 running command...
 $ deeplint (-v|--version|version)
-@deeplint/cli/0.2.0 darwin-x64 node-v12.13.1
+deeplint/0.4.0 darwin-x64 node-v12.13.1
 $ deeplint --help [COMMAND]
 USAGE
   $ deeplint COMMAND
@@ -31,9 +31,9 @@ USAGE
 * [`deeplint check`](#deeplint-check)
 * [`deeplint fix`](#deeplint-fix)
 * [`deeplint help [COMMAND]`](#deeplint-help-command)
-* [`deeplint init`](#deeplint-init)
+* [`deeplint install`](#deeplint-install)
+* [`deeplint scan`](#deeplint-scan)
 * [`deeplint show`](#deeplint-show)
-* [`deeplint snap`](#deeplint-snap)
 
 ## `deeplint check`
 
@@ -49,7 +49,7 @@ OPTIONS
   -s, --snapshot=snapshot  Snapshot file
 ```
 
-_See code: [src/commands/check.ts](https://github.com/deeplint/deeplint/blob/v0.2.0/src/commands/check.ts)_
+_See code: [src/commands/check.ts](https://github.com/deeplint/deeplint/blob/v0.4.0/src/commands/check.ts)_
 
 ## `deeplint fix`
 
@@ -64,7 +64,7 @@ OPTIONS
   -h, --help   show CLI help
 ```
 
-_See code: [src/commands/fix.ts](https://github.com/deeplint/deeplint/blob/v0.2.0/src/commands/fix.ts)_
+_See code: [src/commands/fix.ts](https://github.com/deeplint/deeplint/blob/v0.4.0/src/commands/fix.ts)_
 
 ## `deeplint help [COMMAND]`
 
@@ -83,20 +83,35 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
-## `deeplint init`
+## `deeplint install`
 
 Initialize the workspace, download required modules and policies
 
 ```
 USAGE
-  $ deeplint init
+  $ deeplint install
 
 OPTIONS
   -f, --force
   -h, --help   show CLI help
 ```
 
-_See code: [src/commands/init.ts](https://github.com/deeplint/deeplint/blob/v0.2.0/src/commands/init.ts)_
+_See code: [src/commands/install.ts](https://github.com/deeplint/deeplint/blob/v0.4.0/src/commands/install.ts)_
+
+## `deeplint scan`
+
+Scan resources in the cloud environments and generate snapshot
+
+```
+USAGE
+  $ deeplint scan
+
+OPTIONS
+  -h, --help     show CLI help
+  -o, --out=out  snapshot output file
+```
+
+_See code: [src/commands/scan.ts](https://github.com/deeplint/deeplint/blob/v0.4.0/src/commands/scan.ts)_
 
 ## `deeplint show`
 
@@ -115,20 +130,5 @@ OPTIONS
   -s, --snapshot=snapshot
 ```
 
-_See code: [src/commands/show.ts](https://github.com/deeplint/deeplint/blob/v0.2.0/src/commands/show.ts)_
-
-## `deeplint snap`
-
-Take a snapshot of resources covered in existing workspace
-
-```
-USAGE
-  $ deeplint snap
-
-OPTIONS
-  -h, --help     show CLI help
-  -o, --out=out  snapshot output file
-```
-
-_See code: [src/commands/snap.ts](https://github.com/deeplint/deeplint/blob/v0.2.0/src/commands/snap.ts)_
+_See code: [src/commands/show.ts](https://github.com/deeplint/deeplint/blob/v0.4.0/src/commands/show.ts)_
 <!-- commandsstop -->

@@ -1,7 +1,7 @@
 {
-  "name": "@deeplint/cli",
-  "description": "DeepLint cloud scanner",
-  "version": "0.2.0",
+  "name": "deeplint",
+  "description": "Automated cloud security and excellence scanner",
+  "version": "0.4.0",
   "author": "(Gavin Yue @gavinyue)",
   "bin": {
     "deeplint": "./bin/run"

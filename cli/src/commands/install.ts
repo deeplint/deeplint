@@ -1,7 +1,7 @@
 import {Command, flags} from '@oclif/command'
-import {init} from '../lib/init'
+import {install} from '../lib/install'
 
-export default class Init extends Command {
+export default class Install extends Command {
   static description = 'Initialize the workspace, download required modules and policies'
 
   static flags = {
@@ -11,8 +11,8 @@ export default class Init extends Command {
   }
 
   async run() {
-    const {flags} = this.parse(Init)
+    const {flags} = this.parse(Install)
 
-    await init()
+    await install()
   }
 }
