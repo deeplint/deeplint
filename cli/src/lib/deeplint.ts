@@ -3,7 +3,7 @@ import YamlReader from './shared/yaml-reader'
 import * as path from 'path'
 import * as fs from 'fs'
 import {DEFAULT_DEEPLINT_CONFIG_FILE_NAME, ROOT_MODULE_NAME} from './constant'
-import {CheckingResults, FixingResults, Meta, Snapshot} from './policy/model'
+import {CheckingResult, FixingResult, Meta, Snapshot} from './policy/model'
 import {Module} from './module/module'
 import {validate} from './policy/validate'
 
@@ -68,8 +68,8 @@ export class Deeplint {
     return res
   }
 
-  async check(snapshots: { [key: string]: { [key: string]: Snapshot } }): Promise<{ [key: string]: { [key: string]: CheckingResults } }> {
-    const res: { [key: string]: { [key: string]: CheckingResults } } = {}
+  async check(snapshots: { [key: string]: { [key: string]: Snapshot } }): Promise<{ [key: string]: { [key: string]: CheckingResult } }> {
+    const res: { [key: string]: { [key: string]: CheckingResult } } = {}
     await Promise.all(Object.keys(snapshots).map(async moduleKey => {
       const module = this.modules[moduleKey]
       if (module === undefined) {
@@ -80,8 +80,8 @@ export class Deeplint {
     return res
   }
 
-  async fix(checkingResults: { [key: string]: { [key: string]: CheckingResults } }): Promise<{ [key: string]: { [key: string]: FixingResults } }> {
-    const res: { [key: string]: { [key: string]: FixingResults } } = {}
+  async fix(checkingResults: { [key: string]: { [key: string]: CheckingResult } }): Promise<{ [key: string]: { [key: string]: FixingResult } }> {
+    const res: { [key: string]: { [key: string]: FixingResult } } = {}
     await Promise.all(Object.keys(checkingResults).map(async moduleKey => {
       const module = this.modules[moduleKey]
       if (module === undefined) {

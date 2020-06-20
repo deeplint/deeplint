@@ -11,7 +11,7 @@ import {ModuleSpec} from './spec'
 import {applyInputs, processInputs} from '../shared/input-processing'
 import {ModuleConfig} from '../config'
 import {resolveModulePath} from '../shared/path'
-import {CheckingResults, FixingResults, Meta, Snapshot} from '../policy/model'
+import {CheckingResult, FixingResult, Meta, Snapshot} from '../policy/model'
 import {validate} from '../policy/validate'
 import * as fs from 'fs'
 
@@ -99,8 +99,8 @@ export class Module {
     return res
   }
 
-  async check(snapshots: { [key: string]: Snapshot }): Promise<{ [key: string]: CheckingResults }> {
-    const res: { [key: string]: CheckingResults } = {}
+  async check(snapshots: { [key: string]: Snapshot }): Promise<{ [key: string]: CheckingResult }> {
+    const res: { [key: string]: CheckingResult } = {}
 
     await Promise.all(Object.keys(snapshots).map(async policyKey => {
       const policy = this.policies.get(policyKey)
@@ -113,8 +113,8 @@ export class Module {
     return res
   }
 
-  async fix(checkingResults: { [key: string]: CheckingResults }): Promise<{ [key: string]: FixingResults }> {
-    const res: { [key: string]: FixingResults } = {}
+  async fix(checkingResults: { [key: string]: CheckingResult }): Promise<{ [key: string]: FixingResult }> {
+    const res: { [key: string]: FixingResult } = {}
     await Promise.all(Object.keys(checkingResults).map(async policyKey => {
       const policy = this.policies.get(policyKey)
       if (policy === undefined) {

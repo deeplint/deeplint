@@ -53,8 +53,7 @@
         }
       },
       "required": [
-        "uses",
-        "version"
+        "uses"
       ],
       "additionalProperties": false
     }

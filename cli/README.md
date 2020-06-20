@@ -1,7 +1,7 @@
 DeepLint CLI
 ==============
 
-DeepLint is an open-source cloud security and excellence tool that helps you check cloud environments and infrastructure-as-code templates
+[DeepLint](https://deeplint.com) helps you check cloud environments and infrastructure-as-code templates
 to find and fix misconfigurations. 
 
 [![Version](https://img.shields.io/npm/v/deeplint.svg)](https://npmjs.org/package/deeplint)
@@ -15,11 +15,11 @@ to find and fix misconfigurations.
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g deeplint
+$ npm install -g @deeplint/cli
 $ deeplint COMMAND
 running command...
 $ deeplint (-v|--version|version)
-deeplint/0.4.0 darwin-x64 node-v12.13.1
+@deeplint/cli/0.5.0 darwin-x64 node-v12.13.1
 $ deeplint --help [COMMAND]
 USAGE
   $ deeplint COMMAND
@@ -49,7 +49,7 @@ OPTIONS
   -s, --snapshot=snapshot  Snapshot file
 ```
 
-_See code: [src/commands/check.ts](https://github.com/deeplint/deeplint/blob/v0.4.0/src/commands/check.ts)_
+_See code: [src/commands/check.ts](https://github.com/deeplint/deeplint/blob/v0.5.0/src/commands/check.ts)_
 
 ## `deeplint fix`
 
@@ -64,7 +64,7 @@ OPTIONS
   -h, --help   show CLI help
 ```
 
-_See code: [src/commands/fix.ts](https://github.com/deeplint/deeplint/blob/v0.4.0/src/commands/fix.ts)_
+_See code: [src/commands/fix.ts](https://github.com/deeplint/deeplint/blob/v0.5.0/src/commands/fix.ts)_
 
 ## `deeplint help [COMMAND]`
 
@@ -96,7 +96,7 @@ OPTIONS
   -h, --help   show CLI help
 ```
 
-_See code: [src/commands/install.ts](https://github.com/deeplint/deeplint/blob/v0.4.0/src/commands/install.ts)_
+_See code: [src/commands/install.ts](https://github.com/deeplint/deeplint/blob/v0.5.0/src/commands/install.ts)_
 
 ## `deeplint scan`
 
@@ -111,7 +111,7 @@ OPTIONS
   -o, --out=out  snapshot output file
 ```
 
-_See code: [src/commands/scan.ts](https://github.com/deeplint/deeplint/blob/v0.4.0/src/commands/scan.ts)_
+_See code: [src/commands/scan.ts](https://github.com/deeplint/deeplint/blob/v0.5.0/src/commands/scan.ts)_
 
 ## `deeplint show`
 
@@ -130,5 +130,5 @@ OPTIONS
   -s, --snapshot=snapshot
 ```
 
-_See code: [src/commands/show.ts](https://github.com/deeplint/deeplint/blob/v0.4.0/src/commands/show.ts)_
+_See code: [src/commands/show.ts](https://github.com/deeplint/deeplint/blob/v0.5.0/src/commands/show.ts)_
 <!-- commandsstop -->

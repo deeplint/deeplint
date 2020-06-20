@@ -1,7 +1,7 @@
 {
-  "name": "deeplint",
-  "description": "Automated cloud security and excellence scanner",
-  "version": "0.4.0",
+  "name": "@deeplint/cli",
+  "description": "DeepLint helps to prevent and fix costly cloud misconfigurations",
+  "version": "0.5.0",
   "author": "(Gavin Yue @gavinyue)",
   "bin": {
     "deeplint": "./bin/run"
@@ -54,7 +54,8 @@
     "deeplint",
     "cloud",
     "security",
-    "policy"
+    "policy",
+    "scanner"
   ],
   "license": "MPL-2.0",
   "main": "lib/index.js",

@@ -41,8 +41,11 @@
         "policyFormatVersion": {
           "type": "string",
           "enum": [
-            "v1.0.0"
+            "1.0.0"
           ]
+        },
+        "version": {
+          "type": "string"
         }
       },
       "required": [
@@ -67,7 +70,11 @@
           "type": "string"
         },
         "default": {
-          "type": "string"
+          "type": [
+            "string",
+            "number",
+            "boolean"
+          ]
         }
       },
       "required": [
@@ -90,8 +97,7 @@
         }
       },
       "required": [
-        "uses",
-        "version"
+        "uses"
       ],
       "additionalProperties": false
     }

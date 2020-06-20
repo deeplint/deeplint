@@ -1,6 +1,6 @@
 import * as path from 'path'
 import YamlReader from '../shared/yaml-reader'
-import {CheckingResults, FixingResults, Meta, Resource, Snapshot} from './model'
+import {CheckingResult, FixingResult, Meta, Problem, Resource, Snapshot} from './model'
 import {Invoker} from './invoker'
 import * as _ from 'lodash'
 import {DEFAULT_POLICY_SPEC_FILE_NAME} from '../constant'
@@ -75,7 +75,10 @@ export class Policy {
       [key: string]: Resource[];
     } = {}
     await Promise.all(Object.keys(this.meta.policySpec.scanners).map(async scannerKey => {
-      const functionPath = path.resolve(this.meta.policyPath, this.meta.policySpec.scanners[scannerKey].uses)
+      const functionPath = this.meta.policySpec.scanners[scannerKey].uses.startsWith('@deeplint/deepscanner') ?
+        this.meta.policySpec.scanners[scannerKey].uses :
+        path.resolve(this.meta.policyPath, this.meta.policySpec.scanners[scannerKey].uses)
+
       const resources_temp: Resource[] = await Invoker.run(new Context(this.meta, this.processedInputs), functionPath, this.meta.policySpec.scanners[scannerKey].main)
       resources_temp.forEach(resource => {
         if (!validate('Resource', resource)) {
@@ -90,33 +93,62 @@ export class Policy {
     }
   }
 
-  async check(snapshot: Snapshot): Promise<CheckingResults> {
-    const checkingResults: CheckingResults = {}
+  async check(snapshot: Snapshot): Promise<CheckingResult> {
+    const checkingResult: CheckingResult = {
+      timestamp: new Date(),
+      problems: {},
+    }
     const context = new CheckContext(this.meta, this.processedInputs, snapshot)
     await Promise.all(Object.keys(this.rules).map(async ruleKey => {
       const functionPath = path.resolve(this.path, this.rules[ruleKey].uses)
-      const checkingResult = await Invoker.run(context, functionPath, this.rules[ruleKey].main)
-      if (!validate('CheckingResult', checkingResult)) {
-        throw new Error(`Checking Result ${JSON.stringify(checkingResult)} does not follow the required format`)
-      }
-      checkingResults[ruleKey] = checkingResult
-    }))
-    return checkingResults
-  }
-
-  async fix(checkingResults: CheckingResults): Promise<FixingResults> {
-    const fixingResults: FixingResults = {}
-    await Promise.all(Object.keys(checkingResults).map(async key => {
-      const checkingResult = checkingResults[key]
-      if (!checkingResult.passed && checkingResult.problem && checkingResult.problem.fix !== undefined && this.actions) {
-        if (_.has(this.actions, checkingResult.problem.fix)) {
-          const functionPath = path.resolve(this.path, this.actions[checkingResult.problem.fix].uses)
-          fixingResults[key] = await Invoker.run(new Context(this.meta, this.inputs), functionPath, this.actions[checkingResult.problem.fix].main)
-        } else {
-          throw new Error(`Invalid fix action: ${checkingResult.problem.fix}`)
+      const problems = await Invoker.run(context, functionPath, this.rules[ruleKey].main)
+      for (const problem of problems) {
+        if (!validate('Problem', problem)) {
+          throw new Error(`Checking Result ${JSON.stringify(problem)} does not follow the required format`)
         }
       }
+      checkingResult.problems[ruleKey] = problems
     }))
-    return fixingResults
+    return checkingResult
+  }
+
+  async fix(checkingResult: CheckingResult): Promise<FixingResult> {
+    const fixingResult: FixingResult = {
+      timestamp: new Date(),
+      fixes: [],
+    }
+    await Promise.all(Object.keys(checkingResult.problems).map(async key => {
+      checkingResult.problems[key].map(async problem => {
+        if (problem.fix && problem.fix.action && this.actions) {
+          if (_.has(this.actions, problem.fix.action)) {
+            try {
+              const functionPath = path.resolve(this.path, this.actions[problem.fix.action].uses)
+              const res = await Invoker.run(problem, functionPath, this.actions[problem.fix.action].main)
+              fixingResult.fixes.push({
+                rule: key,
+                problem: problem,
+                isFixed: res.isFixed,
+                error: res.error,
+              })
+            } catch (error) {
+              fixingResult.fixes.push({
+                rule: key,
+                problem: problem,
+                isFixed: false,
+                error: error.toString(),
+              })
+            }
+          } else {
+            fixingResult.fixes.push({
+              rule: key,
+              problem: problem,
+              isFixed: false,
+              error: `Invalid fix action: ${problem.fix.action}`,
+            })
+          }
+        }
+      })
+    }))
+    return fixingResult
   }
 }

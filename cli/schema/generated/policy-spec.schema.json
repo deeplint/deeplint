@@ -55,8 +55,11 @@
         "policyFormatVersion": {
           "type": "string",
           "enum": [
-            "v1.0.0"
+            "1.0.0"
           ]
+        },
+        "version": {
+          "type": "string"
         }
       },
       "required": [
@@ -81,7 +84,11 @@
           "type": "string"
         },
         "default": {
-          "type": "string"
+          "type": [
+            "string",
+            "number",
+            "boolean"
+          ]
         }
       },
       "required": [
@@ -101,6 +108,9 @@
         },
         "main": {
           "type": "string"
+        },
+        "with": {
+          "type": "object"
         }
       },
       "required": [
@@ -122,27 +132,35 @@
         "main": {
           "type": "string"
         },
+        "with": {
+          "type": "object"
+        },
         "meta": {
           "type": "object",
           "properties": {
             "type": {
-              "type": "string"
+              "type": "string",
+              "enum": [
+                "error",
+                "warn",
+                "info"
+              ]
             },
             "description": {
               "type": "string"
             },
-            "category": {
-              "type": "string"
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             },
             "deprecated": {
               "type": "boolean"
             }
           },
           "required": [
-            "type",
-            "description",
-            "category",
-            "deprecated"
+            "type"
           ],
           "additionalProperties": false
         }
@@ -166,6 +184,9 @@
         },
         "main": {
           "type": "string"
+        },
+        "with": {
+          "type": "object"
         }
       },
       "required": [

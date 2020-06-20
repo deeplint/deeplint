@@ -11,8 +11,8 @@ const configs = [
   {
     path: 'src/lib/policy/model.ts',
     tsconfig: 'tsconfig.json',
-    type: 'CheckingResult', // Or <type-name> if you want to generate schema for that one type only
-    output: 'schema/generated/checking-result.schema.json',
+    type: 'Problem', // Or <type-name> if you want to generate schema for that one type only
+    output: 'schema/generated/problem.schema.json',
   },
   {
     path: 'src/lib/config.ts',

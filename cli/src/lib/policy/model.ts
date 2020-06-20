@@ -26,22 +26,32 @@ export interface Snapshot {
   };
 }
 
-export interface CheckingResult {
-  passed: boolean;
-  problem?: {
-    resource?: string;
-    message: string;
-    data?: {
-      [key: string]: any;
-    };
-    fix?: string;
+export interface Problem {
+  message: string;
+  data?: {
+    [key: string]: any;
+  };
+  fix?: {
+    action?: string;
+    advice?: string;
   };
 }
 
-export interface CheckingResults {
-  [key: string]: CheckingResult;
+export interface CheckingResult {
+  timestamp: Date;
+  problems: {
+    [key: string]: Problem[];
+  };
 }
 
-export interface FixingResults {
-  [key: string]: boolean;
+export interface Fix {
+  rule: string;
+  problem: Problem;
+  isFixed?: boolean;
+  error?: string;
+}
+
+export interface FixingResult {
+  timestamp: Date;
+  fixes: Fix[];
 }
