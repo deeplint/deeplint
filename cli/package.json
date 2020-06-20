@@ -1,7 +1,7 @@
 {
   "name": "@deeplint/cli",
   "description": "DeepLint helps to prevent and fix costly cloud misconfigurations",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "author": "(Gavin Yue @gavinyue)",
   "bin": {
     "deeplint": "./bin/run"
