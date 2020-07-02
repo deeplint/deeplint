@@ -1,4 +1,4 @@
-import {PolicyConfig} from './module/spec'
+import {PackageConfig} from './module/spec'
 
 export interface ModuleConfig {
   uses: string;
@@ -12,7 +12,7 @@ export interface DeepLintConfig {
   modules?: {
     [key: string]: ModuleConfig;
   };
-  policies?: {
-    [key: string]: PolicyConfig;
+  packages?: {
+    [key: string]: PackageConfig;
   };
 }

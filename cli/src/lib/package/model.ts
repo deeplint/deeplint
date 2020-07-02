@@ -1,14 +1,14 @@
-import {PolicySpec} from './spec'
-import {PolicyConfig} from '../module/spec'
+import {PackageSpec} from './spec'
+import {PackageConfig} from '../module/spec'
 
 export interface Meta {
-  readonly policyName: string;
+  readonly packageName: string;
 
-  readonly policyPath: string;
+  readonly packagePath: string;
 
-  readonly policySpec: PolicySpec;
+  readonly packageSpec: PackageSpec;
 
-  readonly policyConfig: PolicyConfig;
+  readonly packageConfig: PackageConfig;
 
 }
 

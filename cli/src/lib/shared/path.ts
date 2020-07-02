@@ -2,7 +2,7 @@ import * as path from 'path'
 import {
   DEFAULT_DEEPLINT_FOLDER,
   DEFAULT_DEEPLINT_MODULE_FOLDER,
-  DEFAULT_DEEPLINT_POLICY_FOLDER,
+  DEFAULT_DEEPLINT_PACKAGE_FOLDER,
   ROOT_MODULE_NAME,
 } from '../constant'
 
@@ -17,9 +17,9 @@ export function resolveModulePath(moduleName: string, moduleUses: string): strin
   return modulePath
 }
 
-export function resolvePolicyPath(moduleName: string, policyName: string, policyUses: string): string {
-  const policyPath = policyUses.startsWith('./') ? path.resolve(policyUses) :
-    path.join(PWD_PATH, DEFAULT_DEEPLINT_FOLDER, DEFAULT_DEEPLINT_MODULE_FOLDER, moduleName, DEFAULT_DEEPLINT_POLICY_FOLDER, policyName)
-  return policyPath
+export function resolvePackagePath(moduleName: string, packageName: string, packageUses: string): string {
+  const packagePath = packageUses.startsWith('./') ? path.resolve(packageUses) :
+    path.join(PWD_PATH, DEFAULT_DEEPLINT_FOLDER, DEFAULT_DEEPLINT_MODULE_FOLDER, moduleName,   DEFAULT_DEEPLINT_PACKAGE_FOLDER, packageName)
+  return packagePath
 }
 

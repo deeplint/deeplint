@@ -14,15 +14,15 @@
             "$ref": "#/definitions/InputSpec"
           }
         },
-        "policies": {
+        "packages": {
           "type": "object",
           "additionalProperties": {
-            "$ref": "#/definitions/PolicyConfig"
+            "$ref": "#/definitions/PackageConfig"
           }
         }
       },
       "required": [
-        "policies"
+        "packages"
       ],
       "additionalProperties": false
     },
@@ -38,7 +38,7 @@
         "description": {
           "type": "string"
         },
-        "policyFormatVersion": {
+        "packageFormatVersion": {
           "type": "string",
           "enum": [
             "1.0.0"
@@ -51,7 +51,7 @@
       "required": [
         "name",
         "author",
-        "policyFormatVersion"
+        "packageFormatVersion"
       ],
       "additionalProperties": false
     },
@@ -83,7 +83,7 @@
       ],
       "additionalProperties": false
     },
-    "PolicyConfig": {
+    "PackageConfig": {
       "type": "object",
       "properties": {
         "uses": {

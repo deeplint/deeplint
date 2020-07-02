@@ -3,15 +3,15 @@ import YamlReader from '../shared/yaml-reader'
 import {CheckingResult, FixingResult, Meta, Problem, Resource, Snapshot} from './model'
 import {Invoker} from './invoker'
 import * as _ from 'lodash'
-import {DEFAULT_POLICY_SPEC_FILE_NAME} from '../constant'
+import {DEFAULT_PACKAGE_SPEC_FILE_NAME} from '../constant'
 import {CheckContext, Context} from './context'
 import {validate} from './validate'
-import {PolicyConfig} from '../module/spec'
+import {PackageConfig} from '../module/spec'
 import {processInputs} from '../shared/input-processing'
-import {resolvePolicyPath} from '../shared/path'
+import {resolvePackagePath} from '../shared/path'
 import * as fs from 'fs'
 
-export class Policy {
+export class Package {
   readonly meta: Meta
 
   private readonly processedInputs: { [key: string]: any }
@@ -22,50 +22,50 @@ export class Policy {
   }
 
   get rules() {
-    return this.meta.policySpec.rules
+    return this.meta.packageSpec.rules
   }
 
   get name() {
-    return this.meta.policyName
+    return this.meta.packageName
   }
 
   get path() {
-    return this.meta.policyPath
+    return this.meta.packagePath
   }
 
   get actions() {
-    return this.meta.policySpec.actions
+    return this.meta.packageSpec.actions
   }
 
   get scanners() {
-    return this.meta.policySpec.scanners
+    return this.meta.packageSpec.scanners
   }
 
   get inputs() {
     return this.processedInputs
   }
 
-  static async build(policyConfig: PolicyConfig, policyName: string, moduleName: string): Promise<Policy> {
-    const policyPath: string = resolvePolicyPath(moduleName, policyName, policyConfig.uses)
-    if (!fs.existsSync(policyPath + path.sep + DEFAULT_POLICY_SPEC_FILE_NAME)) {
-      throw new Error(`Can not find the policy: ${policyName} in module: ${moduleName} with path: ${policyPath}`)
+  static async build(packageConfig: PackageConfig, packageName: string, moduleName: string): Promise<Package> {
+    const packagePath: string = resolvePackagePath(moduleName, packageName, packageConfig.uses)
+    if (!fs.existsSync(packagePath + path.sep + DEFAULT_PACKAGE_SPEC_FILE_NAME)) {
+      throw new Error(`Can not find the package: ${packageName} in module: ${moduleName} with path: ${packagePath}`)
     }
 
-    const policySpec = YamlReader.load(policyPath + path.sep + DEFAULT_POLICY_SPEC_FILE_NAME)
-    if (!validate('PolicySpec', policySpec)) {
-      throw new Error(`Policy spec ${JSON.stringify(policySpec)} does not follow the required format`)
+    const packageSpec = YamlReader.load(packagePath + path.sep + DEFAULT_PACKAGE_SPEC_FILE_NAME)
+    if (!validate('PackageSpec', packageSpec)) {
+      throw new Error(`Package spec ${JSON.stringify(packageSpec)} does not follow the required format`)
     }
 
-    const inputs = processInputs(policyName, policyConfig.with, policySpec.inputs)
+    const inputs = processInputs(packageName, packageConfig.with, packageSpec.inputs)
 
-    return new Policy({
-      policyName: policyName,
+    return new Package({
+      packageName: packageName,
 
-      policyPath: policyPath,
+      packagePath: packagePath,
 
-      policySpec: policySpec,
+      packageSpec: packageSpec,
 
-      policyConfig: policyConfig,
+      packageConfig: packageConfig,
 
     }, inputs)
   }
@@ -74,12 +74,12 @@ export class Policy {
     const resources: {
       [key: string]: Resource[];
     } = {}
-    await Promise.all(Object.keys(this.meta.policySpec.scanners).map(async scannerKey => {
-      const functionPath = this.meta.policySpec.scanners[scannerKey].uses.startsWith('@deeplint/deepscanner') ?
-        this.meta.policySpec.scanners[scannerKey].uses :
-        path.resolve(this.meta.policyPath, this.meta.policySpec.scanners[scannerKey].uses)
+    await Promise.all(Object.keys(this.meta.packageSpec.scanners).map(async scannerKey => {
+      const functionPath = this.meta.packageSpec.scanners[scannerKey].uses.startsWith('@deeplint/deepscanner') ?
+        this.meta.packageSpec.scanners[scannerKey].uses :
+        path.resolve(this.meta.packageName, this.meta.packageSpec.scanners[scannerKey].uses)
 
-      const resources_temp: Resource[] = await Invoker.run(new Context(this.meta, this.processedInputs), functionPath, this.meta.policySpec.scanners[scannerKey].main)
+      const resources_temp: Resource[] = await Invoker.run(new Context(this.meta, this.processedInputs), functionPath, this.meta.packageSpec.scanners[scannerKey].main)
       resources_temp.forEach(resource => {
         if (!validate('Resource', resource)) {
           throw new Error(`Resource ${JSON.stringify(resource)} does not follow the required format`)

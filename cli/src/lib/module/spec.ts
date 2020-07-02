@@ -1,6 +1,6 @@
-import {InputSpec, MetaSpec} from '../policy/spec'
+import {InputSpec, MetaSpec} from '../package/spec'
 
-export interface PolicyConfig {
+export interface PackageConfig {
   uses: string;
   version?: string;
   with?: {
@@ -13,7 +13,7 @@ export interface ModuleSpec {
   inputs?: {
     [key: string]: InputSpec;
   };
-  policies: {
-    [key: string]: PolicyConfig;
+  packages: {
+    [key: string]: PackageConfig;
   };
 }

@@ -5,7 +5,7 @@ import {DeepLintConfig} from './config'
 import YamlReader from './shared/yaml-reader'
 import git from 'isomorphic-git'
 import http from 'isomorphic-git/http/node'
-import {resolveModulePath, resolvePolicyPath} from './shared/path'
+import {resolveModulePath, resolvePackagePath} from './shared/path'
 import {ModuleSpec} from './module/spec'
 
 export async function checkoutFromGit(gitURL: string, dir: string, version?: string): Promise<void> {
@@ -29,12 +29,12 @@ export async function install(configFile?: string): Promise<void> {
   const configPath = path.resolve(configFile || DEFAULT_DEEPLINT_CONFIG_FILE_NAME)
   if (fs.existsSync(configPath)) {
     const deepLintConfig: DeepLintConfig = YamlReader.load(configPath)
-    if (deepLintConfig.policies) {
-      await Object.keys(deepLintConfig.policies).map(async key => {
-        if (deepLintConfig.policies && deepLintConfig.policies[key].uses.toLowerCase().startsWith('http') &&
-          deepLintConfig.policies[key].uses.toLowerCase().endsWith('git')) {
-          const dir = resolvePolicyPath(ROOT_MODULE_NAME, key, deepLintConfig.policies[key].uses.toLowerCase())
-          await checkoutFromGit(deepLintConfig.policies[key].uses, dir, deepLintConfig.policies[key].version)
+    if (deepLintConfig.packages) {
+      await Object.keys(deepLintConfig.packages).map(async key => {
+        if (deepLintConfig.packages && deepLintConfig.packages[key].uses.toLowerCase().startsWith('http') &&
+          deepLintConfig.packages[key].uses.toLowerCase().endsWith('git')) {
+          const dir = resolvePackagePath(ROOT_MODULE_NAME, key, deepLintConfig.packages[key].uses.toLowerCase())
+          await checkoutFromGit(deepLintConfig.packages[key].uses, dir, deepLintConfig.packages[key].version)
         }
       })
     }
@@ -45,12 +45,12 @@ export async function install(configFile?: string): Promise<void> {
           const dir = resolveModulePath(moduleKey, deepLintConfig.modules[moduleKey].uses.toLowerCase())
           await checkoutFromGit(deepLintConfig.modules[moduleKey].uses, dir, deepLintConfig.modules[moduleKey].version)
           const moduleSpec: ModuleSpec = YamlReader.load(dir + path.sep + DEFAULT_MODULE_SPEC_FILE_NAME)
-          if (moduleSpec.policies) {
-            await Object.keys(moduleSpec.policies).map(async key => {
-              if (deepLintConfig.policies && deepLintConfig.policies[key].uses.toLowerCase().startsWith('http') &&
-                deepLintConfig.policies[key].uses.toLowerCase().endsWith('git')) {
-                const dir = resolvePolicyPath(moduleKey, key, deepLintConfig.policies[key].uses.toLowerCase())
-                await checkoutFromGit(deepLintConfig.policies[key].uses, dir, deepLintConfig.policies[key].version)
+          if (moduleSpec.packages) {
+            await Object.keys(moduleSpec.packages).map(async key => {
+              if (deepLintConfig.packages && deepLintConfig.packages[key].uses.toLowerCase().startsWith('http') &&
+                deepLintConfig.packages[key].uses.toLowerCase().endsWith('git')) {
+                const dir = resolvePackagePath(moduleKey, key, deepLintConfig.packages[key].uses.toLowerCase())
+                await checkoutFromGit(deepLintConfig.packages[key].uses, dir, deepLintConfig.packages[key].version)
               }
             })
           }

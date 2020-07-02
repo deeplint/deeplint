@@ -85,7 +85,7 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3
 
 ## `deeplint install`
 
-Initialize the workspace, download required modules and policies
+Initialize the workspace, download required modules and packages
 
 ```
 USAGE
@@ -115,7 +115,7 @@ _See code: [src/commands/scan.ts](https://github.com/deeplint/deeplint/blob/v0.6
 
 ## `deeplint show`
 
-Display the modules, policies, snapshots and checking results in the human-readable format
+Display the modules, packages, snapshots and checking results in the human-readable format
 
 ```
 USAGE
@@ -126,7 +126,7 @@ OPTIONS
   -f, --force
   -h, --help               show CLI help
   -m, --module=module
-  -p, --policy=policy
+  -p, --package=package
   -s, --snapshot=snapshot
 ```
 

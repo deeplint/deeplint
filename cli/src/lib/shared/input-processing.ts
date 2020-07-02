@@ -1,6 +1,6 @@
 import * as _ from 'lodash'
 import * as  Handlebars from 'handlebars'
-import {InputSpec} from '../policy/spec'
+import {InputSpec} from '../package/spec'
 import YamlReader from './yaml-reader'
 
 export function processInputs(name: string, inputs?: { [key: string]: any }, inputsSpec?: { [key: string]: InputSpec }): { [key: string]: any } {

@@ -53,9 +53,7 @@
   "keywords": [
     "deeplint",
     "cloud",
-    "security",
-    "policy",
-    "scanner"
+    "security"
   ],
   "license": "MPL-2.0",
   "main": "lib/index.js",

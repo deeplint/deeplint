@@ -4,7 +4,7 @@ import * as figures from 'figures'
 import * as chalk from 'chalk'
 
 export default class Install extends Command {
-  static description = 'Initialize the workspace, download required modules and policies'
+  static description = 'Initialize the workspace, download required modules and packages'
 
   static flags = {
     help: flags.help({char: 'h'}),

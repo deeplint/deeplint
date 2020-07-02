@@ -3,9 +3,9 @@ import YamlReader from './shared/yaml-reader'
 import * as path from 'path'
 import * as fs from 'fs'
 import {DEFAULT_DEEPLINT_CONFIG_FILE_NAME, ROOT_MODULE_NAME} from './constant'
-import {CheckingResult, FixingResult, Meta, Snapshot} from './policy/model'
+import {CheckingResult, FixingResult, Meta, Snapshot} from './package/model'
 import {Module} from './module/module'
-import {validate} from './policy/validate'
+import {validate} from './package/validate'
 
 export class Deeplint {
   private readonly deepLintConfig: DeepLintConfig
@@ -42,14 +42,14 @@ export class Deeplint {
     throw new Error('Can not find DeepLint config file')
   }
 
-  getPoliciesMeta(): { [key: string]: { [key: string]: Meta } } {
+  getPackagesMeta(): { [key: string]: { [key: string]: Meta } } {
     const res: { [key: string]: { [key: string]: Meta } } = {}
     Object.keys(this.modules).map(async moduleKey => {
       const module = this.modules[moduleKey]
       if (module === undefined) {
         throw (new Error(`Can not locate module: ${moduleKey}`))
       }
-      res[moduleKey] = module.getPoliciesMeta()
+      res[moduleKey] = module.getPackagesMeta()
     })
     return res
   }

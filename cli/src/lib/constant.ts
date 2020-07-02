@@ -1,10 +1,10 @@
 export const DEFAULT_DEEPLINT_CONFIG_FILE_NAME = 'deeplint.yaml'
-export const DEFAULT_POLICY_SPEC_FILE_NAME = 'deeplint-policy.yaml'
+export const DEFAULT_PACKAGE_SPEC_FILE_NAME = 'deeplint-package.yaml'
 export const DEFAULT_MODULE_SPEC_FILE_NAME = 'deeplint-module.yaml'
 export const DEFAULT_SNAPSHOT_OUTPUT = 'deeplint-snapshot.out'
 export const DEFAULT_CHECK_OUTPUT = 'deeplint-check.out'
 export const DEFAULT_DEEPLINT_FOLDER = '.deeplint'
 export const DEFAULT_DEEPLINT_MODULE_FOLDER = 'module'
-export const DEFAULT_DEEPLINT_POLICY_FOLDER = 'policy'
+export const DEFAULT_DEEPLINT_PACKAGE_FOLDER = 'package'
 export const ROOT_MODULE_NAME = '_root'
 
