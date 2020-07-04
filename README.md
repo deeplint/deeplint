@@ -1,2 +1,2 @@
 # DeepLint
-DeepLint is an open-source Policy-as-Code tool for cloud best practices, security and governance. 
+DeepLint is an open-source Cloud Security-as-Code tool for securing and optimizing your cloud environments.
