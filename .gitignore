@@ -15,3 +15,4 @@
 # vendor/
 .idea/
 /examples/s3/node_modules/
+/examples/s3/packages/aws-s3-public/node_modules/

@@ -1,0 +1,41 @@
+meta:
+  name: deeplint-package-aws-s3publicbucket
+  author: DeepLint(dev@deeplint.com)
+  description: Package to find and fix problems for AWS S3
+  packageFormatVersion: 1.0.0
+
+inputs:
+  checkBuckets:
+    description: S3 buckets checked
+    type: Array
+    default: ["*"]
+
+scanners:
+  aws-s3-scanner:
+    type: nodejs
+    uses: "@deeplint/deepscanner-aws"
+    main: scan
+    with:
+      services: ["S3"]
+
+rules:
+  is-bucket-encryption-enabled:
+    type: nodejs
+    uses: "./src/rules/is-bucket-public.js"
+    main: check
+    with:
+      buckets: ${checkBuckets}
+    meta:
+      type: "warn"
+      description: "Check whether S3 Bucket server side encryption is enabled"
+      tags:
+        - "S3"
+
+#actions:
+#  dummy-fix:
+#    type: nodejs
+#    uses: src/dummy-fix-1.js
+#    main: update
+#    with:
+
+

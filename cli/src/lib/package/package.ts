@@ -6,10 +6,10 @@ import * as _ from 'lodash'
 import {DEFAULT_PACKAGE_SPEC_FILE_NAME} from '../constant'
 import {CheckContext, Context} from './context'
 import {validate} from './validate'
-import {processInputs} from '../shared/input-processing'
-import {resolveLocalNodeModule, resolvePackagePath} from '../shared/path'
+import {applyInputs, processInputs} from '../shared/input-processing'
+import {resolveFunctionPath, resolvePackagePath} from '../shared/path'
 import * as fs from 'fs'
-import {PackageConfig} from '../config';
+import {PackageConfig} from '../config'
 
 export class Package {
   readonly meta: Meta
@@ -46,7 +46,7 @@ export class Package {
   }
 
   static async build(packageConfig: PackageConfig, packageName: string): Promise<Package> {
-    const packagePath: string = resolvePackagePath(packageName, packageConfig.uses)
+    const packagePath: string = resolvePackagePath(packageConfig.uses)
     if (!fs.existsSync(packagePath + path.sep + DEFAULT_PACKAGE_SPEC_FILE_NAME)) {
       throw new Error(`Can not find the package: ${packageName} with path: ${packagePath}`)
     }
@@ -63,7 +63,7 @@ export class Package {
 
       packagePath: packagePath,
 
-      packageSpec: packageSpec,
+      packageSpec: applyInputs(packageSpec, inputs),
 
       packageConfig: packageConfig,
 
@@ -75,11 +75,9 @@ export class Package {
       [key: string]: Resource[];
     } = {}
     await Promise.all(Object.keys(this.meta.packageSpec.scanners).map(async scannerKey => {
-      const functionPath = this.meta.packageSpec.scanners[scannerKey].uses.startsWith('./') ?
-        path.resolve(this.meta.packageName, this.meta.packageSpec.scanners[scannerKey].uses) :
-        resolveLocalNodeModule(this.meta.packageSpec.scanners[scannerKey].uses)
-
-      const resources_temp: Resource[] = await Invoker.run(new Context(this.meta, this.processedInputs), functionPath, this.meta.packageSpec.scanners[scannerKey].main)
+      const functionPath = resolveFunctionPath(this.meta.packageSpec.scanners[scannerKey].uses, this.meta.packagePath)
+      const context = new Context(this.meta, this.meta.packageSpec.scanners[scannerKey].with)
+      const resources_temp: Resource[] = await Invoker.run(context, functionPath, this.meta.packageSpec.scanners[scannerKey].main)
       resources_temp.forEach(resource => {
         if (!validate('Resource', resource)) {
           throw new Error(`Resource ${JSON.stringify(resource)} does not follow the required format`)
@@ -98,9 +96,10 @@ export class Package {
       timestamp: new Date(),
       result: {},
     }
-    const context = new CheckContext(this.meta, this.processedInputs, snapshot)
     await Promise.all(Object.keys(this.rules).map(async ruleKey => {
-      const functionPath = path.resolve(this.path, this.rules[ruleKey].uses)
+      const context = new CheckContext(this.meta, snapshot, this.rules[ruleKey].with)
+      const functionPath = resolveFunctionPath(this.meta.packageSpec.rules[ruleKey].uses, this.meta.packagePath)
+
       const problems = await Invoker.run(context, functionPath, this.rules[ruleKey].main)
       for (const problem of problems) {
         if (!validate('Problem', problem)) {

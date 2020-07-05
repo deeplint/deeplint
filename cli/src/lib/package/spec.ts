@@ -10,7 +10,7 @@ export interface ScannerSpec {
   type: string;
   uses: string;
   main: string;
-  with?: object;
+  with?: {[key: string]: any};
 }
 
 export interface RuleMeta {
@@ -24,7 +24,7 @@ export interface RuleSpec {
   type: string;
   uses: string;
   main: string;
-  with?: object;
+  with?: {[key: string]: any};
   meta: RuleMeta;
 }
 
@@ -36,9 +36,9 @@ export interface ActionSpec {
 }
 
 export interface InputSpec {
-  type: 'String' | 'Number' | 'Boolean';
+  type: 'String' | 'Number' | 'Boolean' | 'Array';
   description?: string;
-  default: string | number | boolean;
+  default: string | number | boolean | string[] | number[] | boolean[];
 }
 
 export interface PackageSpec {

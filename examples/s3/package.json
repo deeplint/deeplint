@@ -8,6 +8,5 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@deeplint/package-aws-s3": "^1.4.1"
   }
 }

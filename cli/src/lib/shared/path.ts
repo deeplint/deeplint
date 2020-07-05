@@ -5,11 +5,18 @@ import {
 
 const PWD_PATH = process.cwd()
 
-export function resolveLocalNodeModule(nodeModuleName: string): string {
-  return path.dirname(require.resolve(nodeModuleName, {paths: [PWD_PATH]}))
+export function resolveLocalNodeModule(nodeModuleName: string, pathName?: string): string {
+  const paths = [PWD_PATH]
+  if (pathName) {
+    paths.push(pathName)
+  }
+  return path.dirname(require.resolve(nodeModuleName, {paths: paths}))
 }
 
-export function resolvePackagePath(packageName: string, packageUses: string): string {
+export function resolvePackagePath(packageUses: string): string {
   return resolveLocalNodeModule(packageUses + path.sep + DEFAULT_PACKAGE_SPEC_FILE_NAME)
 }
 
+export function resolveFunctionPath(uses: string, packagePath: string): string {
+  return resolveLocalNodeModule(uses, packagePath)
+}

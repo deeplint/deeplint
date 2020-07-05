@@ -77,17 +77,42 @@
           "enum": [
             "String",
             "Number",
-            "Boolean"
+            "Boolean",
+            "Array"
           ]
         },
         "description": {
           "type": "string"
         },
         "default": {
-          "type": [
-            "string",
-            "number",
-            "boolean"
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "boolean"
+              }
+            }
           ]
         }
       },
