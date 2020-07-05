@@ -26,12 +26,6 @@ const configs = [
     type: 'PackageSpec', // Or <type-name> if you want to generate schema for that one type only
     output: 'schema/generated/package-spec.schema.json',
   },
-  {
-    path: 'src/lib/module/spec.ts',
-    tsconfig: 'tsconfig.json',
-    type: 'ModuleSpec', // Or <type-name> if you want to generate schema for that one type only
-    output: 'schema/generated/module-spec.schema.json',
-  },
 ]
 
 configs.forEach(config => {

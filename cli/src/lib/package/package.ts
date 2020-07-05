@@ -6,10 +6,10 @@ import * as _ from 'lodash'
 import {DEFAULT_PACKAGE_SPEC_FILE_NAME} from '../constant'
 import {CheckContext, Context} from './context'
 import {validate} from './validate'
-import {PackageConfig} from '../module/spec'
 import {processInputs} from '../shared/input-processing'
 import {resolveLocalNodeModule, resolvePackagePath} from '../shared/path'
 import * as fs from 'fs'
+import {PackageConfig} from '../config';
 
 export class Package {
   readonly meta: Meta
@@ -45,10 +45,10 @@ export class Package {
     return this.processedInputs
   }
 
-  static async build(packageConfig: PackageConfig, packageName: string, moduleName: string): Promise<Package> {
-    const packagePath: string = resolvePackagePath(moduleName, packageName, packageConfig.uses)
+  static async build(packageConfig: PackageConfig, packageName: string): Promise<Package> {
+    const packagePath: string = resolvePackagePath(packageName, packageConfig.uses)
     if (!fs.existsSync(packagePath + path.sep + DEFAULT_PACKAGE_SPEC_FILE_NAME)) {
-      throw new Error(`Can not find the package: ${packageName} in module: ${moduleName} with path: ${packagePath}`)
+      throw new Error(`Can not find the package: ${packageName} with path: ${packagePath}`)
     }
 
     const packageSpec = YamlReader.load(packagePath + path.sep + DEFAULT_PACKAGE_SPEC_FILE_NAME)

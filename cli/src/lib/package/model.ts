@@ -1,5 +1,5 @@
 import {PackageSpec, RuleMeta} from './spec'
-import {PackageConfig} from '../module/spec'
+import {PackageConfig} from '../config';
 
 export interface Meta {
   readonly packageName: string;

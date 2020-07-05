@@ -1,17 +1,11 @@
-import {PackageConfig} from './module/spec'
-
-export interface ModuleConfig {
+export interface PackageConfig {
   uses: string;
   with?: {
     [key: string]: any;
   };
 }
-
 export interface DeepLintConfig {
-  modules?: {
-    [key: string]: ModuleConfig;
-  };
-  packages?: {
+  packages: {
     [key: string]: PackageConfig;
   };
 }

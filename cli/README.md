@@ -99,7 +99,7 @@ _See code: [src/commands/scan.ts](https://github.com/deeplint/deeplint/blob/v0.6
 
 ## `deeplint show`
 
-Display the modules, packages, snapshots and checking results in the human-readable format
+Display the packages, snapshots and checking results in the human-readable format
 
 ```
 USAGE
@@ -109,7 +109,6 @@ OPTIONS
   -c, --check=check
   -f, --force
   -h, --help               show CLI help
-  -m, --module=module
   -p, --package=package
   -s, --snapshot=snapshot
 ```

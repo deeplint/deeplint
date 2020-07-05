@@ -2,19 +2,19 @@ import {DeepLintConfig} from './config'
 import YamlReader from './shared/yaml-reader'
 import * as path from 'path'
 import * as fs from 'fs'
-import {DEFAULT_DEEPLINT_CONFIG_FILE_NAME, ROOT_MODULE_NAME} from './constant'
+import {DEFAULT_DEEPLINT_CONFIG_FILE_NAME} from './constant'
 import {CheckingResult, FixingResult, Meta, Snapshot} from './package/model'
-import {Module} from './module/module'
 import {validate} from './package/validate'
+import {Package} from './package/package'
 
 export class Deeplint {
   private readonly deepLintConfig: DeepLintConfig
 
-  private readonly modules: { [key: string]: Module }
+  private readonly packages:  Map<string, Package>
 
-  private constructor(deepLintConfig: DeepLintConfig, modules: { [key: string]: Module }) {
+  private constructor(deepLintConfig: DeepLintConfig, packages:  Map<string, Package>) {
     this.deepLintConfig = deepLintConfig
-    this.modules = modules
+    this.packages = packages
   }
 
   static async build(configFile?: string): Promise<Deeplint> {
@@ -24,69 +24,65 @@ export class Deeplint {
       if (!validate('DeepLintConfig', deepLintConfig)) {
         throw new Error(`DeepLint config ${JSON.stringify(deepLintConfig)} does not follow the required format`)
       }
-      const modules: { [key: string]: Module } = {}
-      modules[ROOT_MODULE_NAME] = await Module.build({
-        uses: ROOT_MODULE_NAME,
-      }, ROOT_MODULE_NAME)
 
-      if (deepLintConfig.modules) {
-        await Promise.all(Object.keys(deepLintConfig.modules).map(async moduleKey => {
-          if (deepLintConfig.modules && deepLintConfig.modules[moduleKey]) {
-            modules[moduleKey] = await Module.build(deepLintConfig.modules[moduleKey], moduleKey)
-          }
-        }))
-      }
-      return new Deeplint(deepLintConfig, modules)
+      const packages: Map<string, Package> = new Map<string, Package>()
+
+      await Object.keys(deepLintConfig.packages).map(async key => {
+        const dlPackage = await Package.build(deepLintConfig.packages[key], key)
+        packages.set(key, dlPackage)
+      })
+      return new Deeplint(deepLintConfig, packages)
     }
     throw new Error('Can not find DeepLint config file')
   }
 
-  getPackagesMeta(): { [key: string]: { [key: string]: Meta } } {
-    const res: { [key: string]: { [key: string]: Meta } } = {}
-    Object.keys(this.modules).map(async moduleKey => {
-      const module = this.modules[moduleKey]
-      if (module === undefined) {
-        throw (new Error(`Can not locate module: ${moduleKey}`))
+  getPackagesMeta(): { [key: string]: Meta } {
+    const res: { [key: string]: Meta } = {}
+
+    Object.keys(this.packages).map(async packageKey => {
+      const dlPackage = this.packages.get(packageKey)
+      if (dlPackage === undefined) {
+        throw (new Error(`Can not locate package: ${packageKey}`))
       }
-      res[moduleKey] = module.getPackagesMeta()
+      res[packageKey] = dlPackage.meta
     })
     return res
   }
 
-  async snap(): Promise<{ [key: string]: { [key: string]: Snapshot } }> {
-    const res: { [key: string]: { [key: string]: Snapshot } } = {}
-
-    await Promise.all(Object.keys(this.modules).map(async moduleKey => {
-      const module = this.modules[moduleKey]
-      if (module === undefined) {
-        throw (new Error(`Can not locate module: ${moduleKey}`))
+  async snap(): Promise<{ [key: string]: Snapshot }> {
+    const res: { [key: string]: Snapshot } = {}
+    await Promise.all(Object.keys(this.packages).map(async packageKey => {
+      const dlPackage = this.packages.get(packageKey)
+      if (dlPackage === undefined) {
+        throw (new Error(`Can not locate package: ${packageKey}`))
       }
-      res[moduleKey] = await module.snap()
+      res[packageKey] = await dlPackage.snap()
     }))
 
     return res
   }
 
-  async check(snapshots: { [key: string]: { [key: string]: Snapshot } }): Promise<{ [key: string]: { [key: string]: CheckingResult } }> {
-    const res: { [key: string]: { [key: string]: CheckingResult } } = {}
-    await Promise.all(Object.keys(snapshots).map(async moduleKey => {
-      const module = this.modules[moduleKey]
-      if (module === undefined) {
-        throw (new Error(`Can not locate module: ${module}`))
+  async check(snapshots: { [key: string]: Snapshot }): Promise<{ [key: string]: CheckingResult }> {
+    const res: { [key: string]: CheckingResult } = {}
+
+    await Promise.all(Object.keys(snapshots).map(async packageKey => {
+      const dlPackage = this.packages.get(packageKey)
+      if (dlPackage === undefined) {
+        throw (new Error(`Can not locate package: ${packageKey}`))
       }
-      res[moduleKey] = await module.check(snapshots[moduleKey])
+      res[packageKey] = await dlPackage.check(snapshots[packageKey])
     }))
     return res
   }
 
-  async fix(checkingResults: { [key: string]: { [key: string]: CheckingResult } }): Promise<{ [key: string]: { [key: string]: FixingResult } }> {
-    const res: { [key: string]: { [key: string]: FixingResult } } = {}
-    await Promise.all(Object.keys(checkingResults).map(async moduleKey => {
-      const module = this.modules[moduleKey]
-      if (module === undefined) {
-        throw (new Error(`Can not locate module: ${moduleKey}`))
+  async fix(checkingResults: { [key: string]: CheckingResult }): Promise<{ [key: string]: FixingResult }> {
+    const res: { [key: string]: FixingResult } = {}
+    await Promise.all(Object.keys(checkingResults).map(async packageKey => {
+      const dlPackage = this.packages.get(packageKey)
+      if (dlPackage === undefined) {
+        throw (new Error(`Can not locate package: ${packageKey}`))
       }
-      res[moduleKey] = await module.fix(checkingResults[moduleKey])
+      res[packageKey] = await dlPackage.fix(checkingResults[packageKey])
     }))
     return res
   }
