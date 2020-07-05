@@ -10,9 +10,13 @@ import {Package} from './package/package'
 export class Deeplint {
   private readonly deepLintConfig: DeepLintConfig
 
-  private readonly packages:  Map<string, Package>
+  private readonly packages: {
+    [key: string]: Package;
+  }
 
-  private constructor(deepLintConfig: DeepLintConfig, packages:  Map<string, Package>) {
+  private constructor(deepLintConfig: DeepLintConfig, packages: {
+    [key: string]: Package;
+  }) {
     this.deepLintConfig = deepLintConfig
     this.packages = packages
   }
@@ -25,11 +29,12 @@ export class Deeplint {
         throw new Error(`DeepLint config ${JSON.stringify(deepLintConfig)} does not follow the required format`)
       }
 
-      const packages: Map<string, Package> = new Map<string, Package>()
+      const packages: {
+        [key: string]: Package;
+      } = {}
 
       await Object.keys(deepLintConfig.packages).map(async key => {
-        const dlPackage = await Package.build(deepLintConfig.packages[key], key)
-        packages.set(key, dlPackage)
+        packages[key] = await Package.build(deepLintConfig.packages[key], key)
       })
       return new Deeplint(deepLintConfig, packages)
     }
@@ -40,7 +45,7 @@ export class Deeplint {
     const res: { [key: string]: Meta } = {}
 
     Object.keys(this.packages).map(async packageKey => {
-      const dlPackage = this.packages.get(packageKey)
+      const dlPackage = this.packages[packageKey]
       if (dlPackage === undefined) {
         throw (new Error(`Can not locate package: ${packageKey}`))
       }
@@ -52,7 +57,7 @@ export class Deeplint {
   async snap(): Promise<{ [key: string]: Snapshot }> {
     const res: { [key: string]: Snapshot } = {}
     await Promise.all(Object.keys(this.packages).map(async packageKey => {
-      const dlPackage = this.packages.get(packageKey)
+      const dlPackage = this.packages[packageKey]
       if (dlPackage === undefined) {
         throw (new Error(`Can not locate package: ${packageKey}`))
       }
@@ -66,7 +71,7 @@ export class Deeplint {
     const res: { [key: string]: CheckingResult } = {}
 
     await Promise.all(Object.keys(snapshots).map(async packageKey => {
-      const dlPackage = this.packages.get(packageKey)
+      const dlPackage = this.packages[packageKey]
       if (dlPackage === undefined) {
         throw (new Error(`Can not locate package: ${packageKey}`))
       }
@@ -78,7 +83,7 @@ export class Deeplint {
   async fix(checkingResults: { [key: string]: CheckingResult }): Promise<{ [key: string]: FixingResult }> {
     const res: { [key: string]: FixingResult } = {}
     await Promise.all(Object.keys(checkingResults).map(async packageKey => {
-      const dlPackage = this.packages.get(packageKey)
+      const dlPackage = this.packages[packageKey]
       if (dlPackage === undefined) {
         throw (new Error(`Can not locate package: ${packageKey}`))
       }
