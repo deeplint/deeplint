@@ -27,7 +27,6 @@ export class Deeplint {
       const modules: { [key: string]: Module } = {}
       modules[ROOT_MODULE_NAME] = await Module.build({
         uses: ROOT_MODULE_NAME,
-        version: '0.0.1',
       }, ROOT_MODULE_NAME)
 
       if (deepLintConfig.modules) {

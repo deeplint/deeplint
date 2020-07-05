@@ -13,17 +13,19 @@ export interface ScannerSpec {
   with?: object;
 }
 
+export interface RuleMeta {
+  type: 'error' | 'warn' | 'info';
+  description?: string;
+  tags?: string[];
+  deprecated?: boolean;
+}
+
 export interface RuleSpec {
   type: string;
   uses: string;
   main: string;
   with?: object;
-  meta: {
-    type: 'error' | 'warn' | 'info';
-    description?: string;
-    tags?: string[];
-    deprecated?: boolean;
-  };
+  meta: RuleMeta;
 }
 
 export interface ActionSpec {

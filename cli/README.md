@@ -31,7 +31,6 @@ USAGE
 * [`deeplint check`](#deeplint-check)
 * [`deeplint fix`](#deeplint-fix)
 * [`deeplint help [COMMAND]`](#deeplint-help-command)
-* [`deeplint install`](#deeplint-install)
 * [`deeplint scan`](#deeplint-scan)
 * [`deeplint show`](#deeplint-show)
 
@@ -82,21 +81,6 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
-
-## `deeplint install`
-
-Initialize the workspace, download required modules and packages
-
-```
-USAGE
-  $ deeplint install
-
-OPTIONS
-  -f, --force
-  -h, --help   show CLI help
-```
-
-_See code: [src/commands/install.ts](https://github.com/deeplint/deeplint/blob/v0.6.0/src/commands/install.ts)_
 
 ## `deeplint scan`
 

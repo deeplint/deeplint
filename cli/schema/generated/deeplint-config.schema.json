@@ -26,16 +26,12 @@
         "uses": {
           "type": "string"
         },
-        "version": {
-          "type": "string"
-        },
         "with": {
           "type": "object"
         }
       },
       "required": [
-        "uses",
-        "version"
+        "uses"
       ],
       "additionalProperties": false
     },
@@ -43,9 +39,6 @@
       "type": "object",
       "properties": {
         "uses": {
-          "type": "string"
-        },
-        "version": {
           "type": "string"
         },
         "with": {

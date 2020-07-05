@@ -89,9 +89,6 @@
         "uses": {
           "type": "string"
         },
-        "version": {
-          "type": "string"
-        },
         "with": {
           "type": "object"
         }

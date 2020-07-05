@@ -1,4 +1,4 @@
-import {PackageSpec} from './spec'
+import {PackageSpec, RuleMeta} from './spec'
 import {PackageConfig} from '../module/spec'
 
 export interface Meta {
@@ -39,8 +39,11 @@ export interface Problem {
 
 export interface CheckingResult {
   timestamp: Date;
-  problems: {
-    [key: string]: Problem[];
+  result: {
+    [key: string]: {
+      meta: RuleMeta;
+      problems: Problem[];
+    };
   };
 }
 

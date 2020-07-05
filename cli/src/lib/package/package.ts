@@ -1,6 +1,6 @@
 import * as path from 'path'
 import YamlReader from '../shared/yaml-reader'
-import {CheckingResult, FixingResult, Meta, Problem, Resource, Snapshot} from './model'
+import {CheckingResult, FixingResult, Meta, Resource, Snapshot} from './model'
 import {Invoker} from './invoker'
 import * as _ from 'lodash'
 import {DEFAULT_PACKAGE_SPEC_FILE_NAME} from '../constant'
@@ -8,7 +8,7 @@ import {CheckContext, Context} from './context'
 import {validate} from './validate'
 import {PackageConfig} from '../module/spec'
 import {processInputs} from '../shared/input-processing'
-import {resolvePackagePath} from '../shared/path'
+import {resolveLocalNodeModule, resolvePackagePath} from '../shared/path'
 import * as fs from 'fs'
 
 export class Package {
@@ -75,9 +75,9 @@ export class Package {
       [key: string]: Resource[];
     } = {}
     await Promise.all(Object.keys(this.meta.packageSpec.scanners).map(async scannerKey => {
-      const functionPath = this.meta.packageSpec.scanners[scannerKey].uses.startsWith('@deeplint/deepscanner') ?
-        this.meta.packageSpec.scanners[scannerKey].uses :
-        path.resolve(this.meta.packageName, this.meta.packageSpec.scanners[scannerKey].uses)
+      const functionPath = this.meta.packageSpec.scanners[scannerKey].uses.startsWith('./') ?
+        path.resolve(this.meta.packageName, this.meta.packageSpec.scanners[scannerKey].uses) :
+        resolveLocalNodeModule(this.meta.packageSpec.scanners[scannerKey].uses)
 
       const resources_temp: Resource[] = await Invoker.run(new Context(this.meta, this.processedInputs), functionPath, this.meta.packageSpec.scanners[scannerKey].main)
       resources_temp.forEach(resource => {
@@ -96,7 +96,7 @@ export class Package {
   async check(snapshot: Snapshot): Promise<CheckingResult> {
     const checkingResult: CheckingResult = {
       timestamp: new Date(),
-      problems: {},
+      result: {},
     }
     const context = new CheckContext(this.meta, this.processedInputs, snapshot)
     await Promise.all(Object.keys(this.rules).map(async ruleKey => {
@@ -107,7 +107,10 @@ export class Package {
           throw new Error(`Checking Result ${JSON.stringify(problem)} does not follow the required format`)
         }
       }
-      checkingResult.problems[ruleKey] = problems
+      checkingResult.result[ruleKey] = {
+        meta: this.rules[ruleKey].meta,
+        problems: problems,
+      }
     }))
     return checkingResult
   }
@@ -117,8 +120,8 @@ export class Package {
       timestamp: new Date(),
       fixes: [],
     }
-    await Promise.all(Object.keys(checkingResult.problems).map(async key => {
-      checkingResult.problems[key].map(async problem => {
+    await Promise.all(Object.keys(checkingResult.result).map(async key => {
+      checkingResult.result[key].problems.map(async problem => {
         if (problem.fix && problem.fix.action && this.actions) {
           if (_.has(this.actions, problem.fix.action)) {
             try {

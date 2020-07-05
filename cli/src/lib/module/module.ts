@@ -38,7 +38,7 @@ export class Module {
   static async build(moduleConfig: ModuleConfig, moduleName: string): Promise<Module> {
     // 1. Get and validate the module path
     const modulePath: string = resolveModulePath(moduleName, moduleConfig.uses)
-    if (moduleName !== ROOT_MODULE_NAME && !fs.existsSync(modulePath + path.sep + DEFAULT_PACKAGE_SPEC_FILE_NAME)) {
+    if (moduleName !== ROOT_MODULE_NAME && !fs.existsSync(modulePath + path.sep + DEFAULT_MODULE_SPEC_FILE_NAME)) {
       throw new Error(`Can not find the module: ${moduleName} with path: ${modulePath}`)
     }
 

@@ -1,0 +1,4 @@
+packages:
+  s3-versioning-check:
+    uses: '@deeplint/package-aws-s3'
+
