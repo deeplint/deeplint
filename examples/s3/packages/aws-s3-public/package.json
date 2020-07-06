@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/deeplint/deeplint-package-aws-s3",
   "dependencies": {
-    "@deeplint/deepscanner-aws": "^0.4.1"
+    "@deeplint/deepscanner-aws": "^0.4.3",
+    "lodash": "^4.17.15"
   }
 }

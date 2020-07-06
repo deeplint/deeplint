@@ -10,11 +10,11 @@ export function resolveLocalNodeModule(nodeModuleName: string, pathName?: string
   if (pathName) {
     paths.push(pathName)
   }
-  return path.dirname(require.resolve(nodeModuleName, {paths: paths}))
+  return require.resolve(nodeModuleName, {paths: paths})
 }
 
 export function resolvePackagePath(packageUses: string): string {
-  return resolveLocalNodeModule(packageUses + path.sep + DEFAULT_PACKAGE_SPEC_FILE_NAME)
+  return path.dirname(resolveLocalNodeModule(packageUses + path.sep + DEFAULT_PACKAGE_SPEC_FILE_NAME))
 }
 
 export function resolveFunctionPath(uses: string, packagePath: string): string {

@@ -5,11 +5,14 @@ meta:
   packageFormatVersion: 1.0.0
 
 inputs:
-  checkBuckets:
-    description: S3 buckets checked
-    type: Array
-    default: ["*"]
-
+  buckets:
+    description: S3 buckets name regex for buckets to check
+    type: String
+    default: ".*"
+  regions:
+    description: AWS Regions
+    type: String
+    default: "['us-east-1']"
 scanners:
   aws-s3-scanner:
     type: nodejs
@@ -17,14 +20,14 @@ scanners:
     main: scan
     with:
       services: ["S3"]
-
+      regions: {{regions}}
 rules:
-  is-bucket-encryption-enabled:
+  is-bucket-public:
     type: nodejs
     uses: "./src/rules/is-bucket-public.js"
     main: check
     with:
-      buckets: ${checkBuckets}
+      buckets: {{buckets}}
     meta:
       type: "warn"
       description: "Check whether S3 Bucket server side encryption is enabled"

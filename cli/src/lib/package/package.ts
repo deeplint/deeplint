@@ -6,7 +6,7 @@ import * as _ from 'lodash'
 import {DEFAULT_PACKAGE_SPEC_FILE_NAME} from '../constant'
 import {CheckContext, Context} from './context'
 import {validate} from './validate'
-import {applyInputs, processInputs} from '../shared/input-processing'
+import {processInputs} from '../shared/input-processing'
 import {resolveFunctionPath, resolvePackagePath} from '../shared/path'
 import * as fs from 'fs'
 import {PackageConfig} from '../config'
@@ -55,15 +55,14 @@ export class Package {
     if (!validate('PackageSpec', packageSpec)) {
       throw new Error(`Package spec ${JSON.stringify(packageSpec)} does not follow the required format`)
     }
-
     const inputs = processInputs(packageName, packageConfig.with, packageSpec.inputs)
-
+    const processedPackageSpec = YamlReader.loadWithData(packagePath + path.sep + DEFAULT_PACKAGE_SPEC_FILE_NAME, inputs)
     return new Package({
       packageName: packageName,
 
       packagePath: packagePath,
 
-      packageSpec: applyInputs(packageSpec, inputs),
+      packageSpec: processedPackageSpec,
 
       packageConfig: packageConfig,
 
@@ -99,7 +98,6 @@ export class Package {
     await Promise.all(Object.keys(this.rules).map(async ruleKey => {
       const context = new CheckContext(this.meta, snapshot, this.rules[ruleKey].with)
       const functionPath = resolveFunctionPath(this.meta.packageSpec.rules[ruleKey].uses, this.meta.packagePath)
-
       const problems = await Invoker.run(context, functionPath, this.rules[ruleKey].main)
       for (const problem of problems) {
         if (!validate('Problem', problem)) {

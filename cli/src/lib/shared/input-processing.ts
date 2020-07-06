@@ -1,7 +1,6 @@
 import * as _ from 'lodash'
 import * as  Handlebars from 'handlebars'
 import {InputSpec} from '../package/spec'
-import YamlReader from './yaml-reader'
 
 export function processInputs(name: string, inputs?: { [key: string]: any }, inputsSpec?: { [key: string]: InputSpec }): { [key: string]: any } {
   const res: { [key: string]: any } = {}
@@ -33,7 +32,7 @@ export function processInputs(name: string, inputs?: { [key: string]: any }, inp
   return res
 }
 
-export function applyInputs(obj: any, data: any): any {
-  const template = Handlebars.compile(YamlReader.toString(obj))
-  return YamlReader.parse(template(data))
+export function applyInputs(obj: string, data: any): string {
+  const template = Handlebars.compile(obj, {noEscape: true})
+  return template(data)
 }
