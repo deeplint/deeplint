@@ -19,7 +19,7 @@ $ npm install -g @deeplint/cli
 $ deeplint COMMAND
 running command...
 $ deeplint (-v|--version|version)
-@deeplint/cli/0.7.1 darwin-x64 node-v12.13.1
+@deeplint/cli/0.8.0 darwin-x64 node-v12.13.1
 $ deeplint --help [COMMAND]
 USAGE
   $ deeplint COMMAND
@@ -48,7 +48,7 @@ OPTIONS
   -s, --snapshot=snapshot  Snapshot file
 ```
 
-_See code: [src/commands/check.ts](https://github.com/deeplint/deeplint/blob/v0.7.1/src/commands/check.ts)_
+_See code: [src/commands/check.ts](https://github.com/deeplint/deeplint/blob/v0.8.0/src/commands/check.ts)_
 
 ## `deeplint fix`
 
@@ -63,7 +63,7 @@ OPTIONS
   -h, --help   show CLI help
 ```
 
-_See code: [src/commands/fix.ts](https://github.com/deeplint/deeplint/blob/v0.7.1/src/commands/fix.ts)_
+_See code: [src/commands/fix.ts](https://github.com/deeplint/deeplint/blob/v0.8.0/src/commands/fix.ts)_
 
 ## `deeplint help [COMMAND]`
 
@@ -95,7 +95,7 @@ OPTIONS
   -o, --out=out  snapshot output file
 ```
 
-_See code: [src/commands/scan.ts](https://github.com/deeplint/deeplint/blob/v0.7.1/src/commands/scan.ts)_
+_See code: [src/commands/scan.ts](https://github.com/deeplint/deeplint/blob/v0.8.0/src/commands/scan.ts)_
 
 ## `deeplint show`
 
@@ -113,5 +113,5 @@ OPTIONS
   -s, --snapshot=snapshot
 ```
 
-_See code: [src/commands/show.ts](https://github.com/deeplint/deeplint/blob/v0.7.1/src/commands/show.ts)_
+_See code: [src/commands/show.ts](https://github.com/deeplint/deeplint/blob/v0.8.0/src/commands/show.ts)_
 <!-- commandsstop -->

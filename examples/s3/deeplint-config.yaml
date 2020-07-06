@@ -1,4 +1,4 @@
 packages:
-  aws-s3-checkpublic:
-    uses: './packages/aws-s3-public'
+  aws-s3-check:
+    uses: './packages/deeplint-package-aws-s3'
 
