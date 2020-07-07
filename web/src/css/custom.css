@@ -1,0 +1,23 @@
+/* stylelint-disable docusaurus/copyright-header */
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&display=swap');
+:root {
+  --ifm-color-primary: #3f5b94;
+  --ifm-color-primary-dark: #395285;
+  --ifm-color-primary-darker: #364d7e;
+  --ifm-color-primary-darkest: #2c4068;
+  --ifm-color-primary-light: #4564a3;
+  --ifm-color-primary-lighter: #4869aa;
+  --ifm-color-primary-lightest: #5a79b9;
+  --ifm-code-font-size: 95%;
+  --ifm-font-family-base: Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont,
+  'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+  'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
