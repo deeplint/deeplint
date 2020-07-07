@@ -1,30 +1,29 @@
 module.exports = {
   title: 'DeepLint',
-  tagline: 'DeepLint is the best cloud security software',
   url: 'https://deeplint.com',
   baseUrl: '/',
-  favicon: 'img/favicon.ico',
-  organizationName: 'deeplint', // Usually your GitHub org/user name.
-  projectName: 'deeplint', // Usually your repo name.
+  favicon: 'img/icons/favicon.ico',
+  organizationName: 'DeepLint', // Usually your GitHub org/user name.
+  projectName: 'DeepLint', // Usually your repo name.
   themeConfig: {
     disableDarkMode: true,
     defaultDarkMode: false,
     navbar: {
-      title: 'DeepLint',
+      title: '',
       logo: {
-        alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        alt: 'DeepLint',
+        src: 'img/full-logo.svg',
       },
       links: [
         {
           to: 'docs/',
           activeBasePath: 'docs',
           label: 'Docs',
-          position: 'left',
+          position: 'right',
         },
-        {to: 'blog', label: 'Blog', position: 'left'},
+        {to: 'blog', label: 'Blog', position: 'right'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/deeplint/deeplint',
           label: 'GitHub',
           position: 'right',
         },
