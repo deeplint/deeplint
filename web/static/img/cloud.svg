@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="118" height="118" viewBox="0 0 118 118">
+  <g id="Group_2579" data-name="Group 2579" transform="translate(-228 -1605)">
+    <rect id="Rectangle_530" data-name="Rectangle 530" width="118" height="118" rx="59" transform="translate(228 1605)" fill="#32508e"/>
+    <g id="Group_2578" data-name="Group 2578">
+      <g id="Group_2577" data-name="Group 2577">
+        <g id="clouds" transform="translate(253 1589.546)">
+          <path id="Path_11564" data-name="Path 11564" d="M238.15,60.37a14.653,14.653,0,0,0-26.436-6.833c.311-.012.623-.019.936-.019a24.071,24.071,0,0,1,23.22,17.717,16.955,16.955,0,0,1,8.355,4.6q.31.31.6.634a9.432,9.432,0,0,0-6.677-16.1Z" transform="translate(-180.499)" fill="#fff"/>
+          <path id="Path_11565" data-name="Path 11565" d="M51.657,135.9a19.644,19.644,0,0,0-39.011,0,12.645,12.645,0,1,0,0,25.29H51.658a12.645,12.645,0,1,0,0-25.29Z" transform="translate(0 -60.647)" fill="#fff"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

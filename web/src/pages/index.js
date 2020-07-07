@@ -12,15 +12,35 @@ function Home() {
     const {siteConfig = {}} = context;
     return (
         <Layout>
-            <header className="hero">
+            <Head>
+                <meta name="description"
+                      content="DeepLint is an open-source Security-as-Code framework to find, fix and prevent costly mistakes in
+                                    any cloud configurations. DeepLint helps you enhance security, reduce cost and stay compliant in your cloud environments."/>
+            </Head>
+            <header className={clsx('hero', styles.heroBanner)}>
                 <div className="container">
                     <div className="row">
                         <div className="col col--6">
                             <div>
-                                <h1>Prevent and fix problems in any Cloud</h1>
-                                <p>Create, enforce and manage codified policies to enforce cloud best practices
-                                    and secure cloud environments through entire DevOps lifecycle.</p>
-                                <div>
+                                <h1>Prevent and fix problems in <br/> any Cloud</h1>
+                                <p>Use <strong>Security-as-Code</strong> to find, fix and prevent costly mistakes in
+                                    your cloud configurations.</p>
+                                <p>DeepLint protects your cloud environments from:</p>
+                                <div className="row">
+                                    <div className="col">
+                                        <ul>
+                                            <li>Security threats</li>
+                                            <li>Data leakage</li>
+                                            <li>Compliance violations</li>
+                                            <li>IAM challenges</li>
+                                            <li>Idle resources</li>
+                                            <li>More...</li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+
+                                <div className={styles.button}>
                                     <a className="button button--primary button--lg" href="/docs">Get started</a>
                                 </div>
                             </div>
@@ -32,48 +52,47 @@ function Home() {
                 </div>
             </header>
             <main>
-                <section>
-                    <div className="container">
-                        <div className="row">
+                <section className={styles.bgBlue}>
+                    <div className={clsx('container')}>
+                        <div className={clsx('row', styles.sectionHeader)}>
                             <div className="col col--12 text--center">
-                                <h2>Deliver Cloud Security as Code with DeepLint</h2>
-                                <p>Enhance Security, Reduce Cost , Increase Performance, and Stay Compliant. Get started
-                                    with free and open-sourced CLI.</p>
+                                <h2>Automated cloud security and excellence with DeepLint</h2>
+                                <p>DeepLint is an open-source Security-as-Code framework for securing and optimizing
+                                    your cloud environments <br/>through entire DevOps lifecycle.</p>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col col--6">
-                                <div>
+                                <div className={styles.feature}>
                                     <div><img src="img/policy.svg"/></div>
-                                    <h3>Policy as Code</h3>
-                                    <p>Codify cloud best practices, security and busienss rules into self- contained
-                                        enforceable policies wtih real programming language. Treat policy as code -
-                                        version control, pull-review and collaborate.</p>
+                                    <h3>Security as Code</h3>
+                                    <p>Codify and automate security workflows as code - version control, peer review,
+                                        enforce and share.
+                                    </p>
                                 </div>
                             </div>
                             <div className="col col--6">
-                                <div>
+                                <div className={styles.feature}>
                                     <div><img src="img/file.svg"/></div>
-                                    <h3>Enable DevSecOps</h3>
-                                    <p>Easily embed policies into your exising pipeline and enforce through entire
-                                        DevOps lifecycle. Check not only live cloud environments, but also codified
-                                        infrastructure as code templates.</p>
+                                    <h3>DevSecOps</h3>
+                                    <p>Embed security checks into DevOps pipelines to enforce high
+                                        standards without slowing down development. </p>
                                 </div>
                             </div>
                             <div className="col col--6">
-                                <div>
+                                <div className={styles.feature}>
                                     <div><img src="img/cloud.svg"/></div>
                                     <h3>Multi Cloud</h3>
-                                    <p>Check multiple accounts from different cloud providers in the same workspace.
-                                        Write custom policy to support any cloud, infrastructure or services.</p>
+                                    <p>Use one unified tool to check multiple cloud accounts and
+                                        infrastructure as code with pluggable security packages.</p>
                                 </div>
                             </div>
                             <div className="col col--6">
-                                <div>
+                                <div className={styles.feature}>
                                     <div><img src="img/trust.svg"/></div>
                                     <h3>Collaboration</h3>
-                                    <p>Collaborate and share your best practices as policies. Use pre-curated ones to
-                                        check and improve your cloud environments agilely and confidently.</p>
+                                    <p>Share your security best practices within team, or use pre-curated packages to
+                                        quickly elevate cloud security posture.</p>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +100,7 @@ function Home() {
                 </section>
             </main>
         </Layout>
-);
+    );
 }
 
 export default Home;

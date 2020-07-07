@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="286.105" height="77.331" viewBox="0 0 286.105 77.331">
+  <g id="Group_2581" data-name="Group 2581" transform="translate(-89 -35.879)">
+    <g id="Group_51" data-name="Group 51" transform="translate(89 35.879)">
+      <g id="Group_50" data-name="Group 50">
+        <g id="Group_41" data-name="Group 41" transform="translate(0 21.009)">
+          <g id="Group_40" data-name="Group 40">
+            <path id="Path_19" data-name="Path 19" d="M476.084,404.58a3.5,3.5,0,0,1-.352,1.53c-7.645,15.8-20.768,26.411-32.655,26.411a28.161,28.161,0,1,1,0-56.322,3.518,3.518,0,0,1,0,7.036,21.125,21.125,0,0,0,0,42.25c9.1,0,19.928-9.228,26.322-22.441a3.519,3.519,0,0,1,6.685,1.535Z" transform="translate(-414.916 -376.199)" fill="#3884f2"/>
+          </g>
+        </g>
+        <g id="Group_44" data-name="Group 44" transform="translate(47.203 40.545)">
+          <g id="Group_43" data-name="Group 43">
+            <g id="Group_42" data-name="Group 42">
+              <path id="Path_20" data-name="Path 20" d="M497.974,415.988,478.546,408.5,492,402.534Z" transform="translate(-478.546 -402.534)" fill="#3884f2"/>
+            </g>
+          </g>
+        </g>
+        <g id="Group_46" data-name="Group 46" transform="translate(23.719 21.009)">
+          <g id="Group_45" data-name="Group 45">
+            <path id="Path_21" data-name="Path 21" d="M508.057,404.36a28.192,28.192,0,0,1-28.16,28.161,3.518,3.518,0,1,1,0-7.036,21.125,21.125,0,0,0,0-42.25c-9.1,0-19.928,9.228-26.322,22.441a3.518,3.518,0,0,1-6.333-3.065c7.645-15.8,20.768-26.412,32.655-26.412A28.192,28.192,0,0,1,508.057,404.36Z" transform="translate(-446.889 -376.199)" fill="#32508e"/>
+          </g>
+        </g>
+        <g id="Group_49" data-name="Group 49" transform="translate(18.257 44.341)">
+          <g id="Group_48" data-name="Group 48">
+            <g id="Group_47" data-name="Group 47">
+              <path id="Path_22" data-name="Path 22" d="M439.526,407.651l19.428,7.485L445.5,421.1Z" transform="translate(-439.526 -407.651)" fill="#32508e"/>
+            </g>
+          </g>
+        </g>
+        <path id="Path_23" data-name="Path 23" d="M433.807,347.879h0a.377.377,0,0,0,0,.05v-.052Z" transform="translate(-419.792 -347.879)" fill="#32508e"/>
+        <path id="Path_24" data-name="Path 24" d="M510.454,347.879v.356c0-.119,0-.237,0-.356Z" transform="translate(-439.58 -347.879)" fill="#32508e"/>
+      </g>
+    </g>
+    <text id="DeepLint" transform="translate(193.105 99.177)" fill="#32508e" font-size="37" font-family="Montserrat-SemiBold, Montserrat" font-weight="600" letter-spacing="0.02em"><tspan x="0" y="0">DeepLint</tspan></text>
+  </g>
+</svg>
