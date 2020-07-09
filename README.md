@@ -1,2 +1,5 @@
 # DeepLint
-DeepLint is an open-source Cloud Security-as-Code tool for securing and optimizing your cloud environments.
+
+[DeepLint](https://deeplint.com) is an open-source Cloud Security-as-Code framework for securing and optimizing any cloud, infrastructure, or services. 
+
+With DeepLint, you can build, enforce, and share security workflows as code to find, fix, and prevent costly mistakes in cloud configurations.
