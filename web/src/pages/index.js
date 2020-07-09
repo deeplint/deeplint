@@ -14,17 +14,16 @@ function Home() {
         <Layout>
             <Head>
                 <meta name="description"
-                      content="DeepLint is an open-source Security-as-Code framework to find, fix and prevent costly mistakes in
-                                    any cloud configurations. DeepLint helps you enhance security, reduce cost and stay compliant in your cloud environments."/>
+                      content="DeepLint is an open-source Security-as-Code framework for securing and optimizing any cloud, infrastructure or services.
+                      With DeepLint, you can build and enforce security workflows as code to enhance security, reduce cost and stay compliant in your cloud environments."/>
             </Head>
             <header className={clsx('hero', styles.heroBanner)}>
                 <div className="container">
                     <div className="row">
                         <div className="col col--6">
                             <div>
-                                <h1>Prevent and fix problems in <br/> any Cloud</h1>
-                                <p>Use <strong>Security-as-Code</strong> to find, fix and prevent costly mistakes in
-                                    your cloud configurations.</p>
+                                <h1>Prevent and fix problems in Cloud configurations</h1>
+                                <p>Use <strong>Security-as-Code</strong> to secure and optimize any Cloud, infrastructure, or services.</p>
                                 <p>DeepLint protects your cloud environments from:</p>
                                 <div className="row">
                                     <div className="col">
@@ -57,8 +56,8 @@ function Home() {
                         <div className={clsx('row', styles.sectionHeader)}>
                             <div className="col col--12 text--center">
                                 <h2>Automated cloud security and excellence with DeepLint</h2>
-                                <p>DeepLint is an open-source Security-as-Code framework for securing and optimizing
-                                    your cloud environments <br/>through entire DevOps lifecycle.</p>
+                                <p>DeepLint is an open-source Security-as-Code framework that enables you build, enforce and share security workflows as code to find, fix and prevent costly mistakes in any
+                                    cloud configurations through entire DevOps lifecycle.</p>
                             </div>
                         </div>
                         <div className="row">
@@ -91,7 +90,7 @@ function Home() {
                                 <div className={styles.feature}>
                                     <div><img src="img/trust.svg"/></div>
                                     <h3>Collaboration</h3>
-                                    <p>Share your security best practices within team, or use pre-curated packages to
+                                    <p>Share your security best practices within team, or use pre-curated security packages to
                                         quickly elevate cloud security posture.</p>
                                 </div>
                             </div>

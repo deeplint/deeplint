@@ -1,6 +1,6 @@
 module.exports = {
-  someSidebar: {
-    Introduction: ['intro'],
+  docs: {
+    DeepLint: ['intro'],
     'Get Started': ['install'],
   },
 };

@@ -86,7 +86,7 @@ module.exports = {
                     homePageId: 'intro',
                     sidebarPath: require.resolve('./sidebars.js'),
                     editUrl:
-                        'https://github.com/deeplint/deeplint/edit/master/web/docs/',
+                        'https://github.com/deeplint/deeplint/edit/master/web/',
                 },
                 blog: {
                     showReadingTime: true,
