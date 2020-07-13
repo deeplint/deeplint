@@ -1,6 +1,7 @@
 ---
 id: install
-title: Install
+title: Quick Start
+sidebar_label: Quick Start
 ---
 
 
