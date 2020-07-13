@@ -23,7 +23,7 @@ function Home() {
                         <div className="col col--6">
                             <div>
                                 <h1>DeepLint</h1>
-                                <p>Use <strong>Security-as-Code</strong> to find, fix and prevent costly configuration mistakes in any Cloud, infrastructure, or services.</p>
+                                <p>Use <strong>Security-as-Code</strong> to find, fix and prevent costly configuration mistakes in any Cloud and Infrastructure-as-Code.</p>
                                 <p>DeepLint protects your cloud environments from:</p>
                                 <div className="row">
                                     <div className="col">
@@ -33,7 +33,7 @@ function Home() {
                                             <li>Compliance violations</li>
                                             <li>IAM challenges</li>
                                             <li>Idle resources</li>
-                                            <li>More...</li>
+                                            <li>More</li>
                                         </ul>
                                     </div>
 
@@ -55,9 +55,9 @@ function Home() {
                     <div className={clsx('container')}>
                         <div className={clsx('row', styles.sectionHeader)}>
                             <div className="col col--12 text--center">
-                                <h2>Automated cloud security and excellence with DeepLint</h2>
+                                <h2>Deliver Cloud Security as Code with DeepLint</h2>
                                 <p>DeepLint is an open-source Security-as-Code framework that enables you build, enforce and share security workflows as code
-                                    to secure and optimize cloud environments through entire DevOps lifecycle.</p>
+                                    to secure and optimize cloud environments and Infrastructure-as-Code through entire DevOps lifecycle.</p>
                             </div>
                         </div>
                         <div className="row">
@@ -65,31 +65,32 @@ function Home() {
                                 <div className={styles.feature}>
                                     <div><img src="img/policy.svg" /></div>
                                     <h3>Security as Code</h3>
-                                    <p>Codify security workflows for a repeated and consistent usage. Manage security as code - version control, peer review and sharing.
+                                    <p>Codified security workflows allow repeated and consistent usage, and can be managed as code - version control, peer review, and sharing.
                                     </p>
-                                </div>
-                            </div>
-                            <div className="col col--6">
-                                <div className={styles.feature}>
-                                    <div><img src="img/trust.svg" /></div>
-                                    <h3>Extendable</h3>
-                                    <p>Package and share your security best practices within the team.
-                                    Use pre-curated security packages to elevate cloud security posture quickly.
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="col col--6">
-                                <div className={styles.feature}>
-                                    <div><img src="img/cloud.svg" /></div>      
-                                    <h3>Multi Cloud</h3>
-                                    <p>Use one unified tool to check multiple Cloud and Infrastructure-as-Code with easy-to-configure packages.</p>
                                 </div>
                             </div>
                             <div className="col col--6">
                                 <div className={styles.feature}>
                                     <div><img src="img/file.svg" /></div>
                                     <h3>DevSecOps</h3>
-                                    <p>Embed security workflows into DevOps pipelines to automate cloud security without slowing down development.</p>
+                                    <p>Embed security workflows into DevOps pipelines to secure and optimize Cloud without slowing down development and growth.
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="col col--6">
+                                <div className={styles.feature}>
+                                    <div><img src="img/cloud.svg" /></div>
+                                    <h3>Multi Cloud</h3>
+                                    <p>Use one unified tool to check multiple Cloud and Infrastructure-as-Code. Quickly elevate cloud security posture with pre-curated packages.
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="col col--6">
+                                <div className={styles.feature}>
+                                    <div><img src="img/trust.svg" /></div>
+                                    <h3>Collaboration</h3>
+                                    <p>Package and share your security best practices within the team. Automatically fix founded problems with shared fixing actions.
+                                    </p>
                                 </div>
                             </div>
                         </div>

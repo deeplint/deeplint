@@ -4,37 +4,70 @@ sidebar_label: Introduction
 ---
 ## What is DeepLint?
 
-[DeepLint](https://deeplint.com) is an open-source Cloud Security-as-Code framework for securing and optimizing any cloud, infrastructure, or services. With DeepLint, you can build, enforce, and share security workflows as code to find, fix, and prevent costly mistakes in cloud configurations. 
-
-With pluggable security packages, DeepLint can be easily extended to check multiple cloud accounts and work with any cloud types, from IaaS to SaaS, as well as Infrastructure-as-Code.
+DeepLint is an open-source Cloud Security-as-Code framework that enables you to build, enforce, and manage security workflows as code to find, fix, and prevent costly mistakes in cloud configurations. 
 
 ## Why DeepLint?
 
-Organizations are quickly moving to Cloud for agility, scalability, and cost-effectiveness. However, Cloud can also bring chaos. A simple configuration mistake can cause data leakage or leave idle resources that cost you a fortune. 
+Organizations move to Cloud for its agility, scalability, and cost-effectiveness. However, Cloud can also bring chaos. A naive configuration mistake can turn down your entire infrastructure or leave idle resources that cost you a fortune.
+With DevOps, cloud configurations are being continuously updated, which makes staying secure and compliant event more challenging and urgent.
 
-DeepLint adopts the Security-as-Code approach and aims to provide a unified and extendable cloud security tool to help organizations better utilize Cloud without slowing down product development and business growth.
+Existing solutions are 
+- slowing down the development
+- limited on supported Cloud and checking coverage
+- difficult to customize and extend
+- usually very pricey
 
-### Security as Code
+**Cloud security needs a new approach.** 
 
-Codify security workflows for repeated and consistent usage. Manage security as code - version control, peer review, and sharing.
+DeepLint adopts the Security-as-Code methodology, empowering you to define and codify security workflows for any cloud applications at the beginning of a project, keep them in a source code repository
+, and run automatically within DevOps pipelines.  
 
-### Extendable
+With DeepLint, you can secure and optimize any Cloud, infrastructure or services, and Infrastructure-as-Code templates through the entire DevOps life cycle, without slowing down development and growth.
 
-Package and share your security best practices within the team. Use pre-curated security packages to elevate cloud security posture quickly.
+DeepLint helps you protect cloud environments from: 
+- Security threats
+- Data leakage
+- Compliance violations
+- IAM challenges
+- Idle resources
+- More
 
-### Multi-Cloud
+## How it works
+### Build
+DeepLine organizes the security workflows into the **Package**, a runnable and self-contained security enforcement unit. Each package is described by a YAML spec file, abstracting security workflows into three steps:
+scan, check, and fix.  
+### Configure
+DeepLint uses a YAML configuration file to configure and manage packages. You can build the customized package from scratch or use the pre-curated industrial best practices for a quick bootstrap. 
+### Run
+DeepLint then orchestrates the workflow
+Scan and snapshot the resources configurations.
+Enforce ruleset to identify potential problems.
+Apply fixes on your command.
+You can embed DeepLint into existing CI/CD pipelines to automate security checks on any code or configurations changes and before/after each deployment. 
 
-Use one unified tool to check multiple Cloud and Infrastructure-as-Code with easy-to-configure security packages.
+## Key Features
+### Security-as-Code
+
+Codified security workflows allow repeated and consistent usage, and can be managed as code - version control, peer review, and sharing.
 
 ### DevSecOps
 
-Embed security workflows into DevOps pipelines to automate cloud security without slowing down development.
+Embed security workflows into DevOps pipelines to secure and optimize Cloud without slowing down development and growth.
 
 
-## How it works
+### Multi-Cloud
 
-### Build
+Use one unified tool to check multiple Cloud and Infrastructure-as-Code. Quickly elevate cloud security posture with pre-curated packages.
 
-### Scan
+### Collaboration
 
-### Check and Fix
+Package and share your security best practices within the team. Automatically fix founded problems with shared fixing actions.
+
+
+## What is next?
+
+- Get started with CLI
+- Quick bootstrap with pre-curated Packages
+- Create your first package
+- Join community
+
