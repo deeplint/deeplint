@@ -14,8 +14,7 @@ function Home() {
         <Layout>
             <Head>
                 <meta name="description"
-                    content="DeepLint is an open-source Security-as-Code framework for securing and optimizing any cloud, infrastructure or services.
-                      With DeepLint, you can build and enforce security workflows as code to enhance security, reduce cost and stay compliant in your cloud environments."/>
+                    content="DeepLint is an open-source Cloud Security-as-Code framework that enables you to build, enforce, and manage security workflows as code to find, fix, and prevent costly mistakes in cloud configurations."/>
             </Head>
             <header className={clsx('hero', styles.heroBanner)}>
                 <div className="container">
