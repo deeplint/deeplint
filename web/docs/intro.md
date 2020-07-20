@@ -25,24 +25,18 @@ DeepLint allows you to flexibly use any security packages to check a single clou
 You can easily embed DeepLint into your existing CI/CD pipelines and integrate with other security services to automate DevOps with one unified toolchain.
 
 The key features of DeepLint are:
-
-### Codify
-Codify security into three steps  - collect resources, find problems, and fix. Manage security as code - version control, peer review, and sharing.
-
-### Package
-Package security required everything - resource scanners, checking rules, and fixing actions into a versioned and enforceable Package.
-
-### Share
-Use predefined security packages curated based on common industry practices. Share your best practices within the team or with the world.
-
-### Configure
-Choose and apply any security packages to check a single cloud environment or your entire cloud infrastructure in one configuration file.
-
-### Enforce
-Snapshot configurations of cloud resources for auditing and visibility. Find and fix mistakes and policy violations consistently and repeatedly. 
-
-### Automate
-Easily embed into CI/CD pipelines and integrate with existing security services to automate DevSecOps with one unified toolchain.
+### Security as Code
+Codify security in a unified workflow - collect resources, find problems, and fix, per your best practices, standards, and policies.
+### Self-Contained Bundling
+Bundle and share security required everything - scanners, rules, and actions, into a versioned and enforceable Package.
+### Pre-curated Packages
+Elevate cloud security posture instantly with pre-curated security packages based on common industry practices.
+### Hybrid and Multi-Cloud
+Configure and manage any security packages to check a single cloud environment or your entire hybrid or multi-cloud infrastructure.
+### Reliable Enforcement
+Snapshot configurations of cloud resources for auditing and visibility. Find and fix mistakes and policy violations consistently and repeatedly.
+### Auto DevSecOps
+Embed into DevOps pipelines and integrate with third-party security services seamlessly and effortlessly.
 
 ## Next steps
 

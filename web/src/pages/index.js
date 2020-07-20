@@ -26,8 +26,8 @@ function Home() {
                         <div className="col col--6">
                             <div>
                                 <h1>Find and fix problems in any Cloud</h1>
-                                <p>Use <strong>Security as Code</strong> to improve security, reduce cost and stay
-                                    compliant in any Cloud.</p>
+                                <p>Use <strong>Security-as-Code</strong> to improve security, reduce cost and stay
+                                    compliant in any Cloud and Infrastructure-as-Code.</p>
                                 <p>DeepLint protects your cloud environments from:</p>
                                 <div className="row">
                                     <div className="col">
@@ -59,8 +59,9 @@ function Home() {
                             <div className="col col--12 text--center">
                                 <h2>Deliver Cloud Security and Governance as Code with DeepLint</h2>
                                 <p>DeepLint enables you to build and enforce codified security packages per your
-                                    best practices, standards, and policies to secure and optimize any Cloud in a consistent and
-                                    repeatable way. Learn more <a href="/docs">here.</a></p>
+                                    best practices, standards, and policies to secure and optimize any Cloud in a
+                                    consistent and
+                                    repeatable manner. Learn more <a href="/docs">here.</a></p>
                             </div>
                         </div>
                         <div className="row">
@@ -69,20 +70,45 @@ function Home() {
                                     <h3><span className={clsx('fa-stack', styles.faicon)}>
                                           <i className={clsx('fas fa-circle fa-stack-2x')}></i>
                                           <i className="fas fa-file-code fa-stack-1x fa-inverse"></i>
-                                        </span>Codify</h3>
-                                    <p>Codify security into three steps - collect resources, find problems, and fix.
-                                        Manage security as code - version control, peer review, and sharing.
+                                        </span>Security as Code</h3>
+                                    <p>Codify security in a unified workflow - collect resources, find problems, and
+                                        fix, per your best practices, standards, and policies.
                                     </p>
                                 </div>
                             </div>
+                            <div className="col col--4">
+                                <div className={styles.feature}>
+                                    <h3><span className={clsx('fa-stack', styles.faicon)}>
+                                          <i className={clsx('fas fa-circle fa-stack-2x')}></i>
+                                          <i className="fas fa-archive fa-stack-1x fa-inverse"></i>
+                                        </span>Self-Contained Bundling</h3>
+                                    <p>Bundle and share security required everything - scanners, rules, and actions,
+                                        into a
+                                        versioned and enforceable Package.
+                                    </p>
+                                </div>
+                            </div>
+
                             <div className="col col--4">
                                 <div className={styles.feature}>
                                     <h3><span className={clsx('fa-stack', styles.faicon)}>
                                           <i className={clsx('fas fa-circle fa-stack-2x')}></i>
                                           <i className="fas fa-cubes fa-stack-1x fa-inverse"></i>
-                                        </span>Package</h3>
-                                    <p>Package security required everything - resource scanners, checking rules, and
-                                        fixing actions into a versioned and enforceable Package.
+                                        </span>Pre-curated Packages</h3>
+                                    <p>Elevate cloud security posture instantly with pre-curated security packages based
+                                        on common industry practices.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="col col--4">
+                                <div className={styles.feature}>
+                                    <h3><span className={clsx('fa-stack', styles.faicon)}>
+                                          <i className={clsx('fas fa-circle fa-stack-2x')}></i>
+                                          <i className="fas fa-cloud fa-stack-1x fa-inverse"></i>
+                                        </span>Hybrid and Multi-Cloud</h3>
+                                    <p>Configure and manage any security packages to check a single cloud environment or
+                                        your entire hybrid or multi-cloud infrastructure.
                                     </p>
                                 </div>
                             </div>
@@ -90,56 +116,27 @@ function Home() {
                                 <div className={styles.feature}>
                                     <h3><span className={clsx('fa-stack', styles.faicon)}>
                                           <i className={clsx('fas fa-circle fa-stack-2x')}></i>
-                                          <i className="fas fa-handshake fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                        Share
-                                    </h3>
-                                    <p>Share your best practices within the team or with the world. DeepLint pre-curated
-                                        security packages based on common industry practices.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="row">
-                            <div className="col col--4">
-                                <div className={styles.feature}>
-
-                                    <h3><span className={clsx('fa-stack fa-x', styles.faicon)}>
-                                          <i className={clsx('fas fa-circle fa-stack-2x')}></i>
-                                          <i className="fas fa-list fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                        Configure
-                                    </h3>
-                                    <p>Choose and apply any security packages to check a single cloud environment or
-                                        your entire cloud infrastructure in one configuration file.
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="col col--4">
-                                <div className={styles.feature}>
-                                    <h3><span className={clsx('fa-stack fa-x', styles.faicon)}>
-                                          <i className={clsx('fas fa-circle fa-stack-2x')}></i>
                                           <i className="fas fa-shield-alt fa-stack-1x fa-inverse"></i>
-                                        </span>Enforce</h3>
+                                        </span>Reliable Enforcement</h3>
                                     <p>Snapshot configurations of cloud resources for auditing and visibility. Find and
                                         fix mistakes and policy violations consistently and repeatedly.
                                     </p>
                                 </div>
                             </div>
+
                             <div className="col col--4">
                                 <div className={styles.feature}>
-
-                                    <h3><span className={clsx('fa-stack fa-x', styles.faicon)}>
+                                    <h3><span className={clsx('fa-stack', styles.faicon)}>
                                           <i className={clsx('fas fa-circle fa-stack-2x')}></i>
                                           <i className="fas fa-tools fa-stack-1x fa-inverse"></i>
-                                        </span>Automate</h3>
-                                    <p>Easily embed into CI/CD pipelines and integrate with existing security services
-                                        to automate DevSecOps with one unified toolchain.
+                                        </span>Auto DevSecOps</h3>
+                                    <p>Embed into DevOps pipelines and integrate with third-party security services
+                                        seamlessly and effortlessly.
                                     </p>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </section>
             </main>

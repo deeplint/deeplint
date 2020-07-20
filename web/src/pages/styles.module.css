@@ -9,6 +9,11 @@
     margin-top: 50px;
 
 }
+
+.heroBanner h1 {
+    font-size: 3rem;
+}
+
 .heroBanner p {
     font-size: 1.15rem;
 }
@@ -17,25 +22,39 @@
     padding: 50px;
 }
 
-.bgBlue {background-color: #F5F9FE;}
+.sectionHeader h2 {
+    font-size: 2rem;
+}
+
+.bgBlue {
+    background-color: #F5F9FE;
+}
 
 .button {
     padding: 15px;
 }
+
 .feature {
     padding: 5px;
+}
+
+.feature p {
+    padding: 8px;
 }
 
 .featureHeader {
     text-align: center;
 }
+
 .faicon {
     color: var(--ifm-color-primary);
 }
+
 @media screen and (max-width: 966px) {
     .feature {
 
     }
+
     .heroBanner {
         padding: 2rem;
     }
