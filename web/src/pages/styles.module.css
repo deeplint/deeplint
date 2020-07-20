@@ -7,6 +7,10 @@
 
 .heroBanner {
     margin-top: 50px;
+
+}
+.heroBanner p {
+    font-size: 1.15rem;
 }
 
 .sectionHeader {
@@ -19,7 +23,14 @@
     padding: 15px;
 }
 .feature {
-    padding: 2rem;
+    padding: 5px;
+}
+
+.featureHeader {
+    text-align: center;
+}
+.faicon {
+    color: var(--ifm-color-primary);
 }
 @media screen and (max-width: 966px) {
     .feature {
