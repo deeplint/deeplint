@@ -17,6 +17,11 @@ export interface Resource {
   type: string;
   properties: { [key: string]: any };
   meta?: { [key: string]: any };
+  relationships?: {
+    resource: Resource;
+    type: string;
+  }[];
+  events?: object[];
 }
 
 export interface Snapshot {

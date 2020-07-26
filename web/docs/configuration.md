@@ -1,6 +1,6 @@
 ---
-id: package
-title: Package
+id: configuration
+title: Configuration
 ---
 
 

@@ -11,7 +11,7 @@
 }
 
 .heroBanner h1 {
-    font-size: 3rem;
+    font-size: 2.5rem;
 }
 
 .heroBanner p {
@@ -23,7 +23,7 @@
 }
 
 .sectionHeader h2 {
-    font-size: 2rem;
+    font-size: 1.75rem;
 }
 
 .bgBlue {
@@ -48,6 +48,17 @@
 
 .faicon {
     color: var(--ifm-color-primary);
+}
+
+.blocktext {
+    padding-left: 2rem;
+}
+
+.block {
+    padding-top: 4rem;
+}
+.block h3 {
+    font-size: 1.5rem;
 }
 
 @media screen and (max-width: 966px) {

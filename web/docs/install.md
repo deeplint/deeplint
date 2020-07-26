@@ -3,8 +3,10 @@ id: install
 title: Quick Start
 sidebar_label: Quick Start
 ---
+This tutorial walks you through using DeepLint Cli to check an AWS environment. 
 
-## Install 
+
+## Set Up 
 
 DeepLint CLI is a NodeJs based command line tool that drives security workflow executions. 
 
@@ -14,10 +16,7 @@ npm install -g @deeplint/cli
 ```
 All DeepLint official packages are under @deeplint scope.
 
-## Build and Configure
-
-
-## Run
+## Run the check
 
 ### Scan
 

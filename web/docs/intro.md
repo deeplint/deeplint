@@ -24,7 +24,7 @@ DeepLint allows you to flexibly use any security packages to check a single clou
 
 You can easily embed DeepLint into your existing CI/CD pipelines and integrate with other security services to automate DevOps with one unified toolchain.
 
-The key features of DeepLint are:
+## Key Features
 ### Security as Code
 Codify security in a unified workflow - collect resources, find problems, and fix, per your best practices, standards, and policies.
 ### Self-Contained Bundling
