@@ -3,13 +3,13 @@ const fs = require('fs')
 
 const configs = [
   {
-    path: 'src/lib/package/model.ts',
+    path: 'src/lib/pack/model.ts',
     tsconfig: 'tsconfig.json',
     type: 'Resource', // Or <type-name> if you want to generate schema for that one type only
     output: 'schema/generated/resource.schema.json',
   },
   {
-    path: 'src/lib/package/model.ts',
+    path: 'src/lib/pack/model.ts',
     tsconfig: 'tsconfig.json',
     type: 'Problem', // Or <type-name> if you want to generate schema for that one type only
     output: 'schema/generated/problem.schema.json',
@@ -21,10 +21,10 @@ const configs = [
     output: 'schema/generated/deeplint-config.schema.json',
   },
   {
-    path: 'src/lib/package/spec.ts',
+    path: 'src/lib/pack/spec.ts',
     tsconfig: 'tsconfig.json',
-    type: 'PackageSpec', // Or <type-name> if you want to generate schema for that one type only
-    output: 'schema/generated/package-spec.schema.json',
+    type: 'PackSpec', // Or <type-name> if you want to generate schema for that one type only
+    output: 'schema/generated/pack-spec.schema.json',
   },
 ]
 

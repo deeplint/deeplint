@@ -2,7 +2,7 @@ export interface MetaSpec {
   name: string;
   author: string;
   description?: string;
-  packageFormatVersion: '1.0.0';
+  packFormatVersion: '1.0.0';
   version?: string;
 }
 
@@ -41,7 +41,7 @@ export interface InputSpec {
   default: string | number | boolean | string[] | number[] | boolean[];
 }
 
-export interface PackageSpec {
+export interface PackSpec {
   meta: MetaSpec;
   inputs?: {
     [key: string]: InputSpec;

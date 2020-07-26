@@ -1,14 +1,14 @@
-import {PackageSpec, RuleMeta} from './spec'
-import {PackageConfig} from '../config';
+import {PackSpec, RuleMeta} from './spec'
+import {PackConfig} from '../config'
 
 export interface Meta {
-  readonly packageName: string;
+  readonly packName: string;
 
-  readonly packagePath: string;
+  readonly packPath: string;
 
-  readonly packageSpec: PackageSpec;
+  readonly packSpec: PackSpec;
 
-  readonly packageConfig: PackageConfig;
+  readonly packConfig: PackConfig;
 
 }
 

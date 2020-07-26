@@ -26,8 +26,8 @@ function Home() {
                         <div className="col col--6">
                             <div>
                                 <h1>DeepLint</h1>
-                                <p>Use <strong>Security-as-Code</strong> to gain visibility and enforce best practices,
-                                    standards, and policies on resource configurations and usage of any Cloud and
+                                <p>Use <strong>Security-as-Code</strong> to enforce best practices,
+                                    standards, and policies on resource configurations of any Cloud and
                                     Infrastructure-as-Code.</p>
                                 <p>DeepLint protects your cloud environments from:</p>
                                 <div className="row">

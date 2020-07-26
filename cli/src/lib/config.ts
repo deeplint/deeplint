@@ -1,11 +1,11 @@
-export interface PackageConfig {
+export interface PackConfig {
   uses: string;
   with?: {
     [key: string]: any;
   };
 }
 export interface DeepLintConfig {
-  packages: {
-    [key: string]: PackageConfig;
+  packs: {
+    [key: string]: PackConfig;
   };
 }

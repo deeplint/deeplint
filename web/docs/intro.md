@@ -28,7 +28,7 @@ You can easily embed DeepLint into your existing CI/CD pipelines and integrate w
 ### Security as Code
 Codify security in a unified workflow - collect resources, find problems, and fix, per your best practices, standards, and policies.
 ### Self-Contained Bundling
-Bundle and share security required everything - scanners, rules, and actions, into a versioned and enforceable Package.
+Bundle and share security required everything - scanners, rules, and actions, into a versioned and enforceable Pack.
 ### Pre-curated Packages
 Elevate cloud security posture instantly with pre-curated security packages based on common industry practices.
 ### Hybrid and Multi-Cloud

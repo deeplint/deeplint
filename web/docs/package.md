@@ -1,6 +1,6 @@
 ---
 id: package
-title: Package
+title: Pack
 ---
 
 

@@ -1,6 +1,6 @@
 import * as path from 'path'
 import {
-  DEFAULT_PACKAGE_SPEC_FILE_NAME,
+  DEFAULT_PACK_SPEC_FILE_NAME,
 } from '../constant'
 
 const PWD_PATH = process.cwd()
@@ -13,10 +13,10 @@ export function resolveLocalNodeModule(nodeModuleName: string, pathName?: string
   return require.resolve(nodeModuleName, {paths: paths})
 }
 
-export function resolvePackagePath(packageUses: string): string {
-  return path.dirname(resolveLocalNodeModule(packageUses + path.sep + DEFAULT_PACKAGE_SPEC_FILE_NAME))
+export function resolvePackPath(packUses: string): string {
+  return path.dirname(resolveLocalNodeModule(packUses + path.sep + DEFAULT_PACK_SPEC_FILE_NAME))
 }
 
-export function resolveFunctionPath(uses: string, packagePath: string): string {
-  return resolveLocalNodeModule(uses, packagePath)
+export function resolveFunctionPath(uses: string, packPath: string): string {
+  return resolveLocalNodeModule(uses, packPath)
 }
