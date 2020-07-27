@@ -1,4 +1,4 @@
-packages:
+packs:
   aws-s3-check:
-    uses: './packages/deeplint-package-aws-s3'
+    uses: './packs/deeplint-pack-aws-s3'
 

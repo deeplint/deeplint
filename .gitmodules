@@ -1,3 +1,3 @@
-[submodule "examples/s3/packages/deeplint-package-aws-s3"]
-	path = examples/s3/packages/deeplint-package-aws-s3
-	url = https://github.com/deeplint/deeplint-package-aws-s3.git
+[submodule "examples/s3/packs/deeplint-pack-aws-s3"]
+	path = examples/s3/packs/deeplint-pack-aws-s3
+	url = https://github.com/deeplint/deeplint-pack-aws-s3.git

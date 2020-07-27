@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/DeepLintConfig",
+  "definitions": {
+    "DeepLintConfig": {
+      "type": "object",
+      "properties": {
+        "packs": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/PackConfig"
+          }
+        }
+      },
+      "required": [
+        "packs"
+      ],
+      "additionalProperties": false
+    },
+    "PackConfig": {
+      "type": "object",
+      "properties": {
+        "uses": {
+          "type": "string"
+        },
+        "with": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "uses"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
