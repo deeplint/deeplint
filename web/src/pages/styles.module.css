@@ -11,7 +11,7 @@
 }
 
 .heroBanner h1 {
-    font-size: 2.5rem;
+    color:var(--ifm-color-primary);
 }
 
 .heroBanner p {
@@ -58,7 +58,6 @@
     padding-top: 4rem;
 }
 .block h3 {
-    font-size: 1.5rem;
 }
 
 @media screen and (max-width: 966px) {
