@@ -1,7 +1,14 @@
 module.exports = {
-    docs: {
-        DeepLint: ['intro'],
-        'Get Started': ['install', 'configuration'],
-        'Guides': ['package'],
-    },
+    docs: [
+        "intro",
+        {
+            'Get Started': ['install', 'configuration']
+        },
+        {
+            'Guides': [
+                {
+                    'Working with Pack': ['install', 'configuration'],
+                }
+            ]
+        }]
 };

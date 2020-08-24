@@ -1,7 +1,7 @@
 ---
 id: install
-title: Quick Start
-sidebar_label: Quick Start
+title: Installation
+sidebar_label: Installation
 ---
 This tutorial walks you through using DeepLint Cli to check an AWS environment. 
 

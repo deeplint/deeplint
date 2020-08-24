@@ -6,69 +6,70 @@
  */
 
 .heroBanner {
-    margin-top: 50px;
-
+  margin-top: 50px;
 }
 
 .heroBanner h1 {
-    color:var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
 }
 
 .heroBanner p {
-    font-size: 1.15rem;
+  font-size: 1.25rem;
 }
 
 .sectionHeader {
-    padding: 50px;
+  padding: 50px;
 }
 
 .sectionHeader h2 {
-    font-size: 1.75rem;
+  font-size: 1.75rem;
 }
 
 .bgBlue {
-    background-color: #F5F9FE;
+  background-color: #f5f9fe;
 }
 
 .button {
-    padding: 15px;
+  padding: 15px;
 }
 
 .feature {
-    padding: 5px;
+  padding: 5px;
 }
 
 .feature p {
-    padding: 8px;
+  padding: 8px;
 }
 
 .featureHeader {
-    text-align: center;
+  text-align: center;
 }
 
 .faicon {
-    color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
 }
 
 .blocktext {
-    padding-left: 2rem;
+  padding-left: 2rem;
 }
 
 .block {
-    padding-top: 4rem;
+  padding-top: 4rem;
 }
-.block h3 {
+
+.blocktext p {
+  font-size: 1.1rem;
+}
+.blocktext ul {
+  padding-left: 0;
+  list-style: none;
+}
+.blocktext ul li i {
+  color: var(--ifm-color-primary);
 }
 
 @media screen and (max-width: 966px) {
-    .feature {
-
-    }
-
-    .heroBanner {
-        padding: 2rem;
-    }
+  .heroBanner {
+    padding: 2rem;
+  }
 }
-
-
-
