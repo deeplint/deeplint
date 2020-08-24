@@ -1,5 +1,4 @@
 module.exports = {
-<<<<<<< HEAD
     docs: [
         "intro",
         {
@@ -12,10 +11,4 @@ module.exports = {
                 }
             ]
         }]
-=======
-  docs: {
-    DeepLint: ['intro', 'install'],
-    'Guide': ['package'],
-  },
->>>>>>> master
 };
