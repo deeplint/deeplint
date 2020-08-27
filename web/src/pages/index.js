@@ -27,8 +27,7 @@ function Home() {
             <div className="col col--6">
               <div>
                 <h1>Find and fix problems in any Cloud</h1>
-                <p>DeepLint empowers you to codify and enforce security and compliance policies to protect your Cloud
-                environments and Infrastructure-as-Code templates from misconfigurations and policy violations.</p>
+                <p>DeepLint helps to protect your cloud environments and Infrastructure-as-Code templates from misconfigurations and compliance violations.</p>
                 <div className={styles.button}>
                   <a className="button button--primary button--lg" href="/docs">Get started</a>
                 </div>
@@ -45,7 +44,8 @@ function Home() {
           <div className={clsx('container')}>
             <div className={clsx('row', styles.sectionHeader)}>
               <div className="col col--12 text--center">
-                <h1>Deliver Cloud Security and Governance as Code <br /> with DeepLint</h1>
+                <h1>Deliver Cloud Security as Code with DeepLint</h1>
+                <p>DeepLint is an open-source tool that empowers you to codify and enforce security and compliance policies on your cloud infrastructure and services automatically and consistently.</p>
               </div>
             </div>
 
@@ -53,19 +53,22 @@ function Home() {
               <div className={clsx('col col--6')}>
                 <div className={styles.blocktext}>
                   <h2>Build Security as Code</h2>
-                  <p>Define security and compliance policies as code to manage the full lifecycle -- collect resources
-                    configurations, apply checking rules, and fix founded problems. </p>
+                  <p>Write cloud scanners and rules using JavaScript. Package with declarative YAML spec file . </p>
                   <ul>
                     <li >
-                      <h3><i className={clsx('far fa-check-circle')}></i> Secure any Cloud</h3>
+                      <h3><i className={clsx('far fa-check-circle')}></i> Flexible Scanner</h3>
+                      <p>Write and collaborate cloud resource scanners and checking rules in JavaScript.</p>
+                    </li>
+                    <li >
+                      <h3><i className={clsx('far fa-check-circle')}></i> Fine-grained Rule</h3>
+                      <p>Write and collaborate cloud resource scanners and checking rules in JavaScript.</p>
+                    </li>
+                    <li>
+                      <h3><i className={clsx('far fa-check-circle')}></i>  Automated Remediation</h3>
                       <p>test</p>
                     </li>
                     <li>
-                      <h3><i className={clsx('far fa-check-circle')}></i> Automate Fixes</h3>
-                      <p>test</p>
-                    </li>
-                    <li>
-                      <h3><i className={clsx('far fa-check-circle')}></i> Reuse and Share</h3>
+                      <h3><i className={clsx('far fa-check-circle')}></i> Declarative Packaging</h3>
                       <p>test</p>
                     </li>
 
@@ -89,13 +92,21 @@ function Home() {
 
               <div className={clsx('col col--6')}>
                 <div className={styles.blocktext}>
-                  <h2>Automate Security with Ease</h2>
+                  <h2>Automate Multi-Cloud Enforcement with Ease</h2>
                   <p>
-                    DeepLint allows you to use multiple packs to check a single cloud environment or your entire multi-cloud infrastructure. Configuration files describe to DeepLint packs needed. DeepLint orchestrates the execution-- take a snapshot of resources configurations, find and fix founded misconfigurations.
+                    DeepLint allows you to use multiple packs to check a single cloud environment or your entire multi-cloud infrastructure. 
+                    Configuration files describe to DeepLint packs needed. DeepLint orchestrates the execution-- 
+                    take a snapshot of resources configurations, find and fix founded misconfigurations.
+                    to manage full lifecycle --
+                     record resource configurations, enforce rules, and fix founded problems
                   </p>
                   <ul>
                     <li>
-                      <h4>Gain Visibility</h4>
+                      <h4>Gain Visibility Audit Resource Configurations</h4>
+                      <p>test</p>
+                    </li>
+                    <li>
+                      <h4>Customize for different cloud environments</h4>
                       <p>test</p>
                     </li>
                     <li>

@@ -11,10 +11,11 @@
 
 .heroBanner h1 {
   color: var(--ifm-color-primary);
+  font-size: 2rem;
 }
 
 .heroBanner p {
-  font-size: 1.25rem;
+  font-size: 1.4rem;
 }
 
 .sectionHeader {
@@ -23,6 +24,10 @@
 
 .sectionHeader h2 {
   font-size: 1.75rem;
+}
+
+.sectionHeader p {
+  font-size: 1.4rem;
 }
 
 .bgBlue {
@@ -58,7 +63,7 @@
 }
 
 .blocktext p {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 .blocktext ul {
   padding-left: 0;
